@@ -13,6 +13,13 @@ public class Vendedor {
 		this.setPercentual(percentComissao);
 		this.valorReceber = 0;
 	}
+	
+	Vendedor(String nome, double percentComissao, double valorReceber)
+	{
+		this.nome = nome;
+		this.setPercentual(percentComissao);
+		this.valorReceber = valorReceber;
+	}
 
 	public double getPercentual() {
 		return percentual;

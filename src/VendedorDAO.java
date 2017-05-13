@@ -3,6 +3,8 @@ import java.util.*;
 
 
 
+
+
 public class VendedorDAO extends BancoDeDados {
 	
 	public boolean adicionarVendedor(Vendedor v)
@@ -11,6 +13,22 @@ public class VendedorDAO extends BancoDeDados {
 		{
 			Statement st = conexao.createStatement();
 			st.executeUpdate("INSERT INTO vendedor VALUES (NULL, '" + v.nome +"', " + v.getPercentual() + ", NULL)");
+			return true;
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
+		
+	}
+	
+	public boolean removerVendedor(int id)
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			st.executeUpdate("DELETE FROM vendedor WHERE id=" + id);
 			return true;
 		}
 		catch(SQLException e)
@@ -39,14 +57,59 @@ public class VendedorDAO extends BancoDeDados {
 		}		
 	}
 	
+	//Pode ser obtido pelo nome também
+	public Vendedor getVendedor(int id)
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM vendedor WHERE id=" + id);
+			
+			if(rs.next()) 
+			{
+				return new Vendedor(rs.getString(2), rs.getDouble(3), rs.getDouble(4));
+			}
+			else return null;
+		
+		}
+		catch (SQLException e)
+		{
+			return null;
+		}
+	}
+	
+	public void fecharMesVendedor(int id)
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			st.executeUpdate("UPDATE vendedor SET valor_a_receber=NULL WHERE id=" + id);
+			
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getMessage());
+			
+		}
+		
+	}
+	
+	public void vendaDeProduto()
+	{
+		
+	}
 	
 	
 	//Para testar e aplicar métodos criados no banco local
 	public static void main(String[] args) {
-		Vendedor v = new Vendedor("Roberval", 15);
-		VendedorDAO vend = new VendedorDAO();
+		Vendedor v = new Vendedor("Catatau", 5);
 		
-		//vend.adicionarVendedor(v);
+		VendedorDAO vend = new VendedorDAO();
+		//Vendedor v = vend.getVendedor(1);
+		vend.adicionarVendedor(v);
+		
+		//System.out.println(v.getPercentual());
+		//vend.removerVendedor(3);
 		vend.listarVendedores();
 	}
 
