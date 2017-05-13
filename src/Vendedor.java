@@ -3,23 +3,23 @@ import java.util.*;
 public class Vendedor {
 	
 	String nome;
-	private double percentComissao;
+	private double percentual;
 	double valorReceber;
 	
 	
 	Vendedor(String nome, double percentComissao)
 	{
 		this.nome = nome;
-		this.setPercentComissao(percentComissao);
+		this.setPercentual(percentComissao);
 		this.valorReceber = 0;
 	}
 
-	public double getPercentComissao() {
-		return percentComissao;
+	public double getPercentual() {
+		return percentual;
 	}
 
-	public void setPercentComissao(double percentComissao) {
-		this.percentComissao = percentComissao;
+	public void setPercentual(double percentComissao) {
+		this.percentual = percentComissao;
 	}
 	
 	
