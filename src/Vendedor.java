@@ -5,7 +5,7 @@ public class Vendedor {
 	String nome;
 	private double percentComissao;
 	double valorReceber;
-	LinkedList<Operacao> operacoesMes;
+	
 	
 	Vendedor(String nome, double percentComissao)
 	{
