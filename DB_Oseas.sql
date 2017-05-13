@@ -3,6 +3,9 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 CREATE SCHEMA IF NOT EXISTS `db_oseas` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+
+GRANT ALL PRIVILEGES ON db_oseas.* TO oseas@"localhost" IDENTIFIED BY 'senha' WITH GRANT OPTION;
+
 USE `db_oseas` ;
 
 -- -----------------------------------------------------
