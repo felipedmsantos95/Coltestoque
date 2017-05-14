@@ -4,21 +4,21 @@ public class Vendedor {
 	
 	String nome;
 	private double percentual;
-	double valorReceber;
+	double valorVendido;
 	
 	
 	Vendedor(String nome, double percentComissao)
 	{
 		this.nome = nome;
 		this.setPercentual(percentComissao);
-		this.valorReceber = 0;
+		this.valorVendido = 0;
 	}
 	
-	Vendedor(String nome, double percentComissao, double valorReceber)
+	Vendedor(String nome, double percentComissao, double valorVendido)
 	{
 		this.nome = nome;
 		this.setPercentual(percentComissao);
-		this.valorReceber = valorReceber;
+		this.valorVendido = valorVendido;
 	}
 
 	public double getPercentual() {
@@ -29,6 +29,19 @@ public class Vendedor {
 		this.percentual = percentComissao;
 	}
 	
+	//O atributo valor vendido é uma variável acumuladora que será atualizada pela tabela produto_vendido identificando o id do vendedor
+	public double valorReceber()
+	{
+		return this.valorVendido * (this.getPercentual()/100);
+	}
 	
-	
+	//Esta função atualiza o acumulador valorVendido, o parametro de entrada é o preco final do produto da tabela produto e a quantidade vendida na tabela produto_vendido
+	public double atualizaVenda(double precoFinal, double qtdVendida)
+	{
+		double valor = precoFinal * qtdVendida;
+		
+		this.valorVendido += valor;
+		
+		return this.valorVendido;
+	}
 }

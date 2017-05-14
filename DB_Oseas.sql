@@ -42,11 +42,11 @@ ENGINE = InnoDB;
 -- Table `db_oseas`.`produto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_oseas`.`produto` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `codigo` VARCHAR(45) NULL,
   `preco_final` FLOAT NULL,
   `preco_atacado` FLOAT NULL,
-  `descricao` VARCHAR(45) NULL,
+  `descricao` VARCHAR(500) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -55,7 +55,7 @@ ENGINE = InnoDB;
 -- Table `db_oseas`.`produto_circulando`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_oseas`.`produto_circulando` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `qtd_circulando` INT NULL,
   `qtd_vendido` INT NULL,
   `circulacao_id` INT NOT NULL,

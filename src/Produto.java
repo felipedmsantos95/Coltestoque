@@ -8,6 +8,15 @@ public class Produto {
 	private double percentLucro;
 	String descricao;
 	
+	Produto(String codigo, int quantidadeEstoque, String descricao, double precoCompra)
+	{
+		this.codigo = codigo;
+		this.quantidadeEstoque = quantidadeEstoque;
+		this.descricao = descricao;
+		this.setPrecoCompra(precoCompra);
+		this.setPercentLucro(61);//Esse valor foi o padrao que encontramos na tabela do cliente
+	}
+	
 	Produto(String codigo, int quantidadeEstoque, String descricao, double precoCompra, double percentLucro)
 	{
 		this.codigo = codigo;
@@ -33,10 +42,13 @@ public class Produto {
 		this.percentLucro = percentLucro;
 	}
 	
-	String getDescrição()
+	String getDescriçãoCompleta()
 	{
 		return(this.codigo + " - " + this.descricao);
 	}
 	
-	
+	double getPrecoFinal()
+	{
+		return (this.getPrecoCompra() * (1 + this.getPercentLucro()/100));
+	}
 }
