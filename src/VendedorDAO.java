@@ -2,9 +2,6 @@ import java.sql.*;
 import java.util.*;
 
 
-
-
-
 public class VendedorDAO extends BancoDeDados {
 	
 	public boolean adicionarVendedor(Vendedor v)
@@ -78,6 +75,22 @@ public class VendedorDAO extends BancoDeDados {
 		}
 	}
 	
+	public int getVendedorID(Vendedor i)//Procura exatamente pelo objeto vendedor e retorna o id do espelho dele no banco
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("SELECT id FROM vendedor WHERE vendedor.nome ='" + i.nome + "' AND vendedor.percentual=" + i.getPercentual() );
+			
+			if(rs.next()) return rs.getInt(1);
+			else return 0;
+		}
+		catch(SQLException e)
+		{
+			return 0;
+		}		
+	}
+	
 	public void fecharMesVendedor(int id)
 	{
 		try
@@ -106,11 +119,11 @@ public class VendedorDAO extends BancoDeDados {
 		
 		VendedorDAO vend = new VendedorDAO();
 		//Vendedor v = vend.getVendedor(1);
-		vend.adicionarVendedor(v);
+		//vend.adicionarVendedor(v);
 		
 		//System.out.println(v.getPercentual());
 		//vend.removerVendedor(3);
-		vend.listarVendedores();
+		System.out.println(vend.getVendedorID(v));
 	}
 
 }

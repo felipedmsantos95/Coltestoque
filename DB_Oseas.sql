@@ -101,7 +101,6 @@ CREATE TABLE IF NOT EXISTS `db_oseas`.`produto_vendido` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `qtd_produto` INT NULL,
   `produto_id` INT NOT NULL,
-  `cupom_de_venda_id` INT NOT NULL,
   `circulacao_id` INT NOT NULL,
   PRIMARY KEY (`id`, `produto_id`),
   INDEX `fk_produto_vendido_produto1_idx` (`produto_id` ASC),
