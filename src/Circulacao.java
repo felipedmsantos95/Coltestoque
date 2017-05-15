@@ -3,6 +3,7 @@ import java.util.Calendar;
 public class Circulacao {
 	
 	double valorTotal;
+	String dataRegistrada;
 	
 	Circulacao()
 	{
@@ -13,11 +14,18 @@ public class Circulacao {
 	{
 		Calendar data = Calendar.getInstance();
 		
-		return (data.get(Calendar.YEAR) + "-" + (data.get(Calendar.MONTH)+1) + "-" + data.get(Calendar.DAY_OF_MONTH) + " " + data.get(Calendar.HOUR_OF_DAY) + ":" + data.get(Calendar.MINUTE) + ":" + data.get(Calendar.SECOND));
+		this.dataRegistrada = (data.get(Calendar.YEAR) + "-" + (data.get(Calendar.MONTH)+1) + "-" + data.get(Calendar.DAY_OF_MONTH) + " " + data.get(Calendar.HOUR_OF_DAY) + ":" + data.get(Calendar.MINUTE) + ":" + data.get(Calendar.SECOND));
+		return this.dataRegistrada;
 	}
 	
 	double atualizaValorCirculacao(Produto p)//Toda vez que um produto é adicionado na circulação o valor total é atualizado
 	{
 		return (this.valorTotal += p.getPrecoFinal());
+	}
+	
+	double atualizaValorCirculacao(Produto p, int qtd)//Toda vez que um produto é adicionado na circulação o valor total é atualizado
+	{
+		double valor = p.getPrecoFinal() * qtd;
+		return (this.valorTotal += valor);
 	}
 }

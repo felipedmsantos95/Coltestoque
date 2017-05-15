@@ -1,17 +1,16 @@
-package parteCarlla;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ProdutoVendidoDAO {
+public class ProdutoVendidoDAO extends BancoDeDados {
 	
-	public boolean adicionarProdutoVendido(int id_produto)
+	public boolean adicionarProdutoVendido(int id_produto)  
 	{
 		try
 		{
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO produto_vendido VALUES (NULL, '" + 0 +"', "+ id_produto + ")");
+			st.executeUpdate("INSERT INTO produto_vendido VALUES (NULL, '" + 0 +"', "+ id_produto + ")"); //Não entendi bem porque setar como 0 o segundo parametro e falta tambem indicar o ID da tabela produto pra executar esse comando sql
 			return true;
 		}
 		catch(SQLException e)

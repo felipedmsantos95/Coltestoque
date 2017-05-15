@@ -17,6 +17,15 @@ public class Produto {
 		this.setPercentLucro(61);//Esse valor foi o padrao que encontramos na tabela do cliente
 	}
 	
+	Produto(String codigo, double precoCompra, String descricao)//Criei para poder extrair um produto da tabela produto
+	{
+		this.codigo = codigo;
+		this.quantidadeEstoque = 0;
+		this.descricao = descricao;
+		this.setPrecoCompra(precoCompra);
+		this.setPercentLucro(61);//Esse valor foi o padrao que encontramos na tabela do cliente
+	}
+	
 	Produto(String codigo, int quantidadeEstoque, String descricao, double precoCompra, double percentLucro)
 	{
 		this.codigo = codigo;

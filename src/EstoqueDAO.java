@@ -1,7 +1,7 @@
 import java.sql.*;
 import java.util.*;
 
-public class EstoqueDAO {
+public class EstoqueDAO extends BancoDeDados {
 	
 	public boolean adicionarProdutoEstoque(int id_produto, int quantidade)
 	{
@@ -82,7 +82,7 @@ public class EstoqueDAO {
 			catch(SQLException e)
 			{
 				System.out.println(e.getMessage());
-				
+				return false;
 			}
 		}
 		else
@@ -103,9 +103,9 @@ public class EstoqueDAO {
 		catch(SQLException e)
 		{
 			System.out.println(e.getMessage());
-			
+			return false;			
 		}
-		return false;
+		
 	}
 	
 	public boolean retornaEstoque(int id_produto, int quantidade)
@@ -122,9 +122,9 @@ public class EstoqueDAO {
 		catch(SQLException e)
 		{
 			System.out.println(e.getMessage());
-			
+			return false;
 		}
-		return false;
+		
 	}
 
 }
