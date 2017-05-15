@@ -5,7 +5,7 @@ public class Produto {
 	String codigo;
 	int quantidadeEstoque;
 	private double precoCompra;
-	private double percentLucro;
+	private double precoFinal;
 	String descricao;
 	
 	Produto(String codigo, int quantidadeEstoque, String descricao, double precoCompra)
@@ -35,20 +35,21 @@ public class Produto {
 	}
 
 	public double getPercentLucro() {
-		return percentLucro;
+		return ((this.precoFinal/this.precoCompra-1)/100);
 	}
 
 	public void setPercentLucro(double percentLucro) {
-		this.percentLucro = percentLucro;
+		this.precoFinal=this.precoCompra*(1 + this.getPercentLucro()/100);
 	}
 	
-	String getDescriçãoCompleta()
+	String getDescricaoCompleta()
 	{
 		return(this.codigo + " - " + this.descricao);
 	}
 	
 	double getPrecoFinal()
 	{
-		return (this.getPrecoCompra() * (1 + this.getPercentLucro()/100));
+		return this.precoFinal;
 	}
+	
 }
