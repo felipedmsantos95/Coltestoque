@@ -4,8 +4,9 @@ public class Produto {
 	
 	String codigo;
 	int quantidadeEstoque;
+	private double percentLucro;
 	private double precoCompra;
-	private double precoFinal;
+	public double precoFinal;
 	String descricao;
 	
 	Produto(String codigo, int quantidadeEstoque, String descricao, double precoCompra)
@@ -15,6 +16,7 @@ public class Produto {
 		this.descricao = descricao;
 		this.setPrecoCompra(precoCompra);
 		this.setPercentLucro(61);//Esse valor foi o padrao que encontramos na tabela do cliente
+		this.precoFinal = (this.getPrecoCompra() * (1 + (this.getPercentLucro()/100)));
 	}
 	
 	Produto(String codigo, double precoCompra, String descricao)//Criei para poder extrair um produto da tabela produto
@@ -23,7 +25,8 @@ public class Produto {
 		this.quantidadeEstoque = 0;
 		this.descricao = descricao;
 		this.setPrecoCompra(precoCompra);
-		this.setPercentLucro(61);//Esse valor foi o padrao que encontramos na tabela do cliente
+		this.setPercentLucro(61); //Esse valor foi o padrao que encontramos na tabela do cliente
+		this.precoFinal = (this.getPrecoCompra() * (1 + (this.getPercentLucro()/100)));
 	}
 	
 	Produto(String codigo, int quantidadeEstoque, String descricao, double precoCompra, double percentLucro)
@@ -33,6 +36,7 @@ public class Produto {
 		this.descricao = descricao;
 		this.setPrecoCompra(precoCompra);
 		this.setPercentLucro(percentLucro);
+		this.precoFinal = (this.getPrecoCompra() * (1 + (this.getPercentLucro()/100)));
 	}
 
 	public double getPrecoCompra() {
@@ -41,24 +45,21 @@ public class Produto {
 
 	public void setPrecoCompra(double precoCompra) {
 		this.precoCompra = precoCompra;
-	}
-
-	public double getPercentLucro() {
-		return ((this.precoFinal/this.precoCompra-1)/100);
-	}
-
-	public void setPercentLucro(double percentLucro) {
-		this.precoFinal=this.precoCompra*(1 + this.getPercentLucro()/100);
-	}
+	}	
 	
 	String getDescricaoCompleta()
 	{
 		return(this.codigo + " - " + this.descricao);
 	}
-	
-	double getPrecoFinal()
-	{
-		return this.precoFinal;
+
+	public double getPercentLucro() {
+		return percentLucro;
 	}
+
+	public void setPercentLucro(double percentLucro) {
+		this.percentLucro = percentLucro;
+	}
+	
+	
 	
 }

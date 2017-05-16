@@ -8,7 +8,7 @@ public class ProdutoDAO extends BancoDeDados{
 		try
 		{
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO produto VALUES (NULL, '" + p.codigo +"', " + p.getPrecoFinal() + ", "+ p.getPrecoCompra() +", '"+ p.descricao + "' )");
+			st.executeUpdate("INSERT INTO produto VALUES (NULL, '" + p.codigo +"', " + p.precoFinal + ", "+ p.getPrecoCompra() +", '"+ p.descricao + "' )");
 			return true;
 		}
 		catch(SQLException e)

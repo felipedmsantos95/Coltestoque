@@ -27,12 +27,12 @@ public class Circulacao {
 	
 	double atualizaValorCirculacao(Produto p)//Toda vez que um produto é adicionado na circulação o valor total é atualizado
 	{
-		return (this.valorTotal += p.getPrecoFinal());
+		return (this.valorTotal += p.precoFinal);
 	}
 	
 	double atualizaValorCirculacao(Produto p, int qtd)//Toda vez que um produto é adicionado na circulação o valor total é atualizado
 	{
-		double valor = p.getPrecoFinal() * qtd;
+		double valor = p.precoFinal * qtd;
 		return (this.valorTotal += valor);
 	}
 }
