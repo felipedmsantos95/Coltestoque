@@ -3,6 +3,7 @@ import java.util.*;
 
 public class EstoqueDAO extends BancoDeDados {
 	
+	//
 	public boolean adicionarProdutoEstoque(int id_produto, int quantidade)
 	{
 		try

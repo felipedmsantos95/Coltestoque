@@ -3,7 +3,7 @@ import java.sql.*;
 public class CirculacaoDAO extends BancoDeDados{
 	
 	
-	public boolean iniciarCirculacao(Vendedor v)
+	public Circulacao iniciarCirculacao(Vendedor v)
 	{
 		VendedorDAO banco = new VendedorDAO();
 		Circulacao c = new Circulacao();
@@ -12,13 +12,29 @@ public class CirculacaoDAO extends BancoDeDados{
 		{
 			Statement st = conexao.createStatement();
 			st.executeUpdate("INSERT INTO circulacao VALUES (NULL, '" + c.getDataAtual() +"', " + banco.getVendedorID(v) + ", " + c.valorTotal + ")");
-			return true;
+			return c;
 		}
 		catch(SQLException e)
 		{
 			System.out.println(e.getMessage());
-			return false;
+			return null;
 		}
+	}
+	
+	public Circulacao getCirculacao(int id)
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM circulacao WHERE circulacao.id =" + id);//Alterar aqui
+			
+			if(rs.next()) return new Circulacao(rs.getDouble(4), rs.getString(2));
+			else return null;
+		}
+		catch(SQLException e)
+		{
+			return null;
+		}		
 	}
 	
 	public Vendedor getCirculacaoVendedor(Circulacao circ)
@@ -46,7 +62,7 @@ public class CirculacaoDAO extends BancoDeDados{
 		try
 		{
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT id FROM circulacao WHERE circulacao.data_hora ='" + circ.dataRegistrada + "' AND circulacao.vendedor_id=" + vend.getVendedorID(v));
+			ResultSet rs = st.executeQuery("SELECT id FROM circulacao WHERE circulacao.data_hora ='" + circ.dataRegistrada + "' AND circulacao.vendedor_id=" + vend.getVendedorID(v));//Alterar aqui
 			
 			if(rs.next()) return rs.getInt(1);
 			else return 0;
@@ -62,8 +78,11 @@ public class CirculacaoDAO extends BancoDeDados{
 		
 		Vendedor v = new Vendedor("catatau", 5);
 		CirculacaoDAO circ = new CirculacaoDAO();
+		Circulacao c = circ.getCirculacao(28);
 		
-		circ.iniciarCirculacao(v);
+	
+		
+		System.out.println(circ.getCirculacaoID(c, v));
 		
 	}
 

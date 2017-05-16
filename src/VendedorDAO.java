@@ -91,6 +91,7 @@ public class VendedorDAO extends BancoDeDados {
 		}		
 	}
 	
+	//Gerar um relatorio
 	public void fecharMesVendedor(int id)
 	{
 		try
