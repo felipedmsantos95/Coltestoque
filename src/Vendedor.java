@@ -44,4 +44,13 @@ public class Vendedor {
 		
 		return this.valorVendido;
 	}
+	
+	public double retiraVenda(double precoFinal, double qtdVendida)
+	{
+		double valor = precoFinal * qtdVendida;
+		
+		this.valorVendido = this.valorVendido - valor;
+		
+		return this.valorVendido;
+	}
 }

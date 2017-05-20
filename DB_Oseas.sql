@@ -14,8 +14,8 @@ USE `db_oseas` ;
 CREATE TABLE IF NOT EXISTS `db_oseas`.`vendedor` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
-  `percentual` FLOAT NOT NULL,
-  `valor_a_receber` FLOAT NULL,
+  `percentual` DOUBLE NOT NULL,
+  `valor_a_receber` DOUBLE NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `db_oseas`.`circulacao` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `data_hora` DATETIME NULL,
   `vendedor_id` INT NOT NULL,
-  `valor_total` FLOAT NULL,
+  `valor_total` DOUBLE NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_circulacao_vendedor_idx` (`vendedor_id` ASC),
   CONSTRAINT `fk_circulacao_vendedor`
@@ -44,8 +44,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `db_oseas`.`produto` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `codigo` VARCHAR(45) NULL,
-  `preco_final` FLOAT NULL,
-  `preco_atacado` FLOAT NULL,
+  `preco_final` DOUBLE NULL,
+  `preco_atacado` DOUBLE NULL,
   `descricao` VARCHAR(500) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -57,7 +57,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `db_oseas`.`produto_circulando` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `qtd_circulando` INT NULL,
-  `qtd_vendido` INT NULL,
   `circulacao_id` INT NOT NULL,
   `produto_id` INT NOT NULL,
   PRIMARY KEY (`id`, `produto_id`),
@@ -102,6 +101,7 @@ CREATE TABLE IF NOT EXISTS `db_oseas`.`produto_vendido` (
   `qtd_produto` INT NULL,
   `produto_id` INT NOT NULL,
   `circulacao_id` INT NOT NULL,
+  `data_venda` DATETIME NULL,
   PRIMARY KEY (`id`, `produto_id`),
   INDEX `fk_produto_vendido_produto1_idx` (`produto_id` ASC),
   INDEX `fk_produto_vendido_circulacao1_idx` (`circulacao_id` ASC),
@@ -116,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `db_oseas`.`produto_vendido` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

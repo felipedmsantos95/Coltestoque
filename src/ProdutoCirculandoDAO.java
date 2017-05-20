@@ -3,7 +3,6 @@ import java.sql.*;
 public class ProdutoCirculandoDAO extends BancoDeDados{
 
 	//Dizer individualmente quantos produtos de cada tipo cadastrado está em ciruculação
-	//Atualizar quantidade de vendidos a cada ciruculacao
 	
 	//listar produtos por id de circulacao
 	
@@ -37,14 +36,16 @@ public class ProdutoCirculandoDAO extends BancoDeDados{
 	public static void main(String[] args) {
 		ProdutoCirculandoDAO prod = new ProdutoCirculandoDAO();
 		ProdutoDAO pp = new ProdutoDAO();
-		Produto p = new Produto("MPX", 1, "Produto top.");
+		Produto p = new Produto("DOA", 3.02, "Eu compraria.");
 		CirculacaoDAO c = new CirculacaoDAO();
-		Vendedor v = new Vendedor("gilberto", 10);
+		Vendedor v = new Vendedor("Zé Colméia", 15);
+		VendedorDAO vend = new VendedorDAO();
 		
-		Circulacao circ = c.getCirculacao(28);
-		//pp.adicionarProduto(p);
-		System.out.println(prod.addProdutoCirculacao(p, 2, circ, v));
-
+		//Circulacao circ = c.getCirculacao(28);
+		pp.adicionarProduto(p);
+		vend.adicionarVendedor(v);
+		//System.out.println(prod.addProdutoCirculacao(p, 2, circ, v));
+//
 	}
 
 }
