@@ -104,7 +104,20 @@ public class ProdutoDAO extends BancoDeDados{
 		}		
 	}
 	
-	
-	
+	public int getProdutoIDbyCodigo(String codigo)
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("SELECT id FROM produto WHERE produto.codigo ='" + codigo + "'");
+			
+			if(rs.next()) return rs.getInt(1);
+			else return 0;
+		}
+		catch(SQLException e)
+		{
+			return 0;
+		}	
+	}	
 
 }

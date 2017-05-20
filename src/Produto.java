@@ -3,7 +3,7 @@ import java.util.*;
 public class Produto {
 	
 	String codigo;
-	int quantidadeEstoque;
+	public int quantidadeEstoque;
 	private double percentLucro;
 	private double precoCompra;
 	public double precoFinal;
@@ -60,6 +60,11 @@ public class Produto {
 		this.percentLucro = percentLucro;
 	}
 	
-	
+	public int incrementarEstoque()
+	{
+		this.quantidadeEstoque++;
+		
+		return this.quantidadeEstoque;
+	}
 	
 }

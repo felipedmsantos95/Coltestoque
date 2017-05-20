@@ -17,7 +17,7 @@ public class ProdutoVendidoDAO extends BancoDeDados {
 			v.atualizaVenda(p.precoFinal, qtdVendida);
 			st.executeUpdate("UPDATE vendedor SET valor_a_receber=" + v.valorReceber() + " WHERE id=" + vend.getVendedorID(v));//Aumenta o valor a receber do vendedor
 			st.executeUpdate("UPDATE circulacao SET valor_total=" + c.retiraValorCirculacao(p, qtdVendida) + " WHERE id=" + circ.getCirculacaoID(c, v));//Decrementa o valor da circulacao corrente
-			st.executeUpdate("DELETE FROM produto_circulando WHERE produto_id=" + prod.getProdutoID(p) + " AND circulacao_id=" + circ.getCirculacaoID(c, v) + "AND qtd_circulando <" + qtdVendida);
+			st.executeUpdate("DELETE FROM produto_circulando WHERE produto_id=" + prod.getProdutoID(p) + " AND circulacao_id=" + circ.getCirculacaoID(c, v) + " AND qtd_circulando <=" + qtdVendida);
 			return true;
 		}
 		catch(SQLException e)
@@ -87,11 +87,11 @@ public class ProdutoVendidoDAO extends BancoDeDados {
 		
 		//pp.adicionarProduto(p);
 		//c.iniciarCirculacao(v);		
-		Circulacao circ = c.getCirculacao(30);
+		Circulacao circ = c.getCirculacao(31);
 		//vend.fecharMesVendedor(vend.getVendedorID(v));
 		//vend.adicionarVendedor(v);
 		//System.out.println(prod.addProdutoCirculacao(p, 2, circ, v));
-		System.out.println(pv.desfazerProdutoVendido(p, 2, circ, v));
+		System.out.println(pv.addProdutoVendido(p, 2, circ, v));
 
 	}
 

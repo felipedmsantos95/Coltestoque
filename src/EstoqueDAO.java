@@ -20,6 +20,23 @@ public class EstoqueDAO extends BancoDeDados {
 		
 	}
 	
+	public boolean adicionarProdutoEstoque(String codigoProduto, int quantidade)
+	{
+		ProdutoDAO prod = new ProdutoDAO();
+		try
+		{
+			Statement st = conexao.createStatement();
+			st.executeUpdate("INSERT INTO estoque VALUES (NULL, " + quantidade +", " + 0 +", "+ prod.getProdutoIDbyCodigo(codigoProduto) + ")");
+			return true;
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
+		
+	}
+	
 	public boolean removerProdutoEstoque(int id_produto)
 	{
 		try
@@ -125,6 +142,10 @@ public class EstoqueDAO extends BancoDeDados {
 			System.out.println(e.getMessage());
 			return false;
 		}
+		
+	}
+	
+	public static void main(String[] args) {
 		
 	}
 
