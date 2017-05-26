@@ -7,10 +7,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Locale;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JEditorPane;
 
 public class telaProdutoEditando extends JDialog {
@@ -56,11 +58,24 @@ public class telaProdutoEditando extends JDialog {
 	private void initialize ()
 	{
 		setBounds(100, 100, 450, 300);
+		
+		JEditorPane descricao = new JEditorPane();
+		descricao.setBounds(25, 86, 368, 62);
+		getContentPane().add(descricao);
+		
 		getContentPane().setLayout(null);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBounds(0, 238, 448, 35);
 			getContentPane().add(buttonPane);
+			
+			{
+				venda = new JTextField();
+				venda.setEditable(false);
+				venda.setColumns(10);
+				venda.setBounds(284, 186, 109, 19);
+				getContentPane().add(venda);
+			}
 			buttonPane.setLayout(null);
 			{
 				JButton okButton = new JButton("Confirmar");
@@ -68,8 +83,45 @@ public class telaProdutoEditando extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						Locale pt = new Locale("pt", "PT");
 						NumberFormat nf = NumberFormat.getInstance(pt);
+						ProdutoDAO p = new ProdutoDAO();
 						
-						//Produto produto = new Produto(codigo.getText(), textField.getText(), nf.parse(compra.getText()).dou)
+						try {
+							
+							if(!(lucro.getText().trim().equals("")))
+								{
+									Produto produto = new Produto(codigo.getText(), textField.getText(), nf.parse(compra.getText()).doubleValue(), nf.parse(lucro.getText()).doubleValue(),  descricao.getText());
+									if(p.adicionarProduto(produto)){
+										JOptionPane.showMessageDialog(null,"Produto cadastrado com sucesso!");
+										double r = produto.precoFinal * 100;
+										double round = Math.round(r);
+										round = round/100;
+										
+										String preco = String.valueOf(round);								
+										
+										venda.setText("R$ " + preco);
+									}
+									
+									
+								}
+							else
+							{
+								Produto produto = new Produto(codigo.getText(), textField.getText(), nf.parse(compra.getText()).doubleValue(), descricao.getText());
+								if(p.adicionarProduto(produto)){
+									JOptionPane.showMessageDialog(null,"Produto cadastrado com sucesso!");
+									double r = produto.precoFinal * 100;
+									double round = Math.round(r);
+									round = round/100;
+									
+									String preco = String.valueOf(round);								
+									
+									venda.setText("R$ " + preco);
+								}
+								
+							}
+						} catch (ParseException e1) {
+							JOptionPane.showMessageDialog(null,"Houve algum erro no cadastro do produto, verifique se os campos foram corretamente preenchidos.");
+							e1.printStackTrace();
+						}
 						
 					}
 				});
@@ -112,33 +164,31 @@ public class telaProdutoEditando extends JDialog {
 			getContentPane().add(lblCdigo);
 		}
 		
-		JEditorPane descricao = new JEditorPane();
-		descricao.setBounds(25, 86, 368, 62);
-		getContentPane().add(descricao);
+		
 		
 		JLabel lblDescrio = new JLabel("Descrição:");
 		lblDescrio.setBounds(25, 66, 87, 19);
 		getContentPane().add(lblDescrio);
 		{
 			JLabel lblPreoCompra = new JLabel("Preço Compra:");
-			lblPreoCompra.setBounds(25, 154, 109, 19);
+			lblPreoCompra.setBounds(25, 144, 109, 19);
 			getContentPane().add(lblPreoCompra);
 		}
 		{
 			compra = new JTextField();
-			compra.setBounds(25, 170, 109, 19);
+			compra.setBounds(25, 160, 109, 19);
 			getContentPane().add(compra);
 			compra.setColumns(10);
 		}
 		{
-			JLabel lblPercentualLucro = new JLabel("Percentual Lucro:");
-			lblPercentualLucro.setBounds(25, 197, 130, 19);
+			JLabel lblPercentualLucro = new JLabel("% Lucro:");
+			lblPercentualLucro.setBounds(25, 185, 130, 19);
 			getContentPane().add(lblPercentualLucro);
 		}
 		{
 			lucro = new JTextField();
 			lucro.setColumns(10);
-			lucro.setBounds(25, 213, 109, 19);
+			lucro.setBounds(25, 216, 109, 19);
 			getContentPane().add(lucro);
 		}
 		{
@@ -146,11 +196,10 @@ public class telaProdutoEditando extends JDialog {
 			lblPreoVenda.setBounds(284, 170, 109, 19);
 			getContentPane().add(lblPreoVenda);
 		}
-		{
-			venda = new JTextField();
-			venda.setColumns(10);
-			venda.setBounds(284, 186, 109, 19);
-			getContentPane().add(venda);
-		}
+		
+		
+		JLabel lbldeixarVazioPara = new JLabel("(Deixar vazio para padrão)");
+		lbldeixarVazioPara.setBounds(22, 201, 196, 15);
+		getContentPane().add(lbldeixarVazioPara);
 	}
 }
