@@ -9,7 +9,7 @@ public class VendedorDAO extends BancoDeDados {
 		try
 		{
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO vendedor VALUES (NULL, '" + v.nome +"', " + v.getPercentual() + ", NULL)");
+			st.executeUpdate("INSERT INTO vendedor VALUES (NULL, '" + v.nome +"', '" + v.getCpf() + "'," + v.getPercentual() + ", NULL)");
 			return true;
 		}
 		catch(SQLException e)
@@ -45,7 +45,7 @@ public class VendedorDAO extends BancoDeDados {
 			ResultSet rs = st.executeQuery("SELECT * FROM vendedor");
 			while(rs.next())
 			{		
-				Vendedor novo = new Vendedor(rs.getInt(1),rs.getString(2),rs.getDouble(3),rs.getFloat(4));
+				Vendedor novo = new Vendedor(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getDouble(4),rs.getDouble(5));//A coluna 3 é a do cpf
 				//System.out.println("Vendedor: "+ rs.getString(2) + "\nPercetual de Comissão: " + rs.getFloat(3) + " %\nValor Acumulado: R$ " + rs.getFloat(4) + "\n");
 				list.add(novo);
 			}
@@ -68,7 +68,7 @@ public class VendedorDAO extends BancoDeDados {
 			
 			if(rs.next()) 
 			{
-				return new Vendedor(rs.getInt(1),rs.getString(2), rs.getDouble(3), rs.getDouble(4));
+				return new Vendedor(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getDouble(5));//A coluna 3 é a do CPF
 			}
 			else return null;
 		
@@ -120,15 +120,11 @@ public class VendedorDAO extends BancoDeDados {
 	
 	//Para testar e aplicar métodos criados no banco local
 	public static void main(String[] args) {
-		Vendedor v = new Vendedor("Catatau", 5);
-		
 		VendedorDAO vend = new VendedorDAO();
-		//Vendedor v = vend.getVendedor(1);
-		//vend.adicionarVendedor(v);
+		Vendedor v = new Vendedor("Catatau", "000.000.000-15", 20);
 		
-		//System.out.println(v.getPercentual());
-		//vend.removerVendedor(3);
-		System.out.println(vend.getVendedorID(v));
+		System.out.println(vend.adicionarVendedor(v));
+		
 	}
 
 }

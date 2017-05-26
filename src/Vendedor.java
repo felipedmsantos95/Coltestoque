@@ -4,20 +4,23 @@ public class Vendedor {
 	
 	int id;
 	String nome;
+	private String cpf;
 	private double percentual;
 	double valorVendido;
 	
 	
-	Vendedor(String nome, double percentComissao)
+	Vendedor(String nome, String cpf, double percentComissao)
 	{
+		this.setCpf(cpf);
 		this.nome = nome;
 		this.setPercentual(percentComissao);
 		this.valorVendido = 0;
 	}
 	
-	Vendedor(int id, String nome, double percentComissao, double valorVendido)
+	Vendedor(int id, String nome, String cpf, double percentComissao, double valorVendido)
 	{
 		this.id = id;
+		this.setCpf(cpf);
 		this.nome = nome;
 		this.setPercentual(percentComissao);
 		this.valorVendido = valorVendido;
@@ -71,5 +74,13 @@ public class Vendedor {
 	public double getValorAReceber()
 	{
 		return this.valorVendido;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 }

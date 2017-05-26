@@ -85,7 +85,7 @@ public class telaVendedores extends JFrame{
 		this.getContentPane().setLayout(null);
 		
 		JButton btnAdicionarNovoVendedor = new JButton("Adicionar Novo Vendedor");
-		btnAdicionarNovoVendedor.setBounds(22, 11, 180, 23);
+		btnAdicionarNovoVendedor.setBounds(22, 11, 227, 23);
 		this.getContentPane().add(btnAdicionarNovoVendedor);
 		
 		
@@ -105,7 +105,7 @@ public class telaVendedores extends JFrame{
 		btnPagar = new JButton("Pagar");
 		btnPagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				telaImpressaoTermo window= new telaImpressaoTermo(/*informações a passar pro termo*/);
+				telaImpressaoTermo window= new telaImpressaoTermo(/*informaï¿½ï¿½es a passar pro termo*/);
 				window.setVisible(true);
 				dispose();
 			}

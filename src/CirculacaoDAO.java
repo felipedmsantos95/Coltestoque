@@ -76,13 +76,7 @@ public class CirculacaoDAO extends BancoDeDados{
 	
 	public static void main(String[] args) {
 		
-		Vendedor v = new Vendedor("catatau", 5);
-		CirculacaoDAO circ = new CirculacaoDAO();
-		Circulacao c = circ.getCirculacao(28);
 		
-	
-		
-		System.out.println(circ.getCirculacaoID(c, v));
 		
 	}
 

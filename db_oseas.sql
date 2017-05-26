@@ -39,7 +39,6 @@ CREATE TABLE `circulacao` (
 
 LOCK TABLES `circulacao` WRITE;
 /*!40000 ALTER TABLE `circulacao` DISABLE KEYS */;
-INSERT INTO `circulacao` VALUES (31,'2017-05-19 22:00:36',4,-3.2199999999999998);
 /*!40000 ALTER TABLE `circulacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +84,7 @@ CREATE TABLE `produto` (
   `preco_atacado` double DEFAULT NULL,
   `descricao` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,6 +93,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT INTO `produto` VALUES (1,'MPX/1','Broca',1.6524,1.02,'Broca muito boa'),(2,'MPX/3','Disco',1.6099999999999999,1,'Disco que corta até a alma'),(3,'MPZ','Produto',1.6099999999999999,1,'Produto legal'),(4,'fd','Produtao',3.2199999999999998,2,'dadfa'),(5,'kafp','Fresa Matadora',1.6099999999999999,1,'Mata até Leão'),(6,'efsd','fasfs',1.6099999999999999,1,'dafa'),(7,'ajksafk','dsada',1.6,1,'sdjaod'),(8,'fafe','fdsdads',1.6099999999999999,1,'lsa,sdlasl'),(9,'dasfas','dfsafssd',4,2,'dsfadfsadfdsfadfdafadads'),(10,'osjofaoi','fsokjfosao',3.2199999999999998,2,'dioajifaofafisjaofjewo');
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,11 +165,12 @@ DROP TABLE IF EXISTS `vendedor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `vendedor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) DEFAULT NULL,
+  `nome` varchar(80) NOT NULL,
+  `cpf` varchar(14) DEFAULT NULL,
   `percentual` double NOT NULL,
   `valor_a_receber` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +179,7 @@ CREATE TABLE `vendedor` (
 
 LOCK TABLES `vendedor` WRITE;
 /*!40000 ALTER TABLE `vendedor` DISABLE KEYS */;
-INSERT INTO `vendedor` VALUES (1,'Botinni',20,NULL),(2,'Gilberto',10,NULL),(4,'Catatau',5,0.161),(5,'Zé Colméia',15,NULL);
+INSERT INTO `vendedor` VALUES (6,'Catatau','000.000.000-15',20,NULL),(7,'Zé Colméia','000.000.000-10',15,NULL);
 /*!40000 ALTER TABLE `vendedor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -191,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-25 21:41:20
+-- Dump completed on 2017-05-26 19:14:37
