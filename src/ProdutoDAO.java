@@ -8,7 +8,7 @@ public class ProdutoDAO extends BancoDeDados{
 		try
 		{
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO produto VALUES (NULL, '" + p.codigo +"', " + p.precoFinal + ", "+ p.getPrecoCompra() +", '"+ p.descricao + "' )");
+			st.executeUpdate("INSERT INTO produto VALUES (NULL, '" + p.codigo +"', '" + p.nome + "', " + p.precoFinal + ", "+ p.getPrecoCompra() +", '"+ p.descricao + "' )");
 			return true;
 		}
 		catch(SQLException e)
@@ -77,7 +77,7 @@ public class ProdutoDAO extends BancoDeDados{
 			
 			if(rs.next()) 
 			{
-				return new Produto(rs.getString(2), rs.getDouble(4), rs.getString(5));
+				return new Produto(rs.getString(2),rs.getString(3), rs.getDouble(4), rs.getString(5));
 			}
 			else return null;
 		

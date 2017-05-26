@@ -1,119 +1,143 @@
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
-
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
-import javax.swing.JButton;
+import javax.swing.JEditorPane;
 
-public class telaProdutoEditando {
+public class telaProdutoEditando extends JDialog {
 
-	private JFrame frmAdicionandoeditandoProduto;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField codigo;
+	private JTextField compra;
+	private JTextField lucro;
+	private JTextField venda;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					telaProdutoEditando window = new telaProdutoEditando();
-					window.frmAdicionandoeditandoProduto.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		try {
+			telaProdutoEditando dialog = new telaProdutoEditando();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Create the application.
+	 * Create the dialog.
 	 */
 	public telaProdutoEditando() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frmAdicionandoeditandoProduto = new JFrame();
-		frmAdicionandoeditandoProduto.setTitle("Adicionando/Editando Produto");
-		frmAdicionandoeditandoProduto.setBounds(100, 100, 450, 300);
-		frmAdicionandoeditandoProduto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmAdicionandoeditandoProduto.getContentPane().setLayout(null);
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(null);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setBounds(0, 238, 448, 35);
+			getContentPane().add(buttonPane);
+			buttonPane.setLayout(null);
+			{
+				JButton okButton = new JButton("Confirmar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Locale pt = new Locale("pt", "PT");
+						NumberFormat nf = NumberFormat.getInstance(pt);
+						
+						//Produto produto = new Produto(codigo.getText(), textField.getText(), nf.parse(compra.getText()).dou)
+						
+					}
+				});
+				okButton.setBounds(323, 5, 113, 25);
+				okButton.setActionCommand("Confirmar");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setBounds(206, 5, 105, 25);
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						telaProdutoEditando.this.dispose();
+					}
+				});
+				cancelButton.setActionCommand("Cancelar");
+				buttonPane.add(cancelButton);
+			}
+		}
+		{
+			textField = new JTextField();
+			textField.setBounds(25, 41, 237, 19);
+			getContentPane().add(textField);
+			textField.setColumns(10);
+		}
 		
-		textField = new JTextField();
-		textField.setText("");
-		textField.setBounds(118, 27, 86, 20);
-		frmAdicionandoeditandoProduto.getContentPane().add(textField);
-		textField.setColumns(10);
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setBounds(25, 24, 66, 19);
+		getContentPane().add(lblNome);
+		{
+			codigo = new JTextField();
+			codigo.setBounds(306, 41, 87, 19);
+			getContentPane().add(codigo);
+			codigo.setColumns(10);
+		}
+		{
+			JLabel lblCdigo = new JLabel("Código:");
+			lblCdigo.setBounds(306, 26, 66, 15);
+			getContentPane().add(lblCdigo);
+		}
 		
-		JLabel lblNomeProduto = new JLabel("nome Produto");
-		lblNomeProduto.setBounds(39, 30, 82, 14);
-		frmAdicionandoeditandoProduto.getContentPane().add(lblNomeProduto);
+		JEditorPane descricao = new JEditorPane();
+		descricao.setBounds(25, 86, 368, 62);
+		getContentPane().add(descricao);
 		
-		JLabel lblId = new JLabel("ID");
-		lblId.setBounds(236, 30, 46, 14);
-		frmAdicionandoeditandoProduto.getContentPane().add(lblId);
-		
-		textField_1 = new JTextField();
-		textField_1.setEnabled(false);
-		textField_1.setBounds(266, 28, 86, 20);
-		frmAdicionandoeditandoProduto.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
-		
-		JLabel lblDescrio = new JLabel("descri\u00E7\u00E3o");
-		lblDescrio.setBounds(47, 81, 46, 14);
-		frmAdicionandoeditandoProduto.getContentPane().add(lblDescrio);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(118, 78, 234, 48);
-		frmAdicionandoeditandoProduto.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
-		
-		JLabel lblPreoDeCompra = new JLabel("pre\u00E7o de compra");
-		lblPreoDeCompra.setBounds(35, 148, 108, 20);
-		frmAdicionandoeditandoProduto.getContentPane().add(lblPreoDeCompra);
-		
-		JLabel lblPorcentagemDeLucro = new JLabel("porcentagem de lucro");
-		lblPorcentagemDeLucro.setBounds(27, 179, 116, 14);
-		frmAdicionandoeditandoProduto.getContentPane().add(lblPorcentagemDeLucro);
-		
-		textField_3 = new JTextField();
-		textField_3.setBounds(142, 148, 86, 20);
-		frmAdicionandoeditandoProduto.getContentPane().add(textField_3);
-		textField_3.setColumns(10);
-		
-		textField_4 = new JTextField();
-		textField_4.setBounds(142, 176, 86, 20);
-		frmAdicionandoeditandoProduto.getContentPane().add(textField_4);
-		textField_4.setColumns(10);
-		
-		JLabel lblPreoDeVenda = new JLabel("pre\u00E7o de venda");
-		lblPreoDeVenda.setBounds(242, 167, 86, 14);
-		frmAdicionandoeditandoProduto.getContentPane().add(lblPreoDeVenda);
-		
-		textField_5 = new JTextField();
-		textField_5.setEnabled(false);
-		textField_5.setBounds(325, 164, 86, 20);
-		frmAdicionandoeditandoProduto.getContentPane().add(textField_5);
-		textField_5.setColumns(10);
-		
-		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBounds(322, 227, 89, 23);
-		frmAdicionandoeditandoProduto.getContentPane().add(btnConfirmar);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(224, 227, 89, 23);
-		frmAdicionandoeditandoProduto.getContentPane().add(btnCancelar);
+		JLabel lblDescrio = new JLabel("Descrição:");
+		lblDescrio.setBounds(25, 66, 87, 19);
+		getContentPane().add(lblDescrio);
+		{
+			JLabel lblPreoCompra = new JLabel("Preço Compra:");
+			lblPreoCompra.setBounds(25, 154, 109, 19);
+			getContentPane().add(lblPreoCompra);
+		}
+		{
+			compra = new JTextField();
+			compra.setBounds(25, 170, 109, 19);
+			getContentPane().add(compra);
+			compra.setColumns(10);
+		}
+		{
+			JLabel lblPercentualLucro = new JLabel("Percentual Lucro:");
+			lblPercentualLucro.setBounds(25, 197, 130, 19);
+			getContentPane().add(lblPercentualLucro);
+		}
+		{
+			lucro = new JTextField();
+			lucro.setColumns(10);
+			lucro.setBounds(25, 213, 109, 19);
+			getContentPane().add(lucro);
+		}
+		{
+			JLabel lblPreoVenda = new JLabel("Preço Venda:");
+			lblPreoVenda.setBounds(284, 170, 109, 19);
+			getContentPane().add(lblPreoVenda);
+		}
+		{
+			venda = new JTextField();
+			venda.setColumns(10);
+			venda.setBounds(284, 186, 109, 19);
+			getContentPane().add(venda);
+		}
 	}
 }

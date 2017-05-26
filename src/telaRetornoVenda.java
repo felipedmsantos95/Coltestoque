@@ -59,7 +59,7 @@ public class telaRetornoVenda {
 		frmRetornoDeVenda.getContentPane().add(table);
 		
 		JLabel lblVendedor = new JLabel("Vendedor");
-		lblVendedor.setBounds(25, 25, 46, 14);
+		lblVendedor.setBounds(12, 24, 91, 14);
 		frmRetornoDeVenda.getContentPane().add(lblVendedor);
 		
 		textField = new JTextField();

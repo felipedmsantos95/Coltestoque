@@ -52,17 +52,7 @@ public class ProdutoCirculandoDAO extends BancoDeDados{
 	
 	
 	public static void main(String[] args) {
-		ProdutoCirculandoDAO prod = new ProdutoCirculandoDAO();
-		ProdutoDAO pp = new ProdutoDAO();
-		Produto p = new Produto("DOA", 3.02, "Eu compraria.");
-		CirculacaoDAO c = new CirculacaoDAO();
-		Vendedor v = new Vendedor("Zé Colméia", 15);
-		VendedorDAO vend = new VendedorDAO();
 		
-		//Circulacao circ = c.getCirculacao(28);
-		pp.adicionarProduto(p);
-		vend.adicionarVendedor(v);
-		//System.out.println(prod.addProdutoCirculacao(p, 2, circ, v));
 //
 	}
 

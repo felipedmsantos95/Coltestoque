@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class telaImpressaoTermo {
+public class telaImpressaoTermo extends JFrame {
 
 	private JFrame frmImpressoDeTermo;
 
@@ -49,8 +49,7 @@ public class telaImpressaoTermo {
 		textArea.setBounds(47, 33, 351, 170);
 		frmImpressoDeTermo.getContentPane().add(textArea);
 		
-		btnNewButton.setBounds(316, 227, 89, 23);
-		frmImpressoDeTermo.getContentPane().add(btnNewButton);
+		
 		
 		JButton btnImprimir = new JButton("Imprimir");
 		btnImprimir.setBounds(309, 227, 89, 23);

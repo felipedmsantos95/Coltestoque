@@ -3,14 +3,16 @@ import java.util.*;
 public class Produto {
 	
 	String codigo;
+	String nome;
 	public int quantidadeEstoque;
 	private double percentLucro;
 	private double precoCompra;
 	public double precoFinal;
 	String descricao;
 	
-	Produto(String codigo, int quantidadeEstoque, String descricao, double precoCompra)
+	Produto( String codigo, String nome, int quantidadeEstoque, String descricao, double precoCompra)
 	{
+		this.nome = nome;
 		this.codigo = codigo;
 		this.quantidadeEstoque = quantidadeEstoque;
 		this.descricao = descricao;
@@ -19,8 +21,9 @@ public class Produto {
 		this.precoFinal = (this.getPrecoCompra() * (1 + (this.getPercentLucro()/100)));
 	}
 	
-	Produto(String codigo, double precoCompra, String descricao)//Criei para poder extrair um produto da tabela produto
+	Produto( String codigo, String nome, double precoCompra, String descricao)//Criei para poder extrair um produto da tabela produto
 	{
+		this.nome = nome;
 		this.codigo = codigo;
 		this.quantidadeEstoque = 0;
 		this.descricao = descricao;
@@ -29,8 +32,20 @@ public class Produto {
 		this.precoFinal = (this.getPrecoCompra() * (1 + (this.getPercentLucro()/100)));
 	}
 	
-	Produto(String codigo, int quantidadeEstoque, String descricao, double precoCompra, double percentLucro)
+	Produto( String codigo, String nome, double precoCompra, double percentlucro, String descricao)//Criei para poder extrair um produto da tabela produto
 	{
+		this.nome = nome;
+		this.codigo = codigo;
+		this.quantidadeEstoque = 0;
+		this.descricao = descricao;
+		this.setPrecoCompra(precoCompra);
+		this.setPercentLucro(percentlucro); //Esse valor foi o padrao que encontramos na tabela do cliente
+		this.precoFinal = (this.getPrecoCompra() * (1 + (this.getPercentLucro()/100)));
+	}
+	
+	Produto( String codigo, String nome, int quantidadeEstoque, String descricao, double precoCompra, double percentLucro)
+	{
+		this.nome = nome;
 		this.codigo = codigo;
 		this.quantidadeEstoque = quantidadeEstoque;
 		this.descricao = descricao;

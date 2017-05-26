@@ -10,8 +10,12 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class telaFimVenda {
+public class telaFimVenda extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frmResultadoVenda;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -100,5 +104,7 @@ public class telaFimVenda {
 		btnFinalizarEPagar_1.setBounds(223, 211, 201, 23);
 		frmResultadoVenda.getContentPane().add(btnFinalizarEPagar_1);
 	}
+
+	
 
 }

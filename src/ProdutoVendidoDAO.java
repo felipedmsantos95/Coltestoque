@@ -77,21 +77,7 @@ public class ProdutoVendidoDAO extends BancoDeDados {
 	
 	
 	public static void main(String[] args) {
-		ProdutoCirculandoDAO prod = new ProdutoCirculandoDAO();
-		ProdutoVendidoDAO pv = new ProdutoVendidoDAO();
-		ProdutoDAO pp = new ProdutoDAO();
-		Produto p = new Produto("DPX", 1, "Que produto satisfatório.");
-		CirculacaoDAO c = new CirculacaoDAO();
-		Vendedor v = new Vendedor("Catatau", 5);
-		VendedorDAO vend = new VendedorDAO();
 		
-		//pp.adicionarProduto(p);
-		//c.iniciarCirculacao(v);		
-		Circulacao circ = c.getCirculacao(31);
-		//vend.fecharMesVendedor(vend.getVendedorID(v));
-		//vend.adicionarVendedor(v);
-		//System.out.println(prod.addProdutoCirculacao(p, 2, circ, v));
-		System.out.println(pv.addProdutoVendido(p, 2, circ, v));
 
 	}
 
