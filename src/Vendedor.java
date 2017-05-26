@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Vendedor {
 	
+	int id;
 	String nome;
 	private double percentual;
 	double valorVendido;
@@ -14,8 +15,9 @@ public class Vendedor {
 		this.valorVendido = 0;
 	}
 	
-	Vendedor(String nome, double percentComissao, double valorVendido)
+	Vendedor(int id, String nome, double percentComissao, double valorVendido)
 	{
+		this.id = id;
 		this.nome = nome;
 		this.setPercentual(percentComissao);
 		this.valorVendido = valorVendido;
@@ -51,6 +53,23 @@ public class Vendedor {
 		
 		this.valorVendido = this.valorVendido - valor;
 		
+		return this.valorVendido;
+	}
+	
+	public int getID()
+	{
+		return this.id;
+	}
+	public String getNome()
+	{
+		return this.nome;
+	}
+	public double getComissao()
+	{
+		return this.percentual;
+	}
+	public double getValorAReceber()
+	{
 		return this.valorVendido;
 	}
 }

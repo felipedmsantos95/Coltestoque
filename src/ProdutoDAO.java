@@ -40,9 +40,7 @@ public class ProdutoDAO extends BancoDeDados{
 		try
 		{
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT produto.id, produto.codigo, produto.nome, produto.preco_final,"
-					+ "produto.precoatacado, produto.descricao, estoque.qtd_estoque FROM produto, estoque"
-					+ "WHERE estoque.produto_id=produto.id;");
+			ResultSet rs = st.executeQuery("SELECT produto.id, produto.codigo, produto.nome, produto.preco_final, produto.preco_atacado, produto.descricao, estoque.qtd_estoque FROM produto, estoque WHERE estoque.produto_id=produto.id;");
 			while(rs.next())
 			{		
 				Produto produto = new Produto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDouble(5),rs.getString(6),rs.getInt(7));

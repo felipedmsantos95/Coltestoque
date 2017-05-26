@@ -12,12 +12,13 @@ import javax.swing.JTable;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 
 public class telaNovaVenda {
 
 	private JFrame frmNovaVenda;
 	private JTextField textField;
-	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTable table;
 
@@ -80,23 +81,14 @@ public class telaNovaVenda {
 		lblQuantidade.setBounds(160, 97, 86, 14);
 		frmNovaVenda.getContentPane().add(lblQuantidade);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(21, 112, 86, 20);
-		frmNovaVenda.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
-		
 		textField_2 = new JTextField();
-		textField_2.setBounds(148, 112, 86, 20);
+		textField_2.setBounds(160, 124, 86, 20);
 		frmNovaVenda.getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 		
 		JButton btnAdicionarProduto = new JButton("Adicionar Produto");
 		btnAdicionarProduto.setBounds(282, 111, 117, 23);
 		frmNovaVenda.getContentPane().add(btnAdicionarProduto);
-		
-		table = new JTable();
-		table.setBounds(21, 184, 383, 66);
-		frmNovaVenda.getContentPane().add(table);
 		
 		JLabel lblListaDeSada = new JLabel("Lista de sa\u00EDda");
 		lblListaDeSada.setBounds(21, 159, 83, 14);
@@ -115,6 +107,23 @@ public class telaNovaVenda {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(266, 283, 89, 23);
 		frmNovaVenda.getContentPane().add(btnCancelar);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(21, 184, 433, 75);
+		frmNovaVenda.getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"C\u00D3DIGO", "PRE\u00C7O", "QUANT RETIRADA", "PRE\u00C7O FINAL"
+			}
+		));
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(44, 122, 94, 25);
+		frmNovaVenda.getContentPane().add(comboBox_1);
 	}
-
 }

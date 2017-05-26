@@ -36,22 +36,26 @@ public class VendedorDAO extends BancoDeDados {
 		
 	}
 	
-	public void listarVendedores()
+	public ArrayList<Vendedor> listarVendedores()
 	{
+		ArrayList<Vendedor> list = new ArrayList<Vendedor>();
 		try
 		{
 			Statement st = conexao.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM vendedor");
 			while(rs.next())
-			{				
-				System.out.println("Vendedor: "+ rs.getString(2) + "\nPercetual de Comissão: " + rs.getFloat(3) + " %\nValor Acumulado: R$ " + rs.getFloat(4) + "\n");
+			{		
+				Vendedor novo = new Vendedor(rs.getInt(1),rs.getString(2),rs.getDouble(3),rs.getFloat(4));
+				//System.out.println("Vendedor: "+ rs.getString(2) + "\nPercetual de Comissão: " + rs.getFloat(3) + " %\nValor Acumulado: R$ " + rs.getFloat(4) + "\n");
+				list.add(novo);
 			}
 			
 		}
 		catch(SQLException e)
 		{
 			
-		}		
+		}	
+		return list;
 	}
 	
 	//Pode ser obtido pelo nome também
@@ -64,7 +68,7 @@ public class VendedorDAO extends BancoDeDados {
 			
 			if(rs.next()) 
 			{
-				return new Vendedor(rs.getString(2), rs.getDouble(3), rs.getDouble(4));
+				return new Vendedor(rs.getInt(1),rs.getString(2), rs.getDouble(3), rs.getDouble(4));
 			}
 			else return null;
 		
