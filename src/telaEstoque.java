@@ -3,15 +3,33 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JPanel;
 
-public class telaEstoque {
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
-	private JFrame frmEstoque;
+public class telaEstoque extends JFrame{
+
 	private JTable table;
-	private JTextField textField;
+	private JButton btnEditar;
+	private JButton btnExcluir;
+	private JPanel panel;
+	private JLabel lblSelecioneUmProduto;
+	private ProdutoDAO produto_bd= new ProdutoDAO();
+	private ArrayList<Produto> listProdutos = new ArrayList<Produto>();
 
 	/**
 	 * Launch the application.
@@ -21,7 +39,7 @@ public class telaEstoque {
 			public void run() {
 				try {
 					telaEstoque window = new telaEstoque();
-					window.frmEstoque.setVisible(true);
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -33,46 +51,132 @@ public class telaEstoque {
 	 * Create the application.
 	 */
 	public telaEstoque() {
+		setResizable(false);
 		initialize();
+		Show_Produtos_In_Jtable();
 	}
+	
+	private void Show_Produtos_In_Jtable()
+	{
+		listProdutos = produto_bd.listarProdutos();
+		DefaultTableModel model =(DefaultTableModel)table.getModel();
+		model.setNumRows(0);
+		Object[] row = new Object[11];
+		for (int i=0; i<listProdutos.size();i++)
+		{
+			row[0] = listProdutos.get(i).getCodigo();
+			row[1] = listProdutos.get(i).getNome();
+			row[2] = listProdutos.get(i).getQuantidadeEstoque();
+			row[3] = listProdutos.get(i).getPrecoCompra();
+			row[4] = listProdutos.get(i).getPrecoFinal();
+			row[5] = listProdutos.get(i).getDescricao();
+			
+			model.addRow(row);
+		}
+	}
+
+    
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmEstoque = new JFrame();
-		frmEstoque.setTitle("Estoque");
-		frmEstoque.setBounds(100, 100, 450, 300);
-		frmEstoque.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmEstoque.getContentPane().setLayout(null);
+		this.getContentPane().addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent arg0) {
+				btnEditar.setEnabled(false);
+				btnExcluir.setEnabled(false);
+				table.clearSelection();
+			}
+		});
+		this.setTitle("Estoque");
+		this.setBounds(100, 100, 800, 550);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.getContentPane().setLayout(null);
 		
-		JButton btnNovoProduto = new JButton("Novo Produto");
-		btnNovoProduto.setBounds(42, 26, 145, 23);
-		frmEstoque.getContentPane().add(btnNovoProduto);
-		
-		JButton btnReposioDeProduto = new JButton("Reposi\u00E7\u00E3o de Produto");
-		btnReposioDeProduto.setBounds(212, 26, 150, 23);
-		frmEstoque.getContentPane().add(btnReposioDeProduto);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setEnabled(false);
+		scrollPane.setBounds(10, 130, 764, 318);
+		this.getContentPane().add(scrollPane);
 		
 		table = new JTable();
-		table.setBounds(28, 85, 281, 149);
-		frmEstoque.getContentPane().add(table);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
+		table.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent arg0) {
+				btnEditar.setEnabled(true);
+				btnExcluir.setEnabled(true);
+			}
+
+		});
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				
+			},
+			new String[] {
+				"C\u00D3DIGO", "NOME", "QUANT ESTOQUE", "PRE\u00C7O COMPRA", "PRE\u00C7O VENDA", "DESCRI\u00C7\u00C3O"
+			}
+		)
+		{
+			public boolean isCellEditable(int row, int col) {  
+		           return false;  
+		   } 
+		}
+		);
 		
-		JButton btnEditar = new JButton("editar");
-		btnEditar.setBounds(335, 134, 89, 23);
-		frmEstoque.getContentPane().add(btnEditar);
+		scrollPane.setViewportView(table);
 		
-		JButton btnExcluir = new JButton("excluir");
-		btnExcluir.setBounds(335, 168, 89, 23);
-		frmEstoque.getContentPane().add(btnExcluir);
+		panel = new JPanel();
+		panel.setBounds(36, 22, 712, 45);
+		getContentPane().add(panel);
+		panel.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JLabel lblCodigoProduto = new JLabel("Codigo Produto");
-		lblCodigoProduto.setBounds(335, 85, 79, 14);
-		frmEstoque.getContentPane().add(lblCodigoProduto);
+		JButton btnNovoProduto = new JButton("Novo Produto");
+		btnNovoProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				telaProdutoEditando window= new telaProdutoEditando();
+				window.setVisible(true);
+				dispose();
+			}
+		});
+		panel.add(btnNovoProduto);
 		
-		textField = new JTextField();
-		textField.setBounds(335, 103, 86, 20);
-		frmEstoque.getContentPane().add(textField);
-		textField.setColumns(10);
+		JButton btnReposioDeProduto = new JButton("Reposi\u00E7\u00E3o de Produto");
+		btnReposioDeProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				telaReposicao window= new telaReposicao();
+				window.setVisible(true);
+				dispose();
+			}
+		});
+		panel.add(btnReposioDeProduto);
+		
+		btnEditar = new JButton("editar");
+		panel.add(btnEditar);
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//te envio o id do produto que quero editar
+				telaProdutoEditando window= new telaProdutoEditando(listProdutos.get(table.getSelectedRow()).getID());
+				window.setVisible(true);
+				dispose();
+			}
+		});
+		btnEditar.setEnabled(false);
+		
+		btnExcluir = new JButton("excluir");
+		panel.add(btnExcluir);
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int confirm = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse produto?");
+				if(confirm==0)produto_bd.removerProduto(listProdutos.get(table.getSelectedRow()).getID());
+			}
+		});
+		btnExcluir.setEnabled(false);
+		
+		lblSelecioneUmProduto = new JLabel("Selecione um produto abaixo :");
+		lblSelecioneUmProduto.setBounds(33, 92, 213, 27);
+		getContentPane().add(lblSelecioneUmProduto);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setBounds(598, 459, 176, 45);
+		getContentPane().add(btnVoltar);
 	}
 }

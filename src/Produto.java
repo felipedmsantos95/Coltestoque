@@ -2,8 +2,9 @@ import java.util.*;
 
 public class Produto {
 	
-	String codigo;
-	String nome;
+	private int id;
+	private String codigo;
+	private String nome;
 	public int quantidadeEstoque;
 	private double percentLucro;
 	private double precoCompra;
@@ -43,8 +44,9 @@ public class Produto {
 		this.precoFinal = (this.getPrecoCompra() * (1 + (this.getPercentLucro()/100)));
 	}
 	
-	Produto( String codigo, String nome, int quantidadeEstoque, String descricao, double precoCompra, double percentLucro)
+	Produto(int id, String codigo, String nome, double precoCompra, double percentLucro, String descricao, int quantidadeEstoque)
 	{
+		this.id=id;
 		this.nome = nome;
 		this.codigo = codigo;
 		this.quantidadeEstoque = quantidadeEstoque;
@@ -80,6 +82,30 @@ public class Produto {
 		this.quantidadeEstoque++;
 		
 		return this.quantidadeEstoque;
+	}
+	public int getID()
+	{
+		return this.id;
+	}
+	public String getNome()
+	{
+		return this.nome;
+	}
+	public String getCodigo()
+	{
+		return this.codigo;
+	}
+	public int getQuantidadeEstoque()
+	{
+		return this.quantidadeEstoque;
+	}
+	public String getDescricao()
+	{
+		return this.descricao;
+	}
+	public double getPrecoFinal()
+	{
+		return this.precoFinal;
 	}
 	
 }

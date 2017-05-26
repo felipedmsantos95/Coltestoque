@@ -8,7 +8,7 @@ public class ProdutoDAO extends BancoDeDados{
 		try
 		{
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO produto VALUES (NULL, '" + p.codigo +"', '" + p.nome + "', " + p.precoFinal + ", "+ p.getPrecoCompra() +", '"+ p.descricao + "' )");
+			st.executeUpdate("INSERT INTO produto VALUES (NULL, '" + p.getCodigo() +"', '" + p.getNome() + "', " + p.getPrecoFinal() + ", "+ p.getPrecoCompra() +", '"+ p.getDescricao() + "' )");
 			return true;
 		}
 		catch(SQLException e)
@@ -34,22 +34,28 @@ public class ProdutoDAO extends BancoDeDados{
 		}
 		
 	}
-	public void listarProdutos()
+	public ArrayList<Produto> listarProdutos()
 	{
+		ArrayList<Produto> list = new ArrayList<Produto>();
 		try
 		{
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM produto");
+			ResultSet rs = st.executeQuery("SELECT produto.id, produto.codigo, produto.nome, produto.preco_final,"
+					+ "produto.precoatacado, produto.descricao, estoque.qtd_estoque FROM produto, estoque"
+					+ "WHERE estoque.produto_id=produto.id;");
 			while(rs.next())
-			{				
-				System.out.println("Produto: "+ rs.getInt(2) + "\n " + rs.getString(5)+ "\nPreco Final "+rs.getDouble(3) +"\n");
+			{		
+				Produto produto = new Produto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDouble(5),rs.getString(6),rs.getInt(7));
+				//System.out.println("Produto: "+ rs.getInt(2) + "\n " + rs.getString(5)+ "\nPreco Final "+rs.getDouble(3) +"\n");
+				list.add(produto);
 			}
 			
 		}
 		catch(SQLException e)
 		{
 			
-		}		
+		}
+		return list;
 	}
 	public void listarProdutosEdicao()
 	{
@@ -93,7 +99,7 @@ public class ProdutoDAO extends BancoDeDados{
 		try
 		{
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT id FROM produto WHERE produto.codigo ='" + p.codigo + "' AND produto.descricao='" + p.descricao + "'");
+			ResultSet rs = st.executeQuery("SELECT id FROM produto WHERE produto.codigo ='" + p.getCodigo() + "' AND produto.descricao='" + p.getDescricao() + "'");
 			
 			if(rs.next()) return rs.getInt(1);
 			else return 0;

@@ -40,8 +40,21 @@ public class telaProdutoEditando extends JDialog {
 
 	/**
 	 * Create the dialog.
+	 *
 	 */
+	//chamo quando quero editar um produto
+	public telaProdutoEditando(int id_produto) {
+		initialize ();
+		
+	}
+	
+	//chamo qunado quero criar um produto
 	public telaProdutoEditando() {
+		initialize ();
+		
+	}
+	private void initialize ()
+	{
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 		{
