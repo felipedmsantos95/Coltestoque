@@ -85,6 +85,12 @@ public class telaVendedores extends JFrame{
 		this.getContentPane().setLayout(null);
 		
 		JButton btnAdicionarNovoVendedor = new JButton("Adicionar Novo Vendedor");
+		btnAdicionarNovoVendedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				telaVendedorEditando tela = new telaVendedorEditando();
+				tela.setVisible(true);
+			}
+		});
 		btnAdicionarNovoVendedor.setBounds(22, 11, 227, 23);
 		this.getContentPane().add(btnAdicionarNovoVendedor);
 		
