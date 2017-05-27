@@ -122,6 +122,50 @@ public class ProdutoDAO extends BancoDeDados{
 		{
 			return 0;
 		}	
-	}	
+	}
+	
+	public boolean atualizarProduto(int id, String codigo, String nome, double precoAtacado, double percent, String descricao)
+	{
+		Produto p = new Produto(codigo, nome, precoAtacado, percent, descricao);
+		
+		try
+		{
+			Statement st = conexao.createStatement();
+			st.executeUpdate("UPDATE produto SET codigo='" + codigo +"' WHERE id=" + id);
+			st.executeUpdate("UPDATE produto SET nome='" + nome +"' WHERE id=" + id);
+			st.executeUpdate("UPDATE produto SET preco_atacado=" + precoAtacado +" WHERE id=" + id);			
+			st.executeUpdate("UPDATE produto SET preco_final=" + p.getPrecoFinal() +" WHERE id=" + id);
+			st.executeUpdate("UPDATE produto SET descricao='" + descricao +"' WHERE id=" + id);
+			return true;
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	
+	public boolean atualizarProduto(int id, String codigo, String nome, double precoAtacado, String descricao)
+	{
+		Produto p = new Produto(codigo, nome, precoAtacado, descricao);
+		
+		try
+		{
+			Statement st = conexao.createStatement();
+			st.executeUpdate("UPDATE produto SET codigo='" + codigo +"' WHERE id=" + id);
+			st.executeUpdate("UPDATE produto SET nome='" + nome +"' WHERE id=" + id);
+			st.executeUpdate("UPDATE produto SET preco_atacado=" + precoAtacado +" WHERE id=" + id);			
+			st.executeUpdate("UPDATE produto SET preco_final=" + p.getPrecoFinal() +" WHERE id=" + id);
+			st.executeUpdate("UPDATE produto SET descricao='" + descricao +"' WHERE id=" + id);
+			return true;
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	
+	
 
 }

@@ -149,7 +149,7 @@ public class telaEstoque extends JFrame{
 		});
 		panel.add(btnReposioDeProduto);
 		
-		btnEditar = new JButton("editar");
+		btnEditar = new JButton("Editar");
 		panel.add(btnEditar);
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
