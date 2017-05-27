@@ -112,9 +112,21 @@ public class VendedorDAO extends BancoDeDados {
 		
 	}
 	
-	public void vendaDeProduto()
+	public boolean atualizarVendedor(int id, String nome, String cpf, double percent)
 	{
-		
+		try
+		{
+			Statement st = conexao.createStatement();
+			st.executeUpdate("UPDATE vendedor SET nome='" + nome +"' WHERE id=" + id);
+			st.executeUpdate("UPDATE vendedor SET cpf='" + cpf +"' WHERE id=" + id);
+			st.executeUpdate("UPDATE vendedor SET percentual='" + percent +"' WHERE id=" + id);
+			return true;
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
 	}
 	
 	
