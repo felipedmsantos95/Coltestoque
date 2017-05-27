@@ -3,14 +3,21 @@
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.JFileChooser;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class telaImpressaoTermo extends JFrame {
 
 	private JFrame frmImpressoDeTermo;
+	private JTextField path;
 
 	/**
 	 * Launch the application.
@@ -19,7 +26,7 @@ public class telaImpressaoTermo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					telaImpressaoTermo window = new telaImpressaoTermo();
+					telaImpressaoTermo window = new telaImpressaoTermo(7);//Coloquei esse 7 pra testar um dos exemplos de vendedor cadastrado, podes testar com outro id que vc tiver aí
 					window.frmImpressoDeTermo.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,28 +38,71 @@ public class telaImpressaoTermo extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public telaImpressaoTermo() {
-		initialize();
+	public telaImpressaoTermo(int idVendedor) {
+		initializeRecibo(idVendedor);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initializeRecibo(int idVendedor) {
 		frmImpressoDeTermo = new JFrame();
-		frmImpressoDeTermo.setTitle("Impress\u00E3o de termo");
+		frmImpressoDeTermo.setTitle("Impress\u00E3o de Termo");
 		frmImpressoDeTermo.setBounds(100, 100, 450, 300);
 		frmImpressoDeTermo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmImpressoDeTermo.getContentPane().setLayout(null);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(47, 33, 351, 170);
-		frmImpressoDeTermo.getContentPane().add(textArea);
-		
 		
 		
 		JButton btnImprimir = new JButton("Imprimir");
-		btnImprimir.setBounds(309, 227, 89, 23);
+		btnImprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GeraPDF recibo = new GeraPDF();
+				VendedorDAO v = new VendedorDAO();
+				
+				
+				try {
+					java.awt.Desktop.getDesktop().open( new File(recibo.geraRecibo(path.getText(), v.getVendedor(idVendedor))) );
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null,"Erro ao selecionar a pasta, verifique se o campo foi preenchio ou se o diretório existe.");
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnImprimir.setBounds(310, 224, 126, 37);
 		frmImpressoDeTermo.getContentPane().add(btnImprimir);
+		
+		path = new JTextField();
+		path.setBounds(22, 109, 263, 19);
+		frmImpressoDeTermo.getContentPane().add(path);
+		path.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Escolher Pasta");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new java.io.File("."));
+				chooser.setDialogTitle("Escolher Pasta");
+				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				chooser.setAcceptAllFileFilterUsed(false);
+				
+				
+
+				if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					path.setText(chooser.getSelectedFile().toString());
+					
+				} else {
+					
+				}
+				
+			}
+		});
+		btnNewButton.setBounds(297, 109, 139, 19);
+		frmImpressoDeTermo.getContentPane().add(btnNewButton);
+		
+		JLabel lblPastaASer = new JLabel("Pasta a ser salvo:");
+		lblPastaASer.setBounds(22, 82, 139, 15);
+		frmImpressoDeTermo.getContentPane().add(lblPastaASer);
 	}
 }
