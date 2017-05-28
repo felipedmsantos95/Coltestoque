@@ -57,7 +57,7 @@ public class GeraPDF extends BancoDeDados {
 			p.setAlignment(Element.ALIGN_JUSTIFIED);
 			document.add(p1);
 			
-			Paragraph line = new Paragraph("Assinatura: _________________________________");
+			Paragraph line = new Paragraph("Ass: _________________________________");
 			line.setAlignment(Element.ALIGN_CENTER);
 			document.add(line);
 			
@@ -112,9 +112,9 @@ public class GeraPDF extends BancoDeDados {
 			PdfPTable tabela = new PdfPTable(5);
 			PdfPCell codigo = new PdfPCell(new Paragraph("Código"));
 			PdfPCell nomeProduto = new PdfPCell(new Paragraph("Nome do Produto"));
-			PdfPCell precou = new PdfPCell(new Paragraph("Preço Unitário"));
+			PdfPCell precou = new PdfPCell(new Paragraph("Preço Unitário (R$)"));
 			PdfPCell qtd = new PdfPCell(new Paragraph("Quantidade"));
-			PdfPCell precot = new PdfPCell(new Paragraph("Preço Total"));
+			PdfPCell precot = new PdfPCell(new Paragraph("Preço Total (R$)"));
 			
 			tabela.addCell(codigo);
 			tabela.addCell(nomeProduto);
@@ -160,22 +160,22 @@ public class GeraPDF extends BancoDeDados {
 			document.add(p);
 			document.add(tabela);
 			
-			Paragraph concl = new Paragraph("\n\n        O valor total desta retirada é de: R$ " + totaCirculacao + "\n\n");
+			Paragraph concl = new Paragraph("\n\n        O valor total desta retirada de estoque é de: R$ " + totaCirculacao + "\n\n");
 			concl.setAlignment(Element.ALIGN_JUSTIFIED);
 			document.add(concl);
 			
-			Paragraph line = new Paragraph("Assinatura: _________________________________");
+			Paragraph line = new Paragraph("\n\n\n\nAss: _________________________________");
 			line.setAlignment(Element.ALIGN_CENTER);
-			document.add(line);
-			
-			Paragraph vend = new Paragraph(v.nome + "\n\n");
-			vend.setAlignment(Element.ALIGN_CENTER);
-			document.add(vend);
 			
 			document.add(line);
-			Paragraph nomep = new Paragraph("Oseás Oliveira da Silva");
+			Paragraph nomep = new Paragraph("Oseás Oliveira da Silva\n");
 			nomep.setAlignment(Element.ALIGN_CENTER);
 			document.add(nomep);
+			
+			document.add(line);			
+			Paragraph vend = new Paragraph(v.nome);
+			vend.setAlignment(Element.ALIGN_CENTER);
+			document.add(vend);
 			
 			
          }
@@ -192,11 +192,172 @@ public class GeraPDF extends BancoDeDados {
 		return diretorio + "/RelSaida" + v.nome + data.getTime() + ".pdf";
      }
 	
+	
+	public String geraRelatorioRetorno(String diretorio, int idVendedor, int idCirculacao)
+	{
+		 Document document = new Document();
+		 VendedorDAO vend = new VendedorDAO();
+		 Vendedor v = vend.getVendedor(idVendedor);
+		 Calendar data = Calendar.getInstance();
+		 Locale pt = new Locale("en", "CA");
+		 NumberFormat nf = NumberFormat.getInstance(pt);
+		 //CirculacaoDAO c = new CirculacaoDAO();
+         try {
+             FileOutputStream f = new FileOutputStream(diretorio + "/RelRetorno" + v.nome + data.getTime() + ".pdf");
+             PdfWriter.getInstance(document, f );
+             document.open();
+            
+            
+             // adicionando um parágrafo no documento
+			Paragraph titulo = new Paragraph("RELATÓRIO DE RETORNO\n\n\n\n");
+			titulo.setAlignment(Element.ALIGN_CENTER);
+			FontFactory.getFont(FontFactory.TIMES, Font.BOLD);
+			document.add(titulo);
+			
+			//Aqui será feita uma consulta no banco para extrair as informações necessárias da circulação
+			
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("select  valor_total,vendedor_id,data_hora,qtd_circulando,codigo,produto.nome,preco_final,valor_a_receber from circulacao,produto_circulando,produto,vendedor where produto_circulando.produto_id = produto.id and circulacao.vendedor_id = vendedor.id and circulacao.id="+ idCirculacao +" and qtd_circulando != 0");
+						
+			PdfPTable tabela = new PdfPTable(5);
+			PdfPCell codigo = new PdfPCell(new Paragraph("Código"));
+			PdfPCell nomeProduto = new PdfPCell(new Paragraph("Nome do Produto"));
+			PdfPCell precou = new PdfPCell(new Paragraph("Preço Unitário (R$)"));
+			PdfPCell qtd = new PdfPCell(new Paragraph("Quantidade"));
+			PdfPCell precot = new PdfPCell(new Paragraph("Preço Total (R$)"));
+			
+			tabela.addCell(codigo);
+			tabela.addCell(nomeProduto);
+			tabela.addCell(precou);
+			tabela.addCell(qtd);
+			tabela.addCell(precot);
+			
+			tabela.setHorizontalAlignment(Element.ALIGN_CENTER);
+			
+			Double  totaCirculacao = (double) 0;//Esse é o valor total de produtos
+			Double comissao = (double) 0;
+			while(rs.next())
+			{
+				PdfPCell codigoe = new PdfPCell(new Paragraph(rs.getString(5)));
+				PdfPCell nomeProdutoe = new PdfPCell(new Paragraph(rs.getString(6)));
+				double r = rs.getDouble(7) * 100;
+				Double round = (double) Math.round(r);
+				round = round/100;
+				PdfPCell precoue = new PdfPCell(new Paragraph(round.toString()));
+				PdfPCell qtde = new PdfPCell(new Paragraph(rs.getString(4)));
+				Double total = rs.getInt(4) * round * 100;
+				total = (double) Math.round(total);
+				total = total/100;
+				PdfPCell precote = new PdfPCell(new Paragraph(total.toString()));
+				
+				tabela.addCell(codigoe);
+				tabela.addCell(nomeProdutoe);
+				tabela.addCell(precoue);
+				tabela.addCell(qtde);
+				tabela.addCell(precote);
+				
+				double circ = rs.getDouble(1) * 100;
+				totaCirculacao = (double) Math.round(circ);
+				totaCirculacao = totaCirculacao / 100;
+				
+				double com = rs.getDouble(8) * 100;
+				comissao = (double) Math.round(com);
+				comissao = comissao / 100;
+				
+			}
+			
+			
+			
+			
+			
+			Paragraph p = new Paragraph("        Os seguintes produtos estão retornando ao estoque na data "+ data.get(Calendar.DAY_OF_MONTH) + "/" + (data.get(Calendar.MONTH) + 1) + "/" + data.get(Calendar.YEAR) + " no horário " + data.get(Calendar.HOUR_OF_DAY) + "h e " + data.get(Calendar.MINUTE) + "min através do vendedor " + v.nome + ":\n\n");
+			p.setAlignment(Element.ALIGN_JUSTIFIED);
+			document.add(p);
+			document.add(tabela);
+			
+			Paragraph concl = new Paragraph("\n\n        O valor total que está sendo retornado é de: R$ " + totaCirculacao + " E a comissão a ser paga ao vendedor pelos produtos vendidos abaixo listados é de: R$ " + comissao + " .\n\n");
+			concl.setAlignment(Element.ALIGN_JUSTIFIED);
+			document.add(concl);
+			
+			//Adicionar tabela vendidos
+			
+			Statement ts = conexao.createStatement();
+			ResultSet sr = ts.executeQuery("select  qtd_produto,codigo,produto.nome,preco_final from circulacao,produto_vendido,produto,vendedor where produto_vendido.produto_id = produto.id and circulacao.vendedor_id = vendedor.id and circulacao.id=" + idCirculacao);
+						
+			PdfPTable tabelav = new PdfPTable(5);
+			PdfPCell codigov = new PdfPCell(new Paragraph("Código"));
+			PdfPCell nomeProdutov = new PdfPCell(new Paragraph("Nome do Produto"));
+			PdfPCell precov = new PdfPCell(new Paragraph("Preço Unitário (R$)"));
+			PdfPCell qtdv = new PdfPCell(new Paragraph("Quantidade"));
+			PdfPCell precotv = new PdfPCell(new Paragraph("Preço Total (R$)"));
+			
+			tabelav.addCell(codigov);
+			tabelav.addCell(nomeProdutov);
+			tabelav.addCell(precov);
+			tabelav.addCell(qtdv);
+			tabelav.addCell(precotv);
+			
+			while (sr.next())
+			{
+				PdfPCell codigoe = new PdfPCell(new Paragraph(sr.getString(2)));
+				PdfPCell nomeProdutoe = new PdfPCell(new Paragraph(sr.getString(3)));
+				double r = sr.getDouble(4) * 100;
+				Double round = (double) Math.round(r);
+				round = round/100;
+				PdfPCell precoue = new PdfPCell(new Paragraph(round.toString()));
+				PdfPCell qtde = new PdfPCell(new Paragraph(sr.getString(1)));
+				Double total = sr.getInt(1) * round * 100;
+				total = (double) Math.round(total);
+				total = total/100;
+				PdfPCell precote = new PdfPCell(new Paragraph(total.toString()));
+				
+				tabelav.addCell(codigoe);
+				tabelav.addCell(nomeProdutoe);
+				tabelav.addCell(precoue);
+				tabelav.addCell(qtde);
+				tabelav.addCell(precote);
+			}
+			
+		
+			
+			tabelav.setHorizontalAlignment(Element.ALIGN_CENTER);
+			
+			document.add(tabelav);
+			Paragraph line = new Paragraph("\n\n\nAss: _________________________________");
+			line.setAlignment(Element.ALIGN_CENTER);
+			
+			document.add(line);
+			Paragraph nomep = new Paragraph("Oseás Oliveira da Silva\n");
+			nomep.setAlignment(Element.ALIGN_CENTER);
+			document.add(nomep);
+			
+			document.add(line);			
+			Paragraph nomeVend = new Paragraph(v.nome);
+			nomeVend.setAlignment(Element.ALIGN_CENTER);
+			document.add(nomeVend);
+			
+			
+			
+			
+         }
+         catch(DocumentException de) {
+             System.err.println(de.getMessage());
+         }
+         catch(IOException ioe) {
+             System.err.println(ioe.getMessage());
+         } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+         document.close();
+		return diretorio + "/RelRetorno" + v.nome + data.getTime() + ".pdf";
+     }
+	
 	public static void main(String[] args) {
 		GeraPDF recibo = new GeraPDF();
-		VendedorDAO v = new VendedorDAO();
+		//VendedorDAO v = new VendedorDAO();
 		
-		recibo.geraRelatorioSaida("/home/felipedmsantos/Área de Trabalho", v.getVendedor(6),1);
+		recibo.geraRelatorioRetorno("/home/felipedmsantos/Área de Trabalho", 6,4);
 		
 		
 	}

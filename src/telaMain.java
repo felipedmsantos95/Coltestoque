@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.Font;
 
 public class telaMain extends JFrame {
 
@@ -41,14 +42,14 @@ public class telaMain extends JFrame {
 	 */
 	public telaMain() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel label = new JLabel("");
-		label.setBounds(22, 205, 170, 41);
+		label.setBounds(59, 422, 245, 63);
 		
 		ImageIcon foto = new ImageIcon(telaMain.class.getResource("/img/coltech.png"));
 		Image imag = foto.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
@@ -56,19 +57,20 @@ public class telaMain extends JFrame {
 		contentPane.add(label);
 		
 		JButton btnEstoque = new JButton("Estoque");
-		btnEstoque.setBounds(40, 74, 130, 25);
+		btnEstoque.setBounds(88, 129, 174, 38);
 		contentPane.add(btnEstoque);
 		
 		JButton btnVendedores = new JButton("Vendedores");
-		btnVendedores.setBounds(40, 111, 130, 25);
+		btnVendedores.setBounds(88, 191, 174, 38);
 		contentPane.add(btnVendedores);
 		
 		JButton btnNovaVenda = new JButton("Nova Venda");
-		btnNovaVenda.setBounds(40, 148, 130, 25);
+		btnNovaVenda.setBounds(88, 252, 174, 38);
 		contentPane.add(btnNovaVenda);
 		
 		JLabel lblColtestoqueV = new JLabel("ColtEstoque v1.0");
-		lblColtestoqueV.setBounds(154, 12, 150, 15);
+		lblColtestoqueV.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblColtestoqueV.setBounds(339, 12, 157, 43);
 		contentPane.add(lblColtestoqueV);
 	}
 }

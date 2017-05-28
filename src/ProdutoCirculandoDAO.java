@@ -25,6 +25,31 @@ public class ProdutoCirculandoDAO extends BancoDeDados{
 		}		
 	}
 	
+	//Vai retornar a primeira ocorrrencia onde a quantidade não é nula, pois ela ira decrementar na medida em que os produtos são vendidos
+	public int getProdutoCirculandoID(Circulacao c, Produto p, Vendedor v)//Procura exatamente pelo objeto vendedor e retorna o id do espelho dele no banco
+	{
+		CirculacaoDAO circ = new CirculacaoDAO();
+		ProdutoDAO prod = new ProdutoDAO();
+		VendedorDAO vend = new VendedorDAO();
+		
+		try
+		{
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("select produto_circulando.id,qtd_circulando from produto_circulando,circulacao where produto_circulando.circulacao_id =" +circ.getCirculacaoID(c, v) + " and produto_circulando.produto_id = " + prod.getProdutoID(p) + " and circulacao.vendedor_id = " + vend.getVendedorID(v));
+			
+			while(rs.next())
+			{
+				if(rs.getInt(2) > 0) return rs.getInt(1);
+				
+			}
+			return 0;
+		}
+		catch(SQLException e)
+		{
+			return 0;
+		}
+				
+	}
 		
 	public boolean addProdutoCirculacao(Produto p, int qtd, Circulacao circ, Vendedor v)
 	{
@@ -59,8 +84,7 @@ public class ProdutoCirculandoDAO extends BancoDeDados{
 		CirculacaoDAO c = new CirculacaoDAO();
 		ProdutoCirculandoDAO pc = new ProdutoCirculandoDAO();
 		
-		//pc.addProdutoCirculacao(p.getProduto(3), 7, c.getCirculacao(1), v.getVendedor(6));
-		
+		System.out.println(pc.addProdutoCirculacao(p.getProduto(2), 50, c.getCirculacao(4), v.getVendedor(6)));		
 		//System.out.println(p.getProduto(9).precoFinal);
 //
 	}

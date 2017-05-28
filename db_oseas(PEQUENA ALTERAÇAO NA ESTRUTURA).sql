@@ -30,7 +30,7 @@ CREATE TABLE `circulacao` (
   PRIMARY KEY (`id`),
   KEY `fk_circulacao_vendedor_idx` (`vendedor_id`),
   CONSTRAINT `fk_circulacao_vendedor` FOREIGN KEY (`vendedor_id`) REFERENCES `vendedor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `circulacao` (
 
 LOCK TABLES `circulacao` WRITE;
 /*!40000 ALTER TABLE `circulacao` DISABLE KEYS */;
+INSERT INTO `circulacao` VALUES (1,'2017-05-27 21:48:52',6,24.2772),(2,'2017-05-27 21:50:30',7,0);
 /*!40000 ALTER TABLE `circulacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +115,7 @@ CREATE TABLE `produto_circulando` (
   KEY `fk_produto_circulando_produto1_idx` (`produto_id`),
   CONSTRAINT `fk_produto_circulando_circulacao1` FOREIGN KEY (`circulacao_id`) REFERENCES `circulacao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_produto_circulando_produto1` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,6 +124,7 @@ CREATE TABLE `produto_circulando` (
 
 LOCK TABLES `produto_circulando` WRITE;
 /*!40000 ALTER TABLE `produto_circulando` DISABLE KEYS */;
+INSERT INTO `produto_circulando` VALUES (2,3,1,1),(3,5,1,2),(4,7,1,3);
 /*!40000 ALTER TABLE `produto_circulando` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,9 +141,12 @@ CREATE TABLE `produto_vendido` (
   `produto_id` int(11) NOT NULL,
   `circulacao_id` int(11) NOT NULL,
   `data_venda` datetime NOT NULL,
+  `produto_circulando_id` int(11) NOT NULL,
   PRIMARY KEY (`id`,`produto_id`),
   KEY `fk_produto_vendido_produto1_idx` (`produto_id`),
   KEY `fk_produto_vendido_circulacao1_idx` (`circulacao_id`),
+  KEY `fk_produto_vendido_produto_circulando1` (`produto_circulando_id`),
+  CONSTRAINT `fk_produto_vendido_produto_circulando1` FOREIGN KEY (`produto_circulando_id`) REFERENCES `produto_circulando` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_produto_vendido_circulacao1` FOREIGN KEY (`circulacao_id`) REFERENCES `circulacao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_produto_vendido_produto1` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -179,7 +184,7 @@ CREATE TABLE `vendedor` (
 
 LOCK TABLES `vendedor` WRITE;
 /*!40000 ALTER TABLE `vendedor` DISABLE KEYS */;
-INSERT INTO `vendedor` VALUES (6,'Catatau','000.000.000-15',20,NULL),(7,'Zé Colméia','000.000.000-10',15,NULL);
+INSERT INTO `vendedor` VALUES (6,'Catatau','000.000.000-14',20,NULL),(7,'Zé Colméia','000.000.000-10',15,10);
 /*!40000 ALTER TABLE `vendedor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -192,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-26 19:14:37
+-- Dump completed on 2017-05-28 11:09:07
