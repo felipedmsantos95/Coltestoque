@@ -45,14 +45,23 @@ public class ProdutoCirculandoDAO extends BancoDeDados{
 		}
 		catch(SQLException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
+			e.printStackTrace();
 			return false;
 		}
 	}
 	
 	
 	public static void main(String[] args) {
+		ProdutoDAO p = new ProdutoDAO();
+		ProdutoDAO p1 = new ProdutoDAO();
+		VendedorDAO v = new VendedorDAO();
+		CirculacaoDAO c = new CirculacaoDAO();
+		ProdutoCirculandoDAO pc = new ProdutoCirculandoDAO();
 		
+		//pc.addProdutoCirculacao(p.getProduto(1), 3, c.getCirculacao(1), v.getVendedor(6));
+		
+		System.out.println(p.getProduto(9).precoFinal);
 //
 	}
 

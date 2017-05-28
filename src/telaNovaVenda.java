@@ -97,8 +97,8 @@ public class telaNovaVenda {
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				telaImpressaoTermo termoVenda = new telaImpressaoTermo(/* colocar id do vendedor*/);
-				termoVenda.setVisible(true);
+				//telaImpressaoTermo termoVenda = new telaImpressaoTermo(/* colocar id do vendedor*/);
+				//termoVenda.setVisible(true);
 			}
 		});
 		btnConfirmar.setBounds(365, 283, 89, 23);

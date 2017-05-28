@@ -76,7 +76,10 @@ public class CirculacaoDAO extends BancoDeDados{
 	
 	public static void main(String[] args) {
 		
+		Vendedor v = new Vendedor("zé colméia", "000.000.000-10", 15);
+		CirculacaoDAO circ = new CirculacaoDAO();
 		
+		//circ.iniciarCirculacao(v);
 		
 	}
 

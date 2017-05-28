@@ -33,6 +33,17 @@ public class Produto {
 		this.precoFinal = (this.getPrecoCompra() * (1 + (this.getPercentLucro()/100)));
 	}
 	
+	//Este é para poder buscar o obejto produto correto no banco por id na classe ProdutoDAO
+	Produto(String codigo, String nome, double precoCompra, String descricao, double precoFinal)
+	{
+		this.nome = nome;
+		this.codigo = codigo;
+		this.quantidadeEstoque = 0;
+		this.descricao = descricao;
+		this.setPrecoCompra(precoCompra);
+		this.precoFinal = precoFinal;
+	}
+	
 	Produto( String codigo, String nome, double precoCompra, double percentlucro, String descricao)//Criei para poder extrair um produto da tabela produto
 	{
 		this.nome = nome;

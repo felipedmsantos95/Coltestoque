@@ -81,7 +81,7 @@ public class ProdutoDAO extends BancoDeDados{
 			
 			if(rs.next()) 
 			{
-				return new Produto(rs.getString(2),rs.getString(3), rs.getDouble(4), rs.getString(5));
+				return new Produto(rs.getString(2),rs.getString(3),rs.getDouble(5), rs.getString(6), rs.getDouble(4));
 			}
 			else return null;
 		
