@@ -26,7 +26,7 @@ public class telaImpressaoTermo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					telaImpressaoTermo window = new telaImpressaoTermo(7);//Coloquei esse 7 pra testar um dos exemplos de vendedor cadastrado, podes testar com outro id que vc tiver aí
+					telaImpressaoTermo window = new telaImpressaoTermo(6,1);//Aqui estava testando um exemplo para geracao de relatorio de saida
 					window.frmImpressoDeTermo.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,6 +40,10 @@ public class telaImpressaoTermo extends JFrame {
 	 */
 	public telaImpressaoTermo(int idVendedor) {
 		initializeRecibo(idVendedor);
+	}
+	
+	public telaImpressaoTermo(int idVendedor, int idCirculacao) {
+		initializeSaida(idVendedor, idCirculacao);
 	}
 
 	/**
@@ -63,6 +67,69 @@ public class telaImpressaoTermo extends JFrame {
 				
 				try {
 					java.awt.Desktop.getDesktop().open( new File(recibo.geraRecibo(path.getText(), v.getVendedor(idVendedor))) );
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null,"Erro ao selecionar a pasta, verifique se o campo foi preenchio ou se o diretório existe.");
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnImprimir.setBounds(310, 224, 126, 37);
+		frmImpressoDeTermo.getContentPane().add(btnImprimir);
+		
+		path = new JTextField();
+		path.setBounds(22, 109, 263, 19);
+		frmImpressoDeTermo.getContentPane().add(path);
+		path.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Escolher Pasta");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new java.io.File("."));
+				chooser.setDialogTitle("Escolher Pasta");
+				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				chooser.setAcceptAllFileFilterUsed(false);
+				
+				
+
+				if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					path.setText(chooser.getSelectedFile().toString());
+					
+				} else {
+					
+				}
+				
+			}
+		});
+		btnNewButton.setBounds(297, 109, 139, 19);
+		frmImpressoDeTermo.getContentPane().add(btnNewButton);
+		
+		JLabel lblPastaASer = new JLabel("Pasta a ser salvo:");
+		lblPastaASer.setBounds(22, 82, 139, 15);
+		frmImpressoDeTermo.getContentPane().add(lblPastaASer);
+	}
+	
+	//Aqui precisamos do id da circulacao que o vendedor abriu também
+	
+	private void initializeSaida(int idVendedor, int idCirculacao) {
+		frmImpressoDeTermo = new JFrame();
+		frmImpressoDeTermo.setTitle("Impress\u00E3o de Termo");
+		frmImpressoDeTermo.setBounds(100, 100, 450, 300);
+		frmImpressoDeTermo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmImpressoDeTermo.getContentPane().setLayout(null);
+		
+		
+		
+		JButton btnImprimir = new JButton("Imprimir");
+		btnImprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GeraPDF relatorios = new GeraPDF();
+				VendedorDAO v = new VendedorDAO();
+				
+				
+				try {
+					java.awt.Desktop.getDesktop().open( new File(relatorios.geraRelatorioSaida(path.getText(), v.getVendedor(idVendedor), idCirculacao)) );
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null,"Erro ao selecionar a pasta, verifique se o campo foi preenchio ou se o diretório existe.");
 					// TODO Auto-generated catch block

@@ -21,6 +21,22 @@ public class CirculacaoDAO extends BancoDeDados{
 		}
 	}
 	
+	public boolean removerCirculacao(int id)
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			st.executeUpdate("DELETE FROM circulacao WHERE id=" + id);
+			return true;
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	
+	
 	public Circulacao getCirculacao(int id)
 	{
 		try
