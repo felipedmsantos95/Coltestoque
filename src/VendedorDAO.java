@@ -131,13 +131,30 @@ public class VendedorDAO extends BancoDeDados {
 		}
 	}
 	
+	public double getComissaoVendedor(int idVendedor)
+	{
+			try
+			{
+				Statement st = conexao.createStatement();
+				ResultSet rs = st.executeQuery("SELECT valor_a_receber FROM vendedor WHERE id=" + idVendedor);
+				
+				if(rs.next()) return rs.getDouble(1);
+				else return 0;
+			}
+			catch(SQLException e)
+			{
+				return 0;
+			}		
+		
+	}
+	
 	
 	//Para testar e aplicar métodos criados no banco local
 	public static void main(String[] args) {
 		VendedorDAO vend = new VendedorDAO();
 		Vendedor v = new Vendedor("Catatau", "000.000.000-15", 20);
 		
-		System.out.println(vend.adicionarVendedor(v));
+		//System.out.println(vend.getComissaoVendedor(6));
 		
 	}
 

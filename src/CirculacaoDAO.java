@@ -88,7 +88,23 @@ public class CirculacaoDAO extends BancoDeDados{
 			return 0;
 		}		
 	}
-	//Atualizar valor total da circulacao
+	
+	public double getValorCirculacao(int idCirculacao)
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("SELECT valor_total FROM circulacao WHERE id =" + idCirculacao);//Alterar aqui
+			
+			if(rs.next()) return rs.getDouble(1);
+			else return 0;
+		}
+		catch(SQLException e)
+		{
+			return 0;
+		}		
+	}
+	
 	
 	public static void main(String[] args) {
 		
@@ -96,7 +112,8 @@ public class CirculacaoDAO extends BancoDeDados{
 		CirculacaoDAO circ = new CirculacaoDAO();
 		
 		
-		circ.iniciarCirculacao(v);
+		//circ.iniciarCirculacao(v);
+		//System.out.println(circ.getValorCirculacao(4));
 		
 	}
 

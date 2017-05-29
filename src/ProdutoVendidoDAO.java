@@ -85,6 +85,28 @@ public class ProdutoVendidoDAO extends BancoDeDados {
 		}
 	}
 	
+	public double getValorVendido(int id_circulacao)
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("select qtd_produto, preco_final from produto_vendido,produto where produto_vendido.produto_id = produto.id and circulacao_id=" +id_circulacao);
+			double valor = 0;
+			while(rs.next())
+			{
+				double prod = rs.getDouble(1) * rs.getDouble(2);
+				valor += prod;
+			}
+			return valor;
+		}
+		catch(SQLException e)
+		{
+			return 0;
+		}
+	}
+	
+	
+	
 	
 	public static void main(String[] args) {
 		
@@ -93,8 +115,8 @@ public class ProdutoVendidoDAO extends BancoDeDados {
 		CirculacaoDAO c = new CirculacaoDAO();
 		ProdutoVendidoDAO pv = new ProdutoVendidoDAO();
 		//(c.getCirculacao(1), p.getProduto(3), v.getVendedor(6))
-		System.out.println((pv.addProdutoVendido(p.getProduto(3), 10, c.getCirculacao(4), v.getVendedor(6))));
-
+		//System.out.println((pv.addProdutoVendido(p.getProduto(3), 10, c.getCirculacao(4), v.getVendedor(6))));
+		//System.out.println(pv.getValorVendido(4));
 	}
 
 }

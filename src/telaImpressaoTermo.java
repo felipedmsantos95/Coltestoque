@@ -26,7 +26,7 @@ public class telaImpressaoTermo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					telaImpressaoTermo window = new telaImpressaoTermo(6,4);//Aqui estava testando um exemplo para geracao de relatorio de saida
+					telaImpressaoTermo window = new telaImpressaoTermo(6);//Aqui estava testando um exemplo para geracao de relatorio de saida
 					window.frmImpressoDeTermo.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
