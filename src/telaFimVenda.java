@@ -87,8 +87,8 @@ public class telaFimVenda extends JFrame {
 		JButton btnFinalizarEPagar = new JButton("Finalizar e pagar vendedor agora");
 		btnFinalizarEPagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				telaImpressaoTermo termoRetornoPagaAgora = new telaImpressaoTermo();
-				termoRetornoPagaAgora.setVisible(true);
+				//telaImpressaoTermo termoRetornoPagaAgora = new telaImpressaoTermo();
+				//termoRetornoPagaAgora.setVisible(true);
 			}
 		});
 		btnFinalizarEPagar.setBounds(223, 180, 201, 23);
@@ -97,8 +97,8 @@ public class telaFimVenda extends JFrame {
 		JButton btnFinalizarEPagar_1 = new JButton("Finalizar e pagar vendedor depois");
 		btnFinalizarEPagar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				telaImpressaoTermo termoRetornoPagaDepois = new telaImpressaoTermo();
-				termoRetornoPagaDepois.setVisible(true);
+				//telaImpressaoTermo termoRetornoPagaDepois = new telaImpressaoTermo();
+				//termoRetornoPagaDepois.setVisible(true);
 			}
 		});
 		btnFinalizarEPagar_1.setBounds(223, 211, 201, 23);

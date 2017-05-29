@@ -256,9 +256,8 @@ public class GeraPDF extends BancoDeDados {
 				tabela.addCell(qtde);
 				tabela.addCell(precote);
 				
-				double circ = rs.getDouble(1) * 100;
-				totaCirculacao = (double) Math.round(circ);
-				totaCirculacao = totaCirculacao / 100;
+				totaCirculacao += total;
+				
 				
 				double com = rs.getDouble(8) * 100;
 				comissao = (double) Math.round(com);
@@ -266,7 +265,9 @@ public class GeraPDF extends BancoDeDados {
 				
 			}
 			
-			
+			double circ = totaCirculacao * 100;
+			totaCirculacao = (double) Math.round(circ);
+			totaCirculacao = totaCirculacao / 100;
 			
 			
 			
