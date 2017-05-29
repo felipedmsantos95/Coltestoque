@@ -68,7 +68,9 @@ public class VendedorDAO extends BancoDeDados {
 			
 			if(rs.next()) 
 			{
-				return new Vendedor(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getDouble(5));//A coluna 3 é a do CPF
+				//Tenho que tirar o valor vendido do vendedor atraves do valor receber da tabela
+				double valorVendido = rs.getDouble(5)/(rs.getDouble(4)/100);
+				return new Vendedor(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getDouble(4), valorVendido);//A coluna 3 é a do CPF
 			}
 			else return null;
 		
