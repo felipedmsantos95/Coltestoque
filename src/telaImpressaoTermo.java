@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 
 public class telaImpressaoTermo extends JFrame {
 
-	private JFrame frmImpressoDeTermo;
+
 	private JTextField path;
 
 	/**
@@ -27,7 +27,7 @@ public class telaImpressaoTermo extends JFrame {
 			public void run() {
 				try {
 					telaImpressaoTermo window = new telaImpressaoTermo(6);//Aqui estava testando um exemplo para geracao de relatorio de saida
-					window.frmImpressoDeTermo.setVisible(true);
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,11 +54,11 @@ public class telaImpressaoTermo extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initializeRecibo(int idVendedor) {
-		frmImpressoDeTermo = new JFrame();
-		frmImpressoDeTermo.setTitle("Impress\u00E3o de Termo");
-		frmImpressoDeTermo.setBounds(100, 100, 450, 300);
-		frmImpressoDeTermo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmImpressoDeTermo.getContentPane().setLayout(null);
+
+		this.setTitle("Impress\u00E3o de Termo");
+		this.setBounds(100, 100, 450, 300);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.getContentPane().setLayout(null);
 		
 		
 		
@@ -79,11 +79,11 @@ public class telaImpressaoTermo extends JFrame {
 			}
 		});
 		btnImprimir.setBounds(310, 224, 126, 37);
-		frmImpressoDeTermo.getContentPane().add(btnImprimir);
+		this.getContentPane().add(btnImprimir);
 		
 		path = new JTextField();
 		path.setBounds(22, 109, 263, 19);
-		frmImpressoDeTermo.getContentPane().add(path);
+		this.getContentPane().add(path);
 		path.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Escolher Pasta");
@@ -107,21 +107,20 @@ public class telaImpressaoTermo extends JFrame {
 			}
 		});
 		btnNewButton.setBounds(297, 109, 139, 19);
-		frmImpressoDeTermo.getContentPane().add(btnNewButton);
+		this.getContentPane().add(btnNewButton);
 		
 		JLabel lblPastaASer = new JLabel("Pasta a ser salvo:");
 		lblPastaASer.setBounds(22, 82, 139, 15);
-		frmImpressoDeTermo.getContentPane().add(lblPastaASer);
+		this.getContentPane().add(lblPastaASer);
 	}
 	
 	//Aqui precisamos do id da circulacao que o vendedor abriu também
 	
 	private void initializeSaida(int idVendedor, int idCirculacao) {
-		frmImpressoDeTermo = new JFrame();
-		frmImpressoDeTermo.setTitle("Impress\u00E3o de Termo");
-		frmImpressoDeTermo.setBounds(100, 100, 450, 300);
-		frmImpressoDeTermo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmImpressoDeTermo.getContentPane().setLayout(null);
+		this.setTitle("Impress\u00E3o de Termo");
+		this.setBounds(100, 100, 450, 300);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.getContentPane().setLayout(null);
 		
 		
 		
@@ -142,11 +141,11 @@ public class telaImpressaoTermo extends JFrame {
 			}
 		});
 		btnImprimir.setBounds(310, 224, 126, 37);
-		frmImpressoDeTermo.getContentPane().add(btnImprimir);
+		this.getContentPane().add(btnImprimir);
 		
 		path = new JTextField();
 		path.setBounds(22, 109, 263, 19);
-		frmImpressoDeTermo.getContentPane().add(path);
+		this.getContentPane().add(path);
 		path.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Escolher Pasta");
@@ -170,19 +169,18 @@ public class telaImpressaoTermo extends JFrame {
 			}
 		});
 		btnNewButton.setBounds(297, 109, 139, 19);
-		frmImpressoDeTermo.getContentPane().add(btnNewButton);
+		this.getContentPane().add(btnNewButton);
 		
 		JLabel lblPastaASer = new JLabel("Pasta a ser salvo:");
 		lblPastaASer.setBounds(22, 82, 139, 15);
-		frmImpressoDeTermo.getContentPane().add(lblPastaASer);
+		this.getContentPane().add(lblPastaASer);
 	}
 	
 	private void initializeRetorno(Vendedor idVendedor, int idCirculacao) {
-		frmImpressoDeTermo = new JFrame();
-		frmImpressoDeTermo.setTitle("Impress\u00E3o de Termo");
-		frmImpressoDeTermo.setBounds(100, 100, 450, 300);
-		frmImpressoDeTermo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmImpressoDeTermo.getContentPane().setLayout(null);
+		this.setTitle("Impress\u00E3o de Termo");
+		this.setBounds(100, 100, 450, 300);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.getContentPane().setLayout(null);
 		
 		
 		
@@ -203,11 +201,11 @@ public class telaImpressaoTermo extends JFrame {
 			}
 		});
 		btnImprimir.setBounds(310, 224, 126, 37);
-		frmImpressoDeTermo.getContentPane().add(btnImprimir);
+		this.getContentPane().add(btnImprimir);
 		
 		path = new JTextField();
 		path.setBounds(22, 109, 263, 19);
-		frmImpressoDeTermo.getContentPane().add(path);
+		this.getContentPane().add(path);
 		path.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Escolher Pasta");
@@ -231,10 +229,10 @@ public class telaImpressaoTermo extends JFrame {
 			}
 		});
 		btnNewButton.setBounds(297, 109, 139, 19);
-		frmImpressoDeTermo.getContentPane().add(btnNewButton);
+		this.getContentPane().add(btnNewButton);
 		
 		JLabel lblPastaASer = new JLabel("Pasta a ser salvo:");
 		lblPastaASer.setBounds(22, 82, 139, 15);
-		frmImpressoDeTermo.getContentPane().add(lblPastaASer);
+		this.getContentPane().add(lblPastaASer);
 	}
 }

@@ -35,7 +35,7 @@ public class GeraPDF extends BancoDeDados {
              PdfWriter.getInstance(document, f );
              document.open();
             
-             double r = v.getValorAReceber() * 100;
+             double r = v.valorReceber() * 100;
 				Double round = (double) Math.round(r);
 				round = round/100;
              // adicionando um parágrafo no documento

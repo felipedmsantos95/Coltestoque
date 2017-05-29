@@ -72,5 +72,9 @@ public class telaMain extends JFrame {
 		lblColtestoqueV.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblColtestoqueV.setBounds(339, 12, 157, 43);
 		contentPane.add(lblColtestoqueV);
+		
+		JButton btnSobre = new JButton("Sobre");
+		btnSobre.setBounds(88, 310, 174, 38);
+		contentPane.add(btnSobre);
 	}
 }

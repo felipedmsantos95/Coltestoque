@@ -57,48 +57,48 @@ public class telaFimVenda extends JFrame {
 		
 		frmResultadoVenda = new JFrame();
 		frmResultadoVenda.setTitle("Resultado Venda");
-		frmResultadoVenda.setBounds(100, 100, 450, 300);
+		frmResultadoVenda.setBounds(100, 100, 800, 550);
 		frmResultadoVenda.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmResultadoVenda.getContentPane().setLayout(null);
 		
 		JLabel lblValorRetiradoEm = new JLabel("Valor Retirado (R$):");
-		lblValorRetiradoEm.setBounds(84, 60, 138, 14);
+		lblValorRetiradoEm.setBounds(216, 117, 138, 14);
 		frmResultadoVenda.getContentPane().add(lblValorRetiradoEm);
 		
 		JLabel lblValorVendido = new JLabel("Valor Vendido (R$):");
-		lblValorVendido.setBounds(84, 85, 138, 14);
+		lblValorVendido.setBounds(216, 176, 138, 14);
 		frmResultadoVenda.getContentPane().add(lblValorVendido);
 		
 		JLabel lblComissoDoVendedor = new JLabel("Comissão (R$):");
-		lblComissoDoVendedor.setBounds(113, 111, 109, 14);
+		lblComissoDoVendedor.setBounds(245, 239, 109, 14);
 		frmResultadoVenda.getContentPane().add(lblComissoDoVendedor);
 		
 		valorRetirado = new JTextField();
+		valorRetirado.setEditable(false);
 		valorRetirado.setForeground(Color.BLACK);
-		valorRetirado.setEnabled(false);
 		String vr = String.valueOf(circ.getValorCirculacao(idCirculacao));
 		valorRetirado.setText(vr);
-		valorRetirado.setBounds(230, 58, 86, 20);
+		valorRetirado.setBounds(394, 109, 101, 32);
 		frmResultadoVenda.getContentPane().add(valorRetirado);
 		valorRetirado.setColumns(10);
 		
 		valorVendido = new JTextField();
-		valorVendido.setEnabled(false);
+		valorVendido.setEditable(false);
 		String vv = String.valueOf(pv.getValorVendido(idCirculacao));
 		valorVendido.setText(vv);
-		valorVendido.setBounds(230, 84, 86, 20);
+		valorVendido.setBounds(394, 168, 101, 32);
 		frmResultadoVenda.getContentPane().add(valorVendido);
 		valorVendido.setColumns(10);
 		
 		comissao = new JTextField();
-		comissao.setEnabled(false);
+		comissao.setEditable(false);
 		String c = String.valueOf(vend.getComissaoVendedor(idVendedor));
 		comissao.setText(c);
-		comissao.setBounds(230, 109, 86, 20);
+		comissao.setBounds(394, 231, 101, 32);
 		frmResultadoVenda.getContentPane().add(comissao);
 		comissao.setColumns(10);
 		
-		JButton btnFinalizarEPagar = new JButton("Finalizar e Pagar");
+		JButton btnFinalizarEPagar = new JButton("Gerar Recibo");
 		btnFinalizarEPagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				telaImpressaoTermo termoRetornoPagaAgora = new telaImpressaoTermo(idVendedor);
@@ -106,10 +106,10 @@ public class telaFimVenda extends JFrame {
 				
 			}
 		});
-		btnFinalizarEPagar.setBounds(193, 215, 238, 23);
+		btnFinalizarEPagar.setBounds(505, 441, 257, 46);
 		frmResultadoVenda.getContentPane().add(btnFinalizarEPagar);
 		
-		JButton btnFinalizarEPagar_1 = new JButton("Finalizar");
+		JButton btnFinalizarEPagar_1 = new JButton("Gerar Relatório");
 		btnFinalizarEPagar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				telaImpressaoTermo termoRetornoPagaDepois = new telaImpressaoTermo(vend.getVendedor(idVendedor), idCirculacao);
@@ -117,7 +117,7 @@ public class telaFimVenda extends JFrame {
 				
 			}
 		});
-		btnFinalizarEPagar_1.setBounds(193, 180, 238, 23);
+		btnFinalizarEPagar_1.setBounds(505, 367, 257, 46);
 		frmResultadoVenda.getContentPane().add(btnFinalizarEPagar_1);
 	}
 
