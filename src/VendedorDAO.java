@@ -9,7 +9,7 @@ public class VendedorDAO extends BancoDeDados {
 		try
 		{
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO vendedor VALUES (NULL, '" + v.nome +"', '" + v.getCpf() + "'," + v.getPercentual() + ", NULL)");
+			st.executeUpdate("INSERT INTO vendedor VALUES (NULL, '" + v.nome +"', '" + v.getCpf() + "'," + v.getPercentual() + ", NULL);");
 			return true;
 		}
 		catch(SQLException e)
@@ -103,7 +103,7 @@ public class VendedorDAO extends BancoDeDados {
 		try
 		{
 			Statement st = conexao.createStatement();
-			st.executeUpdate("UPDATE vendedor SET valor_a_receber=NULL WHERE id=" + id);
+			st.executeUpdate("UPDATE vendedor SET valor_a_receber=0 WHERE id=" + id);
 			
 		}
 		catch(SQLException e)
@@ -152,9 +152,9 @@ public class VendedorDAO extends BancoDeDados {
 	//Para testar e aplicar métodos criados no banco local
 	public static void main(String[] args) {
 		VendedorDAO vend = new VendedorDAO();
-		Vendedor v = new Vendedor("Catatau", "000.000.000-15", 20);
+		Vendedor v = new Vendedor("Manda-Chuva", "000.000.000-17", 10);
 		
-		//System.out.println(vend.getComissaoVendedor(6));
+		System.out.println(vend.adicionarVendedor(v));
 		
 	}
 
