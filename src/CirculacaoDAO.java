@@ -4,22 +4,24 @@ public class CirculacaoDAO extends BancoDeDados{
 	
 	
 	public Circulacao iniciarCirculacao(Vendedor v)
-	{
-		VendedorDAO banco = new VendedorDAO();
-		Circulacao c = new Circulacao();
-		
-		try
-		{
-			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO circulacao VALUES (NULL, '" + c.getDataAtual() +"', " + banco.getVendedorID(v) + ", " + c.valorTotal + ")");
-			return c;
-		}
-		catch(SQLException e)
-		{
-			System.out.println(e.getMessage());
-			return null;
-		}
-	}
+    {
+        Circulacao c = new Circulacao();
+       
+        try
+        {
+            Statement st = conexao.createStatement();
+            st.executeUpdate("INSERT INTO circulacao VALUES (NULL, '" + c.getDataAtual() +"', " + v.getID() + ", " + c.valorTotal + ")");
+            ResultSet rs = st.executeQuery("SELECT id FROM circulacao WHERE circulacao.data_hora ='" + c.dataRegistrada + "' AND circulacao.vendedor_id=" + v.getID());//Alterar aqui
+           
+            if(rs.next()) c.setID(rs.getInt(1));
+            return c;
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 	
 	public boolean removerCirculacao(int id)
 	{

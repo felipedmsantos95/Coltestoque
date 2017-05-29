@@ -73,7 +73,7 @@ public class telaImpressaoTermo extends JFrame {
 					java.awt.Desktop.getDesktop().open( new File(recibo.geraRecibo(path.getText(), v.getVendedor(idVendedor))) );
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null,"Erro ao selecionar a pasta, verifique se o campo foi preenchio ou se o diretório existe.");
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 			}

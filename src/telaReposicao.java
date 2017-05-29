@@ -17,13 +17,16 @@ import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
+
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.ListSelectionModel;
 
 public class telaReposicao extends JFrame{

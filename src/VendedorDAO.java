@@ -42,7 +42,7 @@ public class VendedorDAO extends BancoDeDados {
 		try
 		{
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM vendedor");
+			ResultSet rs = st.executeQuery("SELECT * FROM vendedor;");
 			while(rs.next())
 			{		
 				Vendedor novo = new Vendedor(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getDouble(4),rs.getDouble(5));//A coluna 3 é a do cpf

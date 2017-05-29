@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class ProdutoCirculandoDAO extends BancoDeDados{
 
@@ -50,28 +51,61 @@ public class ProdutoCirculandoDAO extends BancoDeDados{
 		}
 				
 	}
-		
+	//mudei aqui pro retira estoque
 	public boolean addProdutoCirculacao(Produto p, int qtd, Circulacao circ, Vendedor v)
 	{
-		ProdutoDAO banco = new ProdutoDAO();
 		CirculacaoDAO c = new CirculacaoDAO();
-		
-		//Vendedor v = c.getCirculacaoVendedor(circ);
-		
-				
+		EstoqueDAO es = new EstoqueDAO();
+					
 		try
 		{
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO produto_circulando VALUES (NULL, " + qtd +", " + c.getCirculacaoID(circ, v) + ", " + banco.getProdutoID(p) + ")");
+			st.executeUpdate("INSERT INTO produto_circulando VALUES (NULL, " + qtd +", " + c.getCirculacaoID(circ, v) + ", " + p.getID() + ")");
 			st.executeUpdate("UPDATE circulacao SET valor_total=" + circ.atualizaValorCirculacao(p, qtd) + "WHERE id=" + c.getCirculacaoID(circ, v));
-			int add = this.extrairQuantidadeCirculandoEstoque(banco.getProdutoID(p))+qtd;
-			st.executeUpdate("UPDATE estoque SET qtd_circulando=" + add + " WHERE produto_id=" + banco.getProdutoID(p));
+			es.retiraEstoque(p.getID(),qtd);
 			return true;
 		}
 		catch(SQLException e)
 		{
 			//System.out.println(e.getMessage());
 			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public ArrayList<ProdutoCirculando> ListarProdutosDessaCirculacao(int id_circulacao)
+	{
+		 ArrayList<ProdutoCirculando> list = new  ArrayList<ProdutoCirculando>();
+		try
+		{
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("SELECT produto_id, qtd_criculando FROM produto_circulando WHERE produto_circulando.circulacao_id =" + id_circulacao+";");
+			
+			while(rs.next()) 
+				{
+				ProdutoDAO produto_bd = new ProdutoDAO();
+				list.add(new ProdutoCirculando(produto_bd.getProduto(rs.getInt(1)), rs.getInt(2)));
+				}
+			return list;
+		}
+		catch(SQLException e)
+		{
+			return null;
+		}
+		
+	}
+	
+	public boolean RemoverProdutosDessaCirculacao(int id_circulacao)
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			st.executeUpdate("DELETE * FROM produto_circulando WHERE produto_circulando.circulacao_id =" + id_circulacao+";");
+
+			return true;
+		}
+		catch(SQLException e)
+		{
 			return false;
 		}
 	}

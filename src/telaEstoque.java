@@ -61,7 +61,7 @@ public class telaEstoque extends JFrame{
 		listProdutos = produto_bd.listarProdutos();
 		DefaultTableModel model =(DefaultTableModel)table.getModel();
 		model.setNumRows(0);
-		Object[] row = new Object[11];
+		Object[] row = new Object[6];
 		for (int i=0; i<listProdutos.size();i++)
 		{
 			row[0] = listProdutos.get(i).getCodigo();
@@ -166,7 +166,17 @@ public class telaEstoque extends JFrame{
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int confirm = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse produto?");
-				if(confirm==0)produto_bd.removerProduto(listProdutos.get(table.getSelectedRow()).getID());
+				if(confirm==0)
+					{
+					Produto produtoSelecionado= listProdutos.get(table.getSelectedRow());
+					//remover do banco de vendidos
+					//remover do banco de circulacao
+					//remover do banco de estoque
+					EstoqueDAO es = new EstoqueDAO();
+					es.removerProdutoEstoque(produtoSelecionado.getID());
+					//remover do banco de produtos
+					produto_bd.removerProduto(produtoSelecionado.getID());
+					}
 			}
 		});
 		btnExcluir.setEnabled(false);

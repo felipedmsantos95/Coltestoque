@@ -111,8 +111,9 @@ public class telaVendedores extends JFrame{
 		btnPagar = new JButton("Pagar");
 		btnPagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//telaImpressaoTermo window= new telaImpressaoTermo(idVendedor, idCirculcao);
-				//window.setVisible(true);
+				// passa o ID do vendedor
+				telaImpressaoTermo window= new telaImpressaoTermo(listVendedores.get(table.getSelectedRow()).getID());
+				window.setVisible(true);
 				dispose();
 			}
 		});

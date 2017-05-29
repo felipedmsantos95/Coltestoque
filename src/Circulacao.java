@@ -1,7 +1,7 @@
 import java.util.Calendar;
 
 public class Circulacao {
-	
+	private int id;//adicionei aqui
 	public double valorTotal;
 	public String dataRegistrada;
 	
@@ -11,6 +11,12 @@ public class Circulacao {
 		this.dataRegistrada = this.getDataAtual();
 	}
 	
+	Circulacao(int id, double valorTotal, String data)
+	{
+		this.id=id;//adicionei aqui
+		this.valorTotal = valorTotal;
+		this.dataRegistrada = data;
+	}
 	Circulacao(double valorTotal, String data)
 	{
 		this.valorTotal = valorTotal;
@@ -51,4 +57,15 @@ public class Circulacao {
 		this.valorTotal = this.valorTotal - valor;
 		return (this.valorTotal);
 	}
+	
+	public void setID(int id)
+	{
+		this.id = id;
+	}
+	
+	public int getID()
+	{
+		return this.id;
+	}
+	
 }

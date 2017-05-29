@@ -7,18 +7,32 @@ import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.ListSelectionModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
-public class telaRetornoVenda {
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.ComponentOrientation;
 
-	private JFrame frmRetornoDeVenda;
-	private JTable table;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+public class telaRetornoVenda extends JFrame{
+	private JTextField textFieldVendedor;
+	private JTextField textFieldDataSaida;
+	private JTextField textFieldDataRetorno;
+	private JTable tableProduto;
+	private JTable tableQuantRetornada;
+	JButton btnConfirmar;
+	ProdutoCirculandoDAO pcirculando_bd = new ProdutoCirculandoDAO();
+	ProdutoVendidoDAO pvendido_bd = new ProdutoVendidoDAO();
+	ArrayList<ProdutoCirculando> listaPedido = new ArrayList<ProdutoCirculando>();
+	CirculacaoDAO circulacao_bd = new CirculacaoDAO();
+	private Circulacao circulacao;
+	private Vendedor vendedor;
 
 	/**
 	 * Launch the application.
@@ -27,8 +41,8 @@ public class telaRetornoVenda {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					telaRetornoVenda window = new telaRetornoVenda();
-					window.frmRetornoDeVenda.setVisible(true);
+					telaRetornoVenda window = new telaRetornoVenda(1);
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,95 +53,158 @@ public class telaRetornoVenda {
 	/**
 	 * Create the application.
 	 */
-	public telaRetornoVenda() {
+	public telaRetornoVenda(int id_circulacao) {
 		initialize();
+		Show_Pedido_In_Jtable();
+		circulacao = circulacao_bd.getCirculacao(id_circulacao);
+		MostrarDadosCirculacao();
+	}
+	private void MostrarDadosCirculacao()
+	{
+		vendedor = circulacao_bd.getCirculacaoVendedor(circulacao);
+		textFieldVendedor.setText(vendedor.getNome());
+		textFieldDataSaida.setText(circulacao.dataRegistrada);
+		textFieldDataRetorno.setText(circulacao.getDataAtual());
+	}
+	
+	private void Show_Pedido_In_Jtable()
+	{
+		listaPedido = pcirculando_bd.ListarProdutosDessaCirculacao(circulacao.getID());
+		DefaultTableModel model =(DefaultTableModel)tableProduto.getModel();
+		model.setNumRows(0);
+		Object[] row = new Object[2];
+		for (int i=0; i<listaPedido.size();i++)
+		{
+			row[0] = listaPedido.get(i).produto.getCodigo();
+			row[1] = listaPedido.get(i).quantCirculando;		
+			model.addRow(row);
+		}
+		DefaultTableModel model1 =(DefaultTableModel)tableQuantRetornada.getModel();
+		model1.setNumRows(0);
+		Object[] row1 = new Object[1];
+		for (int i=0; i<listaPedido.size();i++)
+		{
+			row1[0] = 0;		
+			model1.addRow(row1);
+		}
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmRetornoDeVenda = new JFrame();
-		frmRetornoDeVenda.setTitle("Retorno de Venda");
-		frmRetornoDeVenda.setBounds(100, 100, 475, 333);
-		frmRetornoDeVenda.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmRetornoDeVenda.getContentPane().setLayout(null);
-		
-		table = new JTable();
-		table.setCellSelectionEnabled(true);
-		table.setBounds(25, 163, 404, 86);
-		frmRetornoDeVenda.getContentPane().add(table);
+		this.setTitle("Retorno de Venda");
+		this.setBounds(100, 100, 475, 333);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.getContentPane().setLayout(null);
 		
 		JLabel lblVendedor = new JLabel("Vendedor");
 		lblVendedor.setBounds(12, 24, 91, 14);
-		frmRetornoDeVenda.getContentPane().add(lblVendedor);
+		this.getContentPane().add(lblVendedor);
 		
-		textField = new JTextField();
-		textField.setEnabled(false);
-		textField.setBounds(89, 22, 86, 20);
-		frmRetornoDeVenda.getContentPane().add(textField);
-		textField.setColumns(10);
+		textFieldVendedor = new JTextField();
+		textFieldVendedor.setEnabled(false);
+		textFieldVendedor.setBounds(89, 22, 279, 20);
+		this.getContentPane().add(textFieldVendedor);
+		textFieldVendedor.setColumns(10);
 		
 		JLabel lblDataSada = new JLabel("Data Sa\u00EDda");
-		lblDataSada.setBounds(199, 25, 86, 14);
-		frmRetornoDeVenda.getContentPane().add(lblDataSada);
+		lblDataSada.setBounds(10, 53, 86, 14);
+		this.getContentPane().add(lblDataSada);
 		
 		JLabel lblDataRetorno = new JLabel("Data Retorno");
-		lblDataRetorno.setBounds(199, 48, 76, 14);
-		frmRetornoDeVenda.getContentPane().add(lblDataRetorno);
+		lblDataRetorno.setBounds(196, 53, 76, 14);
+		this.getContentPane().add(lblDataRetorno);
 		
-		textField_1 = new JTextField();
-		textField_1.setEnabled(false);
-		textField_1.setEditable(false);
-		textField_1.setBounds(282, 22, 86, 20);
-		frmRetornoDeVenda.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		textFieldDataSaida = new JTextField();
+		textFieldDataSaida.setEnabled(false);
+		textFieldDataSaida.setEditable(false);
+		textFieldDataSaida.setBounds(89, 49, 86, 20);
+		this.getContentPane().add(textFieldDataSaida);
+		textFieldDataSaida.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setEnabled(false);
-		textField_2.setBounds(282, 50, 86, 20);
-		frmRetornoDeVenda.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		textFieldDataRetorno = new JTextField();
+		textFieldDataRetorno.setEnabled(false);
+		textFieldDataRetorno.setBounds(282, 50, 86, 20);
+		this.getContentPane().add(textFieldDataRetorno);
+		textFieldDataRetorno.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(30, 105, 86, 20);
-		frmRetornoDeVenda.getContentPane().add(textField_3);
-		textField_3.setColumns(10);
-		
-		textField_4 = new JTextField();
-		textField_4.setBounds(159, 105, 86, 20);
-		frmRetornoDeVenda.getContentPane().add(textField_4);
-		textField_4.setColumns(10);
-		
-		JButton btnRetornar = new JButton("Retornar");
-		btnRetornar.setBounds(282, 104, 89, 23);
-		frmRetornoDeVenda.getContentPane().add(btnRetornar);
-		
-		JLabel lblQuantidadeProduto = new JLabel("Codigo Produto");
-		lblQuantidadeProduto.setBounds(25, 85, 126, 14);
-		frmRetornoDeVenda.getContentPane().add(lblQuantidadeProduto);
-		
-		JLabel lblQuantidadeRetornada = new JLabel("Quantidade Retornada");
-		lblQuantidadeRetornada.setBounds(143, 85, 155, 14);
-		frmRetornoDeVenda.getContentPane().add(lblQuantidadeRetornada);
-		
-		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				telaFimVenda fimVenda = new telaFimVenda();
+				
+				for(int i=0; i<listaPedido.size();i++)
+				{
+					Object ob =tableQuantRetornada.getValueAt(i,0);
+					int quantDigitada = (Integer.parseInt(ob.toString()));
+					pvendido_bd.addProdutoVendido(listaPedido.get(i).produto,listaPedido.get(i).quantCirculando-quantDigitada, circulacao, vendedor);
+				}
+				telaFimVenda fimVenda = new telaFimVenda(vendedor.getID(),circulacao.getID());
 				fimVenda.setVisible(true);
 			}
 		});
 		btnConfirmar.setBounds(340, 260, 89, 23);
-		frmRetornoDeVenda.getContentPane().add(btnConfirmar);
+		this.getContentPane().add(btnConfirmar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(241, 260, 89, 23);
-		frmRetornoDeVenda.getContentPane().add(btnCancelar);
+		this.getContentPane().add(btnCancelar);
 		
 		JLabel lblListaDeRetorno = new JLabel("Lista de Retorno de Produtos");
-		lblListaDeRetorno.setBounds(25, 138, 155, 14);
-		frmRetornoDeVenda.getContentPane().add(lblListaDeRetorno);
+		lblListaDeRetorno.setBounds(22, 100, 155, 14);
+		this.getContentPane().add(lblListaDeRetorno);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(22, 140, 407, 90);
+		getContentPane().add(scrollPane);
+		
+		JSplitPane splitPane = new JSplitPane();
+		scrollPane.setViewportView(splitPane);
+		
+		tableProduto = new JTable();
+		tableProduto.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"C\u00D3DIGO", "QUANT RETIRADA"
+			}
+		));
+		splitPane.setLeftComponent(tableProduto);
+		
+		tableQuantRetornada = new JTable();
+		tableQuantRetornada.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableQuantRetornada.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				if(tableQuantRetornada.isEditing())
+					{
+					btnConfirmar.setEnabled(false);
+					}
+				else btnConfirmar.setEnabled(true);
+			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+			}
+		});
+		tableQuantRetornada.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"QUANT RETORNADA"
+			}
+		));
+		splitPane.setRightComponent(tableQuantRetornada);
+		
+		JLabel lblQuantRetornada = new JLabel("+ QUANT RETORNADA");
+		lblQuantRetornada.setBounds(241, 125, 124, 14);
+		getContentPane().add(lblQuantRetornada);
+		
+		JLabel lblCodigo = new JLabel("CODIGO");
+		lblCodigo.setBounds(32, 125, 46, 14);
+		getContentPane().add(lblCodigo);
+		
+		JLabel lblQuantRetirada = new JLabel("QUANT RETIRADA");
+		lblQuantRetirada.setBounds(88, 125, 96, 14);
+		getContentPane().add(lblQuantRetirada);
 	}
-
 }
