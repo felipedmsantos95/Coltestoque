@@ -107,7 +107,7 @@ public class GeraPDF extends BancoDeDados {
 			//Aqui será feita uma consulta no banco para extrair as informações necessárias da circulação
 			
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("select  valor_total,vendedor_id,data_hora,qtd_circulando,codigo,produto.nome,preco_final from circulacao,produto_circulando,produto,vendedor where produto_circulando.produto_id = produto.id and circulacao.vendedor_id = vendedor.id and circulacao.id=" + idCirculacao);
+			ResultSet rs = st.executeQuery("select  valor_total,vendedor_id,data_hora,qtd_circulando,codigo,produto.nome,preco_final from circulacao,produto_circulando,produto,vendedor where produto_circulando.produto_id = produto.id and circulacao.vendedor_id = vendedor.id and circulacao.id=" + idCirculacao + " and produto_circulando.circulacao= " + idCirculacao);
 						
 			PdfPTable tabela = new PdfPTable(5);
 			PdfPCell codigo = new PdfPCell(new Paragraph("Código"));

@@ -56,9 +56,11 @@ public class telaRetornoVenda extends JFrame{
 	 */
 	public telaRetornoVenda(int id_circulacao) {
 		initialize();
-		Show_Pedido_In_Jtable();
 		circulacao = circulacao_bd.getCirculacao(id_circulacao);
 		MostrarDadosCirculacao();
+		System.out.println("estoy aqui");
+		Show_Pedido_In_Jtable();	
+		
 	}
 	private void MostrarDadosCirculacao()
 	{
@@ -138,11 +140,13 @@ public class telaRetornoVenda extends JFrame{
 				{
 					Object ob =tableQuantRetornada.getValueAt(i,0);
 					int quantDigitada = (Integer.parseInt(ob.toString()));
+					System.out.println(quantDigitada);
 					pvendido_bd.addProdutoVendido(listaPedido.get(i).produto,listaPedido.get(i).quantCirculando-quantDigitada, circulacao, vendedor);
 					estoque_bd.retornaEstoque(listaPedido.get(i).produto.getID(), quantDigitada);
 				}
 				telaFimVenda fimVenda = new telaFimVenda(vendedor.getID(),circulacao.getID());
 				fimVenda.setVisible(true);
+				dispose();
 			}
 		});
 		btnConfirmar.setBounds(340, 260, 89, 23);

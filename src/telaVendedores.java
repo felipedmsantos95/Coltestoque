@@ -80,7 +80,7 @@ public class telaVendedores extends JFrame{
 			}
 		});
 		this.setTitle("Vendedores");
-		this.setBounds(100, 100, 450, 300);
+		this.setBounds(100, 100, 450, 339);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
@@ -166,5 +166,16 @@ public class telaVendedores extends JFrame{
 			}
 		});
 		scrollPane.setViewportView(table);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				telaMain tela = new telaMain();
+				tela.setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBounds(319, 262, 117, 25);
+		getContentPane().add(btnVoltar);
 	}
 }

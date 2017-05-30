@@ -45,9 +45,9 @@ public class CirculacaoDAO extends BancoDeDados{
 		try
 		{
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM circulacao WHERE circulacao.id =" + id);//Alterar aqui
+			ResultSet rs = st.executeQuery("SELECT * FROM circulacao WHERE circulacao.id =" + id);
 			
-			if(rs.next()) return new Circulacao(rs.getDouble(4), rs.getString(2));
+			if(rs.next()) return (new Circulacao(rs.getInt(1),rs.getDouble(4), rs.getString(2)));
 			else return null;
 		}
 		catch(SQLException e)

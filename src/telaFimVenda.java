@@ -19,7 +19,6 @@ public class telaFimVenda extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JFrame frmResultadoVenda;
 	private JTextField valorRetirado;
 	private JTextField valorVendido;
 	private JTextField comissao;
@@ -32,7 +31,7 @@ public class telaFimVenda extends JFrame {
 			public void run() {
 				try {
 					telaFimVenda window = new telaFimVenda(6,4);//Esse id será extraido da tabela
-					window.frmResultadoVenda.setVisible(true);
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,24 +53,23 @@ public class telaFimVenda extends JFrame {
 		CirculacaoDAO circ = new CirculacaoDAO();
 		VendedorDAO vend = new VendedorDAO();
 		ProdutoVendidoDAO pv = new ProdutoVendidoDAO();
-		
-		frmResultadoVenda = new JFrame();
-		frmResultadoVenda.setTitle("Resultado Venda");
-		frmResultadoVenda.setBounds(100, 100, 800, 550);
-		frmResultadoVenda.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frmResultadoVenda.getContentPane().setLayout(null);
+
+		this.setTitle("Resultado Venda");
+		this.setBounds(100, 100, 800, 550);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.getContentPane().setLayout(null);
 		
 		JLabel lblValorRetiradoEm = new JLabel("Valor Retirado (R$):");
 		lblValorRetiradoEm.setBounds(216, 117, 138, 14);
-		frmResultadoVenda.getContentPane().add(lblValorRetiradoEm);
+		this.getContentPane().add(lblValorRetiradoEm);
 		
 		JLabel lblValorVendido = new JLabel("Valor Vendido (R$):");
 		lblValorVendido.setBounds(216, 176, 138, 14);
-		frmResultadoVenda.getContentPane().add(lblValorVendido);
+		this.getContentPane().add(lblValorVendido);
 		
 		JLabel lblComissoDoVendedor = new JLabel("Comissão (R$):");
 		lblComissoDoVendedor.setBounds(245, 239, 109, 14);
-		frmResultadoVenda.getContentPane().add(lblComissoDoVendedor);
+		this.getContentPane().add(lblComissoDoVendedor);
 		
 		valorRetirado = new JTextField();
 		valorRetirado.setEditable(false);
@@ -79,7 +77,7 @@ public class telaFimVenda extends JFrame {
 		String vr = String.valueOf(circ.getValorCirculacao(idCirculacao));
 		valorRetirado.setText(vr);
 		valorRetirado.setBounds(394, 109, 101, 32);
-		frmResultadoVenda.getContentPane().add(valorRetirado);
+		this.getContentPane().add(valorRetirado);
 		valorRetirado.setColumns(10);
 		
 		valorVendido = new JTextField();
@@ -87,7 +85,7 @@ public class telaFimVenda extends JFrame {
 		String vv = String.valueOf(pv.getValorVendido(idCirculacao));
 		valorVendido.setText(vv);
 		valorVendido.setBounds(394, 168, 101, 32);
-		frmResultadoVenda.getContentPane().add(valorVendido);
+		this.getContentPane().add(valorVendido);
 		valorVendido.setColumns(10);
 		
 		comissao = new JTextField();
@@ -95,7 +93,7 @@ public class telaFimVenda extends JFrame {
 		String c = String.valueOf(vend.getComissaoVendedor(idVendedor));
 		comissao.setText(c);
 		comissao.setBounds(394, 231, 101, 32);
-		frmResultadoVenda.getContentPane().add(comissao);
+		this.getContentPane().add(comissao);
 		comissao.setColumns(10);
 		
 		JButton btnFinalizarEPagar = new JButton("Gerar Recibo");
@@ -107,7 +105,7 @@ public class telaFimVenda extends JFrame {
 			}
 		});
 		btnFinalizarEPagar.setBounds(505, 441, 257, 46);
-		frmResultadoVenda.getContentPane().add(btnFinalizarEPagar);
+		this.getContentPane().add(btnFinalizarEPagar);
 		
 		JButton btnFinalizarEPagar_1 = new JButton("Gerar Relatório");
 		btnFinalizarEPagar_1.addActionListener(new ActionListener() {
@@ -118,7 +116,7 @@ public class telaFimVenda extends JFrame {
 			}
 		});
 		btnFinalizarEPagar_1.setBounds(505, 367, 257, 46);
-		frmResultadoVenda.getContentPane().add(btnFinalizarEPagar_1);
+		this.getContentPane().add(btnFinalizarEPagar_1);
 	}
 
 	

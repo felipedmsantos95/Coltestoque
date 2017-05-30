@@ -72,6 +72,9 @@ public class telaImpressaoTermo extends JFrame {
 				
 				try {
 					java.awt.Desktop.getDesktop().open( new File(recibo.geraRecibo(path.getText(), v.getVendedor(idVendedor))) );
+					telaMain tela = new telaMain();
+					tela.setVisible(true);
+					dispose();
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null,"Erro ao selecionar a pasta, verifique se o campo foi preenchio ou se o diretório existe.");
 					
@@ -134,6 +137,9 @@ public class telaImpressaoTermo extends JFrame {
 				
 				try {
 					java.awt.Desktop.getDesktop().open( new File(relatorios.geraRelatorioSaida(path.getText(), v.getVendedor(idVendedor), idCirculacao)) );
+					telaMain tela = new telaMain();
+					tela.setVisible(true);
+					dispose();
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null,"Erro ao selecionar a pasta, verifique se o campo foi preenchio ou se o diretório existe.");
 					// TODO Auto-generated catch block
@@ -194,6 +200,10 @@ public class telaImpressaoTermo extends JFrame {
 				
 				try {
 					java.awt.Desktop.getDesktop().open( new File(relatorios.geraRelatorioRetorno(path.getText(), v.getVendedorID(idVendedor), idCirculacao)) );
+					telaMain tela = new telaMain();
+					tela.setVisible(true);
+					dispose();
+					
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null,"Erro ao selecionar a pasta, verifique se o campo foi preenchio ou se o diretório existe.");
 					// TODO Auto-generated catch block

@@ -144,7 +144,7 @@ public class telaNovaVenda extends JFrame{
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null,"N�o � poss�ve realizar essa oper��o \n\n S� tem "+produtoSelecionado.quantidadeEstoque+" desse produto no estoque.");
+					JOptionPane.showMessageDialog(null,"Não é possível realizar essa operação \n\n Só tem "+produtoSelecionado.quantidadeEstoque+" desse produto no estoque.");
 				}
 				
 			}
