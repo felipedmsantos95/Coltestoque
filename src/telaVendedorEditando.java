@@ -74,7 +74,12 @@ public class telaVendedorEditando extends JFrame{
 				try {
 					Vendedor vend = new Vendedor(nome.getText(), cpf.getText(), nf.parse(comissao.getText()).doubleValue());
 					VendedorDAO v = new VendedorDAO();					
-					if(v.adicionarVendedor(vend)) JOptionPane.showMessageDialog(null,"Vendedor cadastrado com sucesso!");
+					if(v.adicionarVendedor(vend)){
+						JOptionPane.showMessageDialog(null,"Vendedor cadastrado com sucesso!");
+						telaVendedores tela = new telaVendedores();
+						tela.setVisible(true);
+					}
+					
 					
 				} catch (ParseException e1) {
 					JOptionPane.showMessageDialog(null,"Ops, ocorreu algum erro no cadastro. Verifique se os campos foram preenchidos corretamente.");
@@ -89,6 +94,8 @@ public class telaVendedorEditando extends JFrame{
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				telaVendedorEditando.this.dispose();
+				telaVendedores tela = new telaVendedores();
+				tela.setVisible(true);
 			}
 		});
 		btnCancelar.setBounds(200, 227, 113, 23);
@@ -139,7 +146,11 @@ public class telaVendedorEditando extends JFrame{
 				
 				try {
 					VendedorDAO v = new VendedorDAO();					
-					if(v.atualizarVendedor(id, nome.getText(), cpf.getText(), nf.parse(comissao.getText()).doubleValue())) JOptionPane.showMessageDialog(null,"Vendedor atualizado com sucesso!");
+					if(v.atualizarVendedor(id, nome.getText(), cpf.getText(), nf.parse(comissao.getText()).doubleValue())){
+						JOptionPane.showMessageDialog(null,"Vendedor atualizado com sucesso!");
+						telaVendedores tela = new telaVendedores();
+						tela.setVisible(true);
+					}
 					
 				} catch (ParseException e1) {
 					JOptionPane.showMessageDialog(null,"Ops, ocorreu algum erro na edição. Verifique se os campos foram preenchidos corretamente.");
@@ -154,6 +165,8 @@ public class telaVendedorEditando extends JFrame{
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				telaVendedorEditando.this.dispose();
+				telaVendedores tela = new telaVendedores();
+				tela.setVisible(true);
 			}
 		});
 		btnCancelar.setBounds(200, 227, 113, 23);

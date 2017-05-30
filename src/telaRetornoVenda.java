@@ -31,6 +31,7 @@ public class telaRetornoVenda extends JFrame{
 	ProdutoVendidoDAO pvendido_bd = new ProdutoVendidoDAO();
 	ArrayList<ProdutoCirculando> listaPedido = new ArrayList<ProdutoCirculando>();
 	CirculacaoDAO circulacao_bd = new CirculacaoDAO();
+	EstoqueDAO estoque_bd = new EstoqueDAO();
 	private Circulacao circulacao;
 	private Vendedor vendedor;
 
@@ -138,6 +139,7 @@ public class telaRetornoVenda extends JFrame{
 					Object ob =tableQuantRetornada.getValueAt(i,0);
 					int quantDigitada = (Integer.parseInt(ob.toString()));
 					pvendido_bd.addProdutoVendido(listaPedido.get(i).produto,listaPedido.get(i).quantCirculando-quantDigitada, circulacao, vendedor);
+					estoque_bd.retornaEstoque(listaPedido.get(i).produto.getID(), quantDigitada);
 				}
 				telaFimVenda fimVenda = new telaFimVenda(vendedor.getID(),circulacao.getID());
 				fimVenda.setVisible(true);

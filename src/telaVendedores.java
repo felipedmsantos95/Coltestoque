@@ -81,7 +81,7 @@ public class telaVendedores extends JFrame{
 		});
 		this.setTitle("Vendedores");
 		this.setBounds(100, 100, 450, 300);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
 		JButton btnAdicionarNovoVendedor = new JButton("Adicionar Novo Vendedor");
@@ -89,6 +89,7 @@ public class telaVendedores extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				telaVendedorEditando tela = new telaVendedorEditando();
 				tela.setVisible(true);
+				dispose();
 			}
 		});
 		btnAdicionarNovoVendedor.setBounds(22, 11, 227, 23);

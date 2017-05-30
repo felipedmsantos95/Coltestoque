@@ -5,7 +5,7 @@ import java.sql.Statement;
 
 public class ProdutoVendidoDAO extends BancoDeDados {
 	
-	public boolean addProdutoVendido(Produto p, int qtdVendida, Circulacao c, Vendedor v)  //Falta atualizar valor da tabela produto_circulando
+	public boolean addProdutoVendido(Produto p, int qtdVendida, Circulacao c, Vendedor v)  
 	{
 		ProdutoDAO prod = new ProdutoDAO();
 		CirculacaoDAO circ = new CirculacaoDAO();

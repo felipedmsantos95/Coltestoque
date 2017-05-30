@@ -24,6 +24,7 @@ public class telaNovaVenda extends JFrame{
 	private JTable table;
 	JComboBox comboBoxVend;
 	JComboBox comboBoxProd;
+	EstoqueDAO estoque_bd = new EstoqueDAO();
 	VendedorDAO vendedor_bd = new VendedorDAO();
 	ProdutoDAO produto_bd=new ProdutoDAO();
 	ArrayList<Vendedor> listVendedores = new ArrayList<Vendedor>();
@@ -143,7 +144,7 @@ public class telaNovaVenda extends JFrame{
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null,"Não é possíve realizar essa operção \n\n Só tem "+produtoSelecionado.quantidadeEstoque+" desse produto no estoque.");
+					JOptionPane.showMessageDialog(null,"Nï¿½o ï¿½ possï¿½ve realizar essa operï¿½ï¿½o \n\n Sï¿½ tem "+produtoSelecionado.quantidadeEstoque+" desse produto no estoque.");
 				}
 				
 			}
@@ -165,6 +166,8 @@ public class telaNovaVenda extends JFrame{
 				for (int i =0;i<listPedido.size();i++)
 				{
 					pcirculando_bd.addProdutoCirculacao(listPedido.get(i).produto, listPedido.get(i).quantCirculando, circ, vendedor);
+					estoque_bd.retiraEstoque(listPedido.get(i).produto.getID(), listPedido.get(i).quantCirculando);
+				
 				}
 				telaImpressaoTermo termoVenda = new telaImpressaoTermo(vendedor.getID(),circ.getID());
 				termoVenda.setVisible(true);

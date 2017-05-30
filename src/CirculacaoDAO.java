@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class CirculacaoDAO extends BancoDeDados{
 	
@@ -62,7 +63,7 @@ public class CirculacaoDAO extends BancoDeDados{
 		try
 		{
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT vendedor_id FROM circulacao WHERE data_hora = '" + circ.dataRegistrada + "')");
+			ResultSet rs = st.executeQuery("SELECT vendedor_id FROM circulacao WHERE data_hora = '" + circ.dataRegistrada + "';");
 			
 			if(rs.next()) return  vend.getVendedor(rs.getInt(1));
 			else return null;
@@ -106,6 +107,25 @@ public class CirculacaoDAO extends BancoDeDados{
 			return 0;
 		}		
 	}
+	
+	public ArrayList<Circulacao> ListarCirculacoes()
+    {
+        ArrayList<Circulacao> list = new ArrayList<Circulacao>();
+        try
+        {
+            Statement st = conexao.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM circulacao ;");
+            while(rs.next())
+                {
+                list.add(new Circulacao(rs.getInt(1),rs.getDouble(4), rs.getString(2)));
+                }
+            return list;
+        }
+        catch(SQLException e)
+        {
+            return null;
+        }       
+    }
 	
 	
 	public static void main(String[] args) {

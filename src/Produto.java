@@ -55,7 +55,7 @@ public class Produto {
 		this.precoFinal = (this.getPrecoCompra() * (1 + (this.getPercentLucro()/100)));
 	}
 	
-	Produto(int id, String codigo, String nome, double precoCompra, double percentLucro, String descricao, int quantidadeEstoque)
+	Produto(int id, String codigo, String nome, double precofinal, double precoCompra, String descricao, int quantidadeEstoque)
 	{
 		this.id=id;
 		this.nome = nome;
@@ -63,8 +63,7 @@ public class Produto {
 		this.quantidadeEstoque = quantidadeEstoque;
 		this.descricao = descricao;
 		this.setPrecoCompra(precoCompra);
-		this.setPercentLucro(percentLucro);
-		this.precoFinal = (this.getPrecoCompra() * (1 + (this.getPercentLucro()/100)));
+		this.precoFinal = precofinal;
 	}
 
 	public double getPrecoCompra() {

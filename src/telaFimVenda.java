@@ -58,7 +58,7 @@ public class telaFimVenda extends JFrame {
 		frmResultadoVenda = new JFrame();
 		frmResultadoVenda.setTitle("Resultado Venda");
 		frmResultadoVenda.setBounds(100, 100, 800, 550);
-		frmResultadoVenda.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmResultadoVenda.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmResultadoVenda.getContentPane().setLayout(null);
 		
 		JLabel lblValorRetiradoEm = new JLabel("Valor Retirado (R$):");

@@ -55,33 +55,17 @@ public class ProdutoDAO extends BancoDeDados{
 		}
 		return list;
 	}
-	public void listarProdutosEdicao()
-	{
-		try
-		{
-			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM produto");
-			while(rs.next())
-			{				
-				System.out.println("Produto: "+ rs.getInt(2) + "\n " + rs.getString(5)+ "\nPreco Final "+rs.getDouble(3) +"\nPreco Compra "+rs.getDouble(4) +"\n");
-			}
-			
-		}
-		catch(SQLException e)
-		{
-			
-		}		
-	}
+
 	public Produto getProduto(int id)
 	{
 		try
 		{
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM produto WHERE id=" + id);
+			ResultSet rs = st.executeQuery("SELECT produto.id, produto.codigo, produto.nome, produto.preco_final, produto.preco_atacado, produto.descricao, estoque.qtd_estoque FROM produto, estoque WHERE estoque.produto_id="+id+";");
 			
 			if(rs.next()) 
 			{
-				return new Produto(rs.getString(2),rs.getString(3),rs.getDouble(5), rs.getString(6), rs.getDouble(4));
+				return new Produto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDouble(5),rs.getString(6),rs.getInt(7));
 			}
 			else return null;
 		
@@ -112,15 +96,15 @@ public class ProdutoDAO extends BancoDeDados{
 	{
 		try
 		{
+			System.out.println(codigo);
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT id FROM produto WHERE produto.codigo ='" + codigo + "'");
-			
+			ResultSet rs = st.executeQuery("SELECT * FROM produto WHERE produto.codigo ='" + codigo + "'");
 			if(rs.next()) return rs.getInt(1);
-			else return 0;
+			else return -1;
 		}
 		catch(SQLException e)
 		{
-			return 0;
+			return -2;
 		}	
 	}
 	
@@ -164,6 +148,18 @@ public class ProdutoDAO extends BancoDeDados{
 			System.out.println(e.getMessage());
 			return false;
 		}
+	}
+	
+public static void main(String[] args) {
+		
+		ProdutoDAO p = new ProdutoDAO();
+		//CirculacaoDAO circ = new CirculacaoDAO();
+		
+		
+		System.out.println(p.getProdutoIDbyCodigo("tttt"));
+		//circ.iniciarCirculacao(v);
+		//System.out.println(circ.getValorCirculacao(4));
+		
 	}
 	
 	

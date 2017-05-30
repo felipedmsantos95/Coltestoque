@@ -176,6 +176,7 @@ public class telaEstoque extends JFrame{
 					es.removerProdutoEstoque(produtoSelecionado.getID());
 					//remover do banco de produtos
 					produto_bd.removerProduto(produtoSelecionado.getID());
+					Show_Produtos_In_Jtable();
 					}
 			}
 		});
@@ -186,6 +187,13 @@ public class telaEstoque extends JFrame{
 		getContentPane().add(lblSelecioneUmProduto);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				telaMain tala = new telaMain();
+				tala.setVisible(true);
+				dispose();
+			}
+		});
 		btnVoltar.setBounds(598, 459, 176, 45);
 		getContentPane().add(btnVoltar);
 	}

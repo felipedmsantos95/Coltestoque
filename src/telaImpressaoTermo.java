@@ -37,6 +37,7 @@ public class telaImpressaoTermo extends JFrame {
 
 	/**
 	 * Create the application.
+	 * @wbp.parser.constructor
 	 */
 	public telaImpressaoTermo(int idVendedor) {
 		initializeRecibo(idVendedor);

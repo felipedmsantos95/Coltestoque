@@ -57,23 +57,23 @@ public class telaProdutoEditando extends JDialog {
 	}
 	private void initialize ()
 	{
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 550);
 		
 		JEditorPane descricao = new JEditorPane();
-		descricao.setBounds(25, 86, 368, 62);
+		descricao.setBounds(25, 86, 747, 146);
 		getContentPane().add(descricao);
 		
 		getContentPane().setLayout(null);
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBounds(0, 238, 448, 35);
+			buttonPane.setBounds(-11, 488, 809, 35);
 			getContentPane().add(buttonPane);
 			
 			{
 				venda = new JTextField();
 				venda.setEditable(false);
 				venda.setColumns(10);
-				venda.setBounds(284, 186, 109, 19);
+				venda.setBounds(506, 293, 109, 28);
 				getContentPane().add(venda);
 			}
 			buttonPane.setLayout(null);
@@ -90,23 +90,34 @@ public class telaProdutoEditando extends JDialog {
 							if(!(lucro.getText().trim().equals("")))
 								{
 									Produto produto = new Produto(codigo.getText(), textField.getText(), nf.parse(compra.getText()).doubleValue(), nf.parse(lucro.getText()).doubleValue(),  descricao.getText());
+									double r = produto.precoFinal * 100;
+									double round = Math.round(r);
+									round = round/100;
+									
+									String preco = String.valueOf(round);								
+									
+									venda.setText("R$ " + preco);
 									if(p.adicionarProduto(produto)){
+										EstoqueDAO estoque_bd = new EstoqueDAO();										
+										estoque_bd.adicionarProdutoEstoque(codigo.getText(), 0);
 										JOptionPane.showMessageDialog(null,"Produto cadastrado com sucesso!");
-										double r = produto.precoFinal * 100;
-										double round = Math.round(r);
-										round = round/100;
+										dispose();
+										telaEstoque tela = new telaEstoque();
+										tela.setVisible(true);
 										
-										String preco = String.valueOf(round);								
-										
-										venda.setText("R$ " + preco);
 									}
 									
 									
 								}
 							else
 							{
+								EstoqueDAO estoque_bd = new EstoqueDAO();
 								Produto produto = new Produto(codigo.getText(), textField.getText(), nf.parse(compra.getText()).doubleValue(), descricao.getText());
+								
+								
 								if(p.adicionarProduto(produto)){
+									System.out.println(codigo.getText()+ "    1    "+0);
+									estoque_bd.adicionarProdutoEstoque(codigo.getText(), 0);
 									JOptionPane.showMessageDialog(null,"Produto cadastrado com sucesso!");
 									double r = produto.precoFinal * 100;
 									double round = Math.round(r);
@@ -115,6 +126,10 @@ public class telaProdutoEditando extends JDialog {
 									String preco = String.valueOf(round);								
 									
 									venda.setText("R$ " + preco);
+									
+									dispose();
+									telaEstoque tela = new telaEstoque();
+									tela.setVisible(true);
 								}
 								
 							}
@@ -125,17 +140,19 @@ public class telaProdutoEditando extends JDialog {
 						
 					}
 				});
-				okButton.setBounds(323, 5, 113, 25);
+				okButton.setBounds(668, 5, 113, 25);
 				okButton.setActionCommand("Confirmar");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.setBounds(206, 5, 105, 25);
+				cancelButton.setBounds(540, 5, 105, 25);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						telaProdutoEditando.this.dispose();
+						telaEstoque estoque = new telaEstoque();
+						estoque.setVisible(true);
 					}
 				});
 				cancelButton.setActionCommand("Cancelar");
@@ -144,7 +161,7 @@ public class telaProdutoEditando extends JDialog {
 		}
 		{
 			textField = new JTextField();
-			textField.setBounds(25, 41, 237, 19);
+			textField.setBounds(25, 41, 459, 19);
 			getContentPane().add(textField);
 			textField.setColumns(10);
 		}
@@ -154,13 +171,13 @@ public class telaProdutoEditando extends JDialog {
 		getContentPane().add(lblNome);
 		{
 			codigo = new JTextField();
-			codigo.setBounds(306, 41, 87, 19);
+			codigo.setBounds(580, 41, 135, 19);
 			getContentPane().add(codigo);
 			codigo.setColumns(10);
 		}
 		{
 			JLabel lblCdigo = new JLabel("Código:");
-			lblCdigo.setBounds(306, 26, 66, 15);
+			lblCdigo.setBounds(580, 26, 66, 15);
 			getContentPane().add(lblCdigo);
 		}
 		
@@ -171,35 +188,35 @@ public class telaProdutoEditando extends JDialog {
 		getContentPane().add(lblDescrio);
 		{
 			JLabel lblPreoCompra = new JLabel("Preço Compra:");
-			lblPreoCompra.setBounds(25, 144, 109, 19);
+			lblPreoCompra.setBounds(49, 262, 109, 19);
 			getContentPane().add(lblPreoCompra);
 		}
 		{
 			compra = new JTextField();
-			compra.setBounds(25, 160, 109, 19);
+			compra.setBounds(49, 293, 120, 28);
 			getContentPane().add(compra);
 			compra.setColumns(10);
 		}
 		{
 			JLabel lblPercentualLucro = new JLabel("% Lucro:");
-			lblPercentualLucro.setBounds(25, 185, 130, 19);
+			lblPercentualLucro.setBounds(49, 349, 130, 19);
 			getContentPane().add(lblPercentualLucro);
 		}
 		{
 			lucro = new JTextField();
 			lucro.setColumns(10);
-			lucro.setBounds(25, 216, 109, 19);
+			lucro.setBounds(46, 370, 130, 28);
 			getContentPane().add(lucro);
 		}
 		{
 			JLabel lblPreoVenda = new JLabel("Preço Venda:");
-			lblPreoVenda.setBounds(284, 170, 109, 19);
+			lblPreoVenda.setBounds(506, 262, 109, 19);
 			getContentPane().add(lblPreoVenda);
 		}
 		
 		
 		JLabel lbldeixarVazioPara = new JLabel("(Deixar vazio para padrão)");
-		lbldeixarVazioPara.setBounds(22, 201, 196, 15);
+		lbldeixarVazioPara.setBounds(25, 405, 196, 15);
 		getContentPane().add(lbldeixarVazioPara);
 	}
 	
@@ -243,9 +260,12 @@ public class telaProdutoEditando extends JDialog {
 						NumberFormat nf = NumberFormat.getInstance(pt);
 						ProdutoDAO p = new ProdutoDAO();
 						
+						
+						
 						try {
 								if(p.atualizarProduto(id,codigo.getText(), textField.getText(), nf.parse(compra.getText()).doubleValue(), nf.parse(lucro.getText()).doubleValue(),  descricao.getText())){
 									JOptionPane.showMessageDialog(null,"Produto atualizado com sucesso!");
+									//telaEstoque tela = new telaEstoque();
 									double r = produtoEditando.getProduto(id).precoFinal * 100;
 									double round = Math.round(r);
 									round = round/100;

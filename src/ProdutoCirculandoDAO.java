@@ -55,14 +55,12 @@ public class ProdutoCirculandoDAO extends BancoDeDados{
 	public boolean addProdutoCirculacao(Produto p, int qtd, Circulacao circ, Vendedor v)
 	{
 		CirculacaoDAO c = new CirculacaoDAO();
-		EstoqueDAO es = new EstoqueDAO();
 					
 		try
 		{
 			Statement st = conexao.createStatement();
 			st.executeUpdate("INSERT INTO produto_circulando VALUES (NULL, " + qtd +", " + c.getCirculacaoID(circ, v) + ", " + p.getID() + ")");
 			st.executeUpdate("UPDATE circulacao SET valor_total=" + circ.atualizaValorCirculacao(p, qtd) + "WHERE id=" + c.getCirculacaoID(circ, v));
-			es.retiraEstoque(p.getID(),qtd);
 			return true;
 		}
 		catch(SQLException e)
@@ -79,7 +77,7 @@ public class ProdutoCirculandoDAO extends BancoDeDados{
 		try
 		{
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT produto_id, qtd_criculando FROM produto_circulando WHERE produto_circulando.circulacao_id =" + id_circulacao+";");
+			ResultSet rs = st.executeQuery("SELECT produto_id, qtd_circulando FROM produto_circulando WHERE produto_circulando.circulacao_id =" + id_circulacao+";");
 			
 			while(rs.next()) 
 				{
