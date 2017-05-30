@@ -65,7 +65,7 @@ public class telaProdutoEditando extends JDialog {
 		JEditorPane descricao = new JEditorPane();
 		descricao.setBounds(25, 86, 747, 146);
 		getContentPane().add(descricao);
-		Locale pt = new Locale("pt", "PT");
+		Locale pt = new Locale("en", "CA");
 		NumberFormat nf = NumberFormat.getInstance(pt);
 		
 				
@@ -101,7 +101,7 @@ public class telaProdutoEditando extends JDialog {
 								Produto produtol = new Produto(codigo.getText(), textField.getText(), nf.parse(compra.getText()).doubleValue(), nf.parse(lucro.getText()).doubleValue(),  descricao.getText());
 																	
 									if(p.adicionarProduto(produtol)){
-										Locale pt = new Locale("pt", "PT");
+										Locale pt = new Locale("en", "CA");
 										NumberFormat nf = NumberFormat.getInstance(pt);
 										
 										EstoqueDAO estoque_bd = new EstoqueDAO();										

@@ -161,7 +161,7 @@ public class telaEstoque extends JFrame{
 		});
 		btnEditar.setEnabled(false);
 		
-		btnExcluir = new JButton("excluir");
+		btnExcluir = new JButton("Excluir");
 		panel.add(btnExcluir);
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

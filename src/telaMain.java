@@ -173,7 +173,7 @@ public class telaMain extends JFrame {
 				telaretornovenda.setVisible(true);
 			}
 		});
-		btnRetorno.setBounds(651, 340, 89, 23);
+		btnRetorno.setBounds(625, 340, 115, 23);
 		contentPane.add(btnRetorno);
 		btnRetorno.setEnabled(false);
 	}

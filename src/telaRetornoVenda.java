@@ -97,8 +97,8 @@ public class telaRetornoVenda extends JFrame{
 	 */
 	private void initialize() {
 		this.setTitle("Retorno de Venda");
-		this.setBounds(100, 100, 475, 333);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBounds(100, 100, 800, 550);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
 		JLabel lblVendedor = new JLabel("Vendedor");
@@ -106,29 +106,27 @@ public class telaRetornoVenda extends JFrame{
 		this.getContentPane().add(lblVendedor);
 		
 		textFieldVendedor = new JTextField();
-		textFieldVendedor.setEnabled(false);
-		textFieldVendedor.setBounds(89, 22, 279, 20);
+		textFieldVendedor.setEditable(false);
+		textFieldVendedor.setBounds(89, 22, 525, 20);
 		this.getContentPane().add(textFieldVendedor);
 		textFieldVendedor.setColumns(10);
 		
 		JLabel lblDataSada = new JLabel("Data Sa\u00EDda");
-		lblDataSada.setBounds(10, 53, 86, 14);
+		lblDataSada.setBounds(12, 56, 86, 14);
 		this.getContentPane().add(lblDataSada);
 		
 		JLabel lblDataRetorno = new JLabel("Data Retorno");
-		lblDataRetorno.setBounds(196, 53, 76, 14);
+		lblDataRetorno.setBounds(297, 56, 112, 14);
 		this.getContentPane().add(lblDataRetorno);
 		
 		textFieldDataSaida = new JTextField();
-		textFieldDataSaida.setEnabled(false);
 		textFieldDataSaida.setEditable(false);
-		textFieldDataSaida.setBounds(89, 49, 86, 20);
+		textFieldDataSaida.setBounds(99, 50, 180, 30);
 		this.getContentPane().add(textFieldDataSaida);
 		textFieldDataSaida.setColumns(10);
 		
 		textFieldDataRetorno = new JTextField();
-		textFieldDataRetorno.setEnabled(false);
-		textFieldDataRetorno.setBounds(282, 50, 86, 20);
+		textFieldDataRetorno.setBounds(408, 54, 180, 28);
 		this.getContentPane().add(textFieldDataRetorno);
 		textFieldDataRetorno.setColumns(10);
 		
@@ -149,19 +147,26 @@ public class telaRetornoVenda extends JFrame{
 				dispose();
 			}
 		});
-		btnConfirmar.setBounds(340, 260, 89, 23);
+		btnConfirmar.setBounds(639, 432, 111, 37);
 		this.getContentPane().add(btnConfirmar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(241, 260, 89, 23);
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				telaMain tela = new telaMain();
+				tela.setVisible(true);
+				dispose();
+			}
+		});
+		btnCancelar.setBounds(496, 432, 118, 37);
 		this.getContentPane().add(btnCancelar);
 		
 		JLabel lblListaDeRetorno = new JLabel("Lista de Retorno de Produtos");
-		lblListaDeRetorno.setBounds(22, 100, 155, 14);
+		lblListaDeRetorno.setBounds(22, 100, 224, 14);
 		this.getContentPane().add(lblListaDeRetorno);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(22, 140, 407, 90);
+		scrollPane.setBounds(22, 140, 700, 210);
 		getContentPane().add(scrollPane);
 		
 		JSplitPane splitPane = new JSplitPane();
@@ -202,15 +207,15 @@ public class telaRetornoVenda extends JFrame{
 		splitPane.setRightComponent(tableQuantRetornada);
 		
 		JLabel lblQuantRetornada = new JLabel("+ QUANT RETORNADA");
-		lblQuantRetornada.setBounds(241, 125, 124, 14);
+		lblQuantRetornada.setBounds(241, 125, 168, 14);
 		getContentPane().add(lblQuantRetornada);
 		
 		JLabel lblCodigo = new JLabel("CODIGO");
-		lblCodigo.setBounds(32, 125, 46, 14);
+		lblCodigo.setBounds(12, 126, 64, 14);
 		getContentPane().add(lblCodigo);
 		
 		JLabel lblQuantRetirada = new JLabel("QUANT RETIRADA");
-		lblQuantRetirada.setBounds(88, 125, 96, 14);
+		lblQuantRetirada.setBounds(88, 126, 129, 13);
 		getContentPane().add(lblQuantRetirada);
 	}
 }

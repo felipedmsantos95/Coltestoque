@@ -52,16 +52,16 @@ public class telaVendedorEditando extends JFrame{
 	 */
 	private void initialize() {
 		this.setTitle("Adicionando/Editando Vendedor");
-		this.setBounds(100, 100, 450, 300);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBounds(100, 100, 800, 550);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
 		JLabel lblNomeCompleto = new JLabel("Nome Completo");
-		lblNomeCompleto.setBounds(23, 62, 113, 14);
+		lblNomeCompleto.setBounds(125, 139, 113, 14);
 		this.getContentPane().add(lblNomeCompleto);
 		
 		nome = new JTextField();
-		nome.setBounds(160, 60, 253, 20);
+		nome.setBounds(256, 131, 268, 31);
 		this.getContentPane().add(nome);
 		nome.setColumns(10);
 		
@@ -87,7 +87,7 @@ public class telaVendedorEditando extends JFrame{
 				}
 			}
 		});
-		btnConfirmar.setBounds(324, 227, 112, 23);
+		btnConfirmar.setBounds(639, 436, 128, 37);
 		this.getContentPane().add(btnConfirmar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -98,43 +98,43 @@ public class telaVendedorEditando extends JFrame{
 				tela.setVisible(true);
 			}
 		});
-		btnCancelar.setBounds(200, 227, 113, 23);
+		btnCancelar.setBounds(485, 436, 128, 37);
 		this.getContentPane().add(btnCancelar);
 		
 		JLabel lblComisso = new JLabel("Comiss\u00E3o (%)");
-		lblComisso.setBounds(42, 128, 113, 14);
+		lblComisso.setBounds(125, 266, 113, 14);
 		this.getContentPane().add(lblComisso);
 		
 		comissao = new JTextField();
-		comissao.setBounds(160, 126, 86, 20);
+		comissao.setBounds(256, 258, 104, 31);
 		this.getContentPane().add(comissao);
 		comissao.setColumns(10);
 		
 		cpf = new JTextField();
 		cpf.setColumns(10);
-		cpf.setBounds(160, 92, 153, 20);
+		cpf.setBounds(256, 193, 241, 31);
 		getContentPane().add(cpf);
 		
 		JLabel lblCpf = new JLabel("CPF");
-		lblCpf.setBounds(107, 94, 37, 15);
+		lblCpf.setBounds(195, 201, 37, 15);
 		getContentPane().add(lblCpf);
 	}
 	
 	private void initialize1(int id) {
 		this.setTitle("Adicionando/Editando Vendedor");
-		this.setBounds(100, 100, 450, 300);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBounds(100, 100, 800, 550);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
 		VendedorDAO vendedorEditado = new VendedorDAO();
 		
 		JLabel lblNomeCompleto = new JLabel("Nome Completo");
-		lblNomeCompleto.setBounds(23, 62, 113, 14);
+		lblNomeCompleto.setBounds(125, 139, 113, 14);
 		this.getContentPane().add(lblNomeCompleto);
 		
 		nome = new JTextField();
 		nome.setText(vendedorEditado.getVendedor(id).nome);
-		nome.setBounds(160, 60, 253, 20);
+		nome.setBounds(256, 131, 268, 31);
 		this.getContentPane().add(nome);
 		nome.setColumns(10);
 		
@@ -158,7 +158,7 @@ public class telaVendedorEditando extends JFrame{
 				}
 			}
 		});
-		btnConfirmar.setBounds(324, 227, 112, 23);
+		btnConfirmar.setBounds(639, 436, 128, 37);
 		this.getContentPane().add(btnConfirmar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -169,28 +169,29 @@ public class telaVendedorEditando extends JFrame{
 				tela.setVisible(true);
 			}
 		});
-		btnCancelar.setBounds(200, 227, 113, 23);
+		btnCancelar.setBounds(485, 436, 128, 37);
 		this.getContentPane().add(btnCancelar);
 		
 		JLabel lblComisso = new JLabel("Comiss\u00E3o (%)");
-		lblComisso.setBounds(42, 128, 113, 14);
+		lblComisso.setBounds(125, 266, 113, 14);
 		this.getContentPane().add(lblComisso);
 		
 		comissao = new JTextField();
 		String str = String.valueOf(vendedorEditado.getVendedor(id).getPercentual());
 		comissao.setText(str);
-		comissao.setBounds(160, 126, 86, 20);
+		comissao.setBounds(256, 258, 104, 31);
 		this.getContentPane().add(comissao);
 		comissao.setColumns(10);
+		
 		
 		cpf = new JTextField();
 		cpf.setText(vendedorEditado.getVendedor(id).getCpf());
 		cpf.setColumns(10);
-		cpf.setBounds(160, 92, 153, 20);
+		cpf.setBounds(256, 193, 241, 31);
 		getContentPane().add(cpf);
 		
 		JLabel lblCpf = new JLabel("CPF");
-		lblCpf.setBounds(107, 94, 37, 15);
+		lblCpf.setBounds(195, 201, 37, 15);
 		getContentPane().add(lblCpf);
 	}
 }

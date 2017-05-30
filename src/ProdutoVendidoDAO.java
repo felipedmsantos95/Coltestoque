@@ -22,7 +22,6 @@ public class ProdutoVendidoDAO extends BancoDeDados {
 					ts.executeUpdate("INSERT INTO produto_vendido VALUES (NULL, " + qtdVendida +", "+  prod.getProdutoID(p) + ", " + circ.getCirculacaoID(c, v) + ",'" + c.getDataAtual() + "'," + pc.getProdutoCirculandoID(c, p, v)+ ")");
 					v.atualizaVenda(p.getPrecoFinal(), qtdVendida);
 					ts.executeUpdate("UPDATE vendedor SET valor_a_receber=" + v.valorReceber() + " WHERE id=" + vend.getVendedorID(v));//Aumenta o valor a receber do vendedor
-					//ts.executeUpdate("UPDATE circulacao SET valor_total=" + c.retiraValorCirculacao(p, qtdVendida) + " WHERE id=" + circ.getCirculacaoID(c, v));//Decrementa o valor da circulacao corrente
 					ts.executeUpdate("UPDATE produto_circulando SET qtd_circulando=" + (rs.getInt(1) - qtdVendida) + " WHERE id=" + pc.getProdutoCirculandoID(c, p, v));
 					return true;
 				}

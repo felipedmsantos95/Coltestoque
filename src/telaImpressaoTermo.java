@@ -57,7 +57,7 @@ public class telaImpressaoTermo extends JFrame {
 	private void initializeRecibo(int idVendedor) {
 
 		this.setTitle("Impress\u00E3o de Termo");
-		this.setBounds(100, 100, 450, 300);
+		this.setBounds(100, 100, 800, 550);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
@@ -82,11 +82,11 @@ public class telaImpressaoTermo extends JFrame {
 				}
 			}
 		});
-		btnImprimir.setBounds(310, 224, 126, 37);
+		btnImprimir.setBounds(621, 442, 139, 47);
 		this.getContentPane().add(btnImprimir);
 		
 		path = new JTextField();
-		path.setBounds(22, 109, 263, 19);
+		path.setBounds(43, 210, 546, 19);
 		this.getContentPane().add(path);
 		path.setColumns(10);
 		
@@ -110,11 +110,11 @@ public class telaImpressaoTermo extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(297, 109, 139, 19);
+		btnNewButton.setBounds(601, 210, 139, 19);
 		this.getContentPane().add(btnNewButton);
 		
 		JLabel lblPastaASer = new JLabel("Pasta a ser salvo:");
-		lblPastaASer.setBounds(22, 82, 139, 15);
+		lblPastaASer.setBounds(43, 183, 139, 15);
 		this.getContentPane().add(lblPastaASer);
 	}
 	
@@ -122,7 +122,7 @@ public class telaImpressaoTermo extends JFrame {
 	
 	private void initializeSaida(int idVendedor, int idCirculacao) {
 		this.setTitle("Impress\u00E3o de Termo");
-		this.setBounds(100, 100, 450, 300);
+		this.setBounds(100, 100, 800, 550);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
@@ -147,11 +147,11 @@ public class telaImpressaoTermo extends JFrame {
 				}
 			}
 		});
-		btnImprimir.setBounds(310, 224, 126, 37);
+		btnImprimir.setBounds(621, 442, 139, 47);
 		this.getContentPane().add(btnImprimir);
 		
 		path = new JTextField();
-		path.setBounds(22, 109, 263, 19);
+		path.setBounds(43, 210, 546, 19);
 		this.getContentPane().add(path);
 		path.setColumns(10);
 		
@@ -175,17 +175,17 @@ public class telaImpressaoTermo extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(297, 109, 139, 19);
+		btnNewButton.setBounds(601, 210, 139, 19);
 		this.getContentPane().add(btnNewButton);
 		
 		JLabel lblPastaASer = new JLabel("Pasta a ser salvo:");
-		lblPastaASer.setBounds(22, 82, 139, 15);
+		lblPastaASer.setBounds(43, 183, 139, 15);
 		this.getContentPane().add(lblPastaASer);
 	}
 	
 	private void initializeRetorno(Vendedor idVendedor, int idCirculacao) {
 		this.setTitle("Impress\u00E3o de Termo");
-		this.setBounds(100, 100, 450, 300);
+		this.setBounds(100, 100, 800, 550);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
@@ -211,11 +211,11 @@ public class telaImpressaoTermo extends JFrame {
 				}
 			}
 		});
-		btnImprimir.setBounds(310, 224, 126, 37);
+		btnImprimir.setBounds(621, 442, 139, 47);
 		this.getContentPane().add(btnImprimir);
 		
 		path = new JTextField();
-		path.setBounds(22, 109, 263, 19);
+		path.setBounds(43, 210, 546, 19);
 		this.getContentPane().add(path);
 		path.setColumns(10);
 		
@@ -239,11 +239,11 @@ public class telaImpressaoTermo extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(297, 109, 139, 19);
+		btnNewButton.setBounds(601, 210, 139, 19);
 		this.getContentPane().add(btnNewButton);
 		
 		JLabel lblPastaASer = new JLabel("Pasta a ser salvo:");
-		lblPastaASer.setBounds(22, 82, 139, 15);
+		lblPastaASer.setBounds(43, 183, 139, 15);
 		this.getContentPane().add(lblPastaASer);
 	}
 }

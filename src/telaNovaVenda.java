@@ -102,21 +102,17 @@ public class telaNovaVenda extends JFrame{
 	 */
 	private void initialize() {
 		this.setTitle("Nova Venda");
-		this.setBounds(100, 100, 491, 356);
+		this.setBounds(100, 100, 800, 550);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
 		JLabel lblVendedor = new JLabel("Vendedor");
-		lblVendedor.setBounds(21, 30, 83, 14);
+		lblVendedor.setBounds(90, 33, 83, 14);
 		this.getContentPane().add(lblVendedor);
 		
 		comboBoxVend = new JComboBox();
-		comboBoxVend.setBounds(114, 27, 285, 20);
+		comboBoxVend.setBounds(176, 30, 285, 20);
 		this.getContentPane().add(comboBoxVend);
-		
-		JLabel lblData = new JLabel("Data");
-		lblData.setBounds(21, 58, 46, 14);
-		this.getContentPane().add(lblData);
 		
 		JLabel lblCodigoProduto = new JLabel("Codigo Produto");
 		lblCodigoProduto.setBounds(24, 97, 80, 14);
@@ -149,11 +145,11 @@ public class telaNovaVenda extends JFrame{
 				
 			}
 		});
-		btnAdicionarProduto.setBounds(281, 123, 117, 23);
+		btnAdicionarProduto.setBounds(582, 122, 161, 37);
 		this.getContentPane().add(btnAdicionarProduto);
 		
 		JLabel lblListaDeSada = new JLabel("Lista de sa\u00EDda");
-		lblListaDeSada.setBounds(21, 159, 83, 14);
+		lblListaDeSada.setBounds(21, 159, 120, 14);
 		this.getContentPane().add(lblListaDeSada);
 		
 		JButton btnConfirmar = new JButton("Confirmar");
@@ -171,9 +167,10 @@ public class telaNovaVenda extends JFrame{
 				}
 				telaImpressaoTermo termoVenda = new telaImpressaoTermo(vendedor.getID(),circ.getID());
 				termoVenda.setVisible(true);
+				dispose();
 			}
 		});
-		btnConfirmar.setBounds(365, 283, 89, 23);
+		btnConfirmar.setBounds(634, 437, 131, 37);
 		this.getContentPane().add(btnConfirmar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -182,11 +179,11 @@ public class telaNovaVenda extends JFrame{
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(266, 283, 89, 23);
+		btnCancelar.setBounds(491, 437, 131, 37);
 		this.getContentPane().add(btnCancelar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(21, 184, 433, 75);
+		scrollPane.setBounds(21, 184, 744, 225);
 		this.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -202,9 +199,5 @@ public class telaNovaVenda extends JFrame{
 		comboBoxProd = new JComboBox();
 		comboBoxProd.setBounds(21, 122, 105, 22);
 		this.getContentPane().add(comboBoxProd);
-		
-		JLabel lblValorData = new JLabel("New label");
-		lblValorData.setBounds(66, 55, 146, 20);
-		getContentPane().add(lblValorData);
 	}
 }

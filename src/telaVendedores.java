@@ -80,7 +80,7 @@ public class telaVendedores extends JFrame{
 			}
 		});
 		this.setTitle("Vendedores");
-		this.setBounds(100, 100, 450, 339);
+		this.setBounds(100, 100, 800, 550);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
@@ -89,10 +89,10 @@ public class telaVendedores extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				telaVendedorEditando tela = new telaVendedorEditando();
 				tela.setVisible(true);
-				dispose();
+				//dispose();
 			}
 		});
-		btnAdicionarNovoVendedor.setBounds(22, 11, 227, 23);
+		btnAdicionarNovoVendedor.setBounds(30, 12, 241, 31);
 		this.getContentPane().add(btnAdicionarNovoVendedor);
 		
 		
@@ -106,7 +106,7 @@ public class telaVendedores extends JFrame{
 			}
 		});
 		btnEditar.setEnabled(false);
-		btnEditar.setBounds(20, 45, 89, 23);
+		btnEditar.setBounds(30, 55, 126, 43);
 		this.getContentPane().add(btnEditar);
 		
 		btnPagar = new JButton("Pagar");
@@ -119,11 +119,11 @@ public class telaVendedores extends JFrame{
 			}
 		});
 		btnPagar.setEnabled(false);
-		btnPagar.setBounds(113, 45, 89, 23);
+		btnPagar.setBounds(174, 55, 126, 42);
 		this.getContentPane().add(btnPagar);
 		
 		btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(203, 45, 89, 23);
+		btnExcluir.setBounds(312, 55, 126, 43);
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int confirm = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse produto?");
@@ -134,7 +134,7 @@ public class telaVendedores extends JFrame{
 		this.getContentPane().add(btnExcluir);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(22, 73, 402, 177);
+		scrollPane.setBounds(22, 120, 738, 288);
 		this.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -175,7 +175,7 @@ public class telaVendedores extends JFrame{
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(319, 262, 117, 25);
+		btnVoltar.setBounds(605, 444, 155, 44);
 		getContentPane().add(btnVoltar);
 	}
 }
