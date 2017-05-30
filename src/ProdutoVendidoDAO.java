@@ -2,32 +2,17 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class ProdutoVendidoDAO extends BancoDeDados {
 	
-	public boolean addProdutoVendido(Produto p, int qtdVendida, Circulacao c, Vendedor v)  
+	public boolean addProdutoVendido(int id_produto, int qtdVendida, Circulacao c, Vendedor v)  
 	{
-		ProdutoDAO prod = new ProdutoDAO();
-		CirculacaoDAO circ = new CirculacaoDAO();
-		VendedorDAO vend = new VendedorDAO();
-		ProdutoCirculandoDAO pc = new ProdutoCirculandoDAO();
 		try
 		{
 			Statement st = conexao.createStatement();			
-			//Agora vamos atualizar o valor de qtd circulando no primeiro elemento correspondente não nulo dos produto_circulando. No relatório da volta vamos pegar eles para registrar no estoque
-			ResultSet rs = st.executeQuery("SELECT qtd_circulando from produto_circulando WHERE id = " + pc.getProdutoCirculandoID(c, p, v) + " and produto_id= " + prod.getProdutoID(p)) ;
-			if(rs.next()){
-				if((rs.getInt(1) - qtdVendida) >= 0){//Verifica se a quantidade vendida está disponivel em circulacao
-					Statement ts = conexao.createStatement();
-					ts.executeUpdate("INSERT INTO produto_vendido VALUES (NULL, " + qtdVendida +", "+  prod.getProdutoID(p) + ", " + circ.getCirculacaoID(c, v) + ",'" + c.getDataAtual() + "'," + pc.getProdutoCirculandoID(c, p, v)+ ")");
-					v.atualizaVenda(p.getPrecoFinal(), qtdVendida);
-					ts.executeUpdate("UPDATE vendedor SET valor_a_receber=" + v.valorReceber() + " WHERE id=" + vend.getVendedorID(v));//Aumenta o valor a receber do vendedor
-					ts.executeUpdate("UPDATE produto_circulando SET qtd_circulando=" + (rs.getInt(1) - qtdVendida) + " WHERE id=" + pc.getProdutoCirculandoID(c, p, v));
-					return true;
-				}
-				else return false;
-			}
-			else return false;
+			st.executeUpdate("INSERT INTO produto_vendido VALUES (NULL, " + qtdVendida +", "+  id_produto + ", " + c.getID() + ",'" + c.getDataAtual() + "')");				
+			return true;
 		}
 		catch(SQLException e)
 		{
@@ -104,6 +89,27 @@ public class ProdutoVendidoDAO extends BancoDeDados {
 		}
 	}
 	
+	public ArrayList<ProdutoCirculando> ListarProdutosVendidos(int id_circulacao)
+	{
+		 ArrayList<ProdutoCirculando> list = new  ArrayList<ProdutoCirculando>();
+		try
+		{
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("SELECT produto_id, qtd_produto FROM produto_vendido WHERE produto_vendido.circulacao_id =" + id_circulacao+";");
+			
+			while(rs.next()) 
+				{
+				ProdutoDAO produto_bd = new ProdutoDAO();
+				list.add(new ProdutoCirculando(produto_bd.getProduto(rs.getInt(1)), rs.getInt(2)));
+				}
+			return list;
+		}
+		catch(SQLException e)
+		{
+			return null;
+		}
+		
+	}
 	
 	
 	

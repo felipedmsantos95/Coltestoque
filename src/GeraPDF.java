@@ -1,10 +1,10 @@
 import java.awt.Color;
 import java.io.FileOutputStream;
 import java.sql.*;
-import java.sql.Connection;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -38,7 +38,7 @@ public class GeraPDF extends BancoDeDados {
              double r = v.valorReceber() * 100;
 				Double round = (double) Math.round(r);
 				round = round/100;
-             // adicionando um parágrafo no documento
+             // adicionando um parÃ¡grafo no documento
 			Paragraph titulo = new Paragraph("RECIBO DE COMISSÃO\n\n\n\n");
 			titulo.setAlignment(Element.ALIGN_CENTER);
 			FontFactory.getFont(FontFactory.TIMES, Font.BOLD);
@@ -70,6 +70,9 @@ public class GeraPDF extends BancoDeDados {
 			nomep.setAlignment(Element.ALIGN_CENTER);
 			document.add(nomep);
 			
+			VendedorDAO vendedor_bd = new VendedorDAO();
+			vendedor_bd.updateValorAReceberVendedor(v.getID(),0);
+			
 			
          }
          catch(DocumentException de) {
@@ -98,13 +101,13 @@ public class GeraPDF extends BancoDeDados {
              document.open();
             
             
-             // adicionando um parágrafo no documento
-			Paragraph titulo = new Paragraph("RELATÓRIO DE SAÍDA\n\n\n\n");
+             // adicionando um parÃ¡grafo no documento
+			Paragraph titulo = new Paragraph("RELATÓRIO DE SAIDA\n\n\n\n");
 			titulo.setAlignment(Element.ALIGN_CENTER);
 			FontFactory.getFont(FontFactory.TIMES, Font.BOLD);
 			document.add(titulo);
 			
-			//Aqui será feita uma consulta no banco para extrair as informações necessárias da circulação
+			//Aqui serÃ¡ feita uma consulta no banco para extrair as informaÃ§Ãµes necessÃ¡rias da circulaÃ§Ã£o
 			
 			Statement st = conexao.createStatement();
 			ResultSet rs = st.executeQuery("select  valor_total,vendedor_id,data_hora,qtd_circulando,codigo,produto.nome,preco_final from circulacao,produto_circulando,produto,vendedor where produto_circulando.produto_id = produto.id and circulacao.vendedor_id = vendedor.id and circulacao.id=" + idCirculacao + " and produto_circulando.circulacao_id= " + idCirculacao);
@@ -124,7 +127,7 @@ public class GeraPDF extends BancoDeDados {
 			
 			tabela.setHorizontalAlignment(Element.ALIGN_CENTER);
 			
-			Double  totaCirculacao = (double) 0;//Esse é o valor total de produtos
+			Double  totaCirculacao = (double) 0;//Esse Ã© o valor total de produtos
 			while(rs.next())
 			{
 				PdfPCell codigoe = new PdfPCell(new Paragraph(rs.getString(5)));
@@ -193,7 +196,7 @@ public class GeraPDF extends BancoDeDados {
      }
 	
 	
-	public String geraRelatorioRetorno(String diretorio, int idVendedor, int idCirculacao)
+	public String geraRelatorioRetorno(boolean pagoagora, String diretorio, int idVendedor, int idCirculacao,double vr, double vv, double c)
 	{
 		 Document document = new Document();
 		 VendedorDAO vend = new VendedorDAO();
@@ -208,17 +211,16 @@ public class GeraPDF extends BancoDeDados {
              document.open();
             
             
-             // adicionando um parágrafo no documento
+             // adicionando um parÃ¡grafo no documento
 			Paragraph titulo = new Paragraph("RELATÓRIO DE RETORNO\n\n\n\n");
 			titulo.setAlignment(Element.ALIGN_CENTER);
 			FontFactory.getFont(FontFactory.TIMES, Font.BOLD);
 			document.add(titulo);
 			
-			//Aqui será feita uma consulta no banco para extrair as informações necessárias da circulação
-			
-			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("select  valor_total,vendedor_id,data_hora,qtd_circulando,codigo,produto.nome,preco_final,valor_a_receber from circulacao,produto_circulando,produto,vendedor where produto_circulando.produto_id = produto.id and circulacao.vendedor_id = vendedor.id and circulacao.id="+ idCirculacao +" and qtd_circulando != 0");
-						
+			//Aqui serÃ¡ feita uma consulta no banco para extrair as informaÃ§Ãµes necessÃ¡rias da circulaÃ§Ã£o
+			ProdutoCirculandoDAO pcirculando_bd = new ProdutoCirculandoDAO();
+			ArrayList<ProdutoCirculando> listRetorno = pcirculando_bd.ListarProdutosDessaCirculacao(idCirculacao);
+		
 			PdfPTable tabela = new PdfPTable(5);
 			PdfPCell codigo = new PdfPCell(new Paragraph("Código"));
 			PdfPCell nomeProduto = new PdfPCell(new Paragraph("Nome do Produto"));
@@ -233,19 +235,18 @@ public class GeraPDF extends BancoDeDados {
 			tabela.addCell(precot);
 			
 			tabela.setHorizontalAlignment(Element.ALIGN_CENTER);
-			
-			Double  totaCirculacao = (double) 0;//Esse é o valor total de produtos
-			Double comissao = (double) 0;
-			while(rs.next())
+			double totaCirculacao =0;
+			for(int i=0;i<listRetorno.size();i++)
 			{
-				PdfPCell codigoe = new PdfPCell(new Paragraph(rs.getString(5)));
-				PdfPCell nomeProdutoe = new PdfPCell(new Paragraph(rs.getString(6)));
-				double r = rs.getDouble(7) * 100;
+				PdfPCell codigoe = new PdfPCell(new Paragraph(listRetorno.get(i).produto.getCodigo()));
+				PdfPCell nomeProdutoe = new PdfPCell(new Paragraph(listRetorno.get(i).produto.getNome()));
+				double r = listRetorno.get(i).produto.getPrecoFinal() * 100;
 				Double round = (double) Math.round(r);
 				round = round/100;
 				PdfPCell precoue = new PdfPCell(new Paragraph(round.toString()));
-				PdfPCell qtde = new PdfPCell(new Paragraph(rs.getString(4)));
-				Double total = rs.getInt(4) * round * 100;
+				Integer q = listRetorno.get(i).quantCirculando;
+				PdfPCell qtde = new PdfPCell(new Paragraph(q.toString()));
+				Double total = listRetorno.get(i).quantCirculando * round * 100;
 				total = (double) Math.round(total);
 				total = total/100;
 				PdfPCell precote = new PdfPCell(new Paragraph(total.toString()));
@@ -258,33 +259,17 @@ public class GeraPDF extends BancoDeDados {
 				
 				totaCirculacao += total;
 				
-				
-				double com = rs.getDouble(8) * 100;
-				comissao = (double) Math.round(com);
-				comissao = comissao / 100;
-				
 			}
 			
 			double circ = totaCirculacao * 100;
 			totaCirculacao = (double) Math.round(circ);
 			totaCirculacao = totaCirculacao / 100;
 			
+//Adicionar tabela vendidos
 			
-			
-			Paragraph p = new Paragraph("        Os seguintes produtos estão retornando ao estoque na data "+ data.get(Calendar.DAY_OF_MONTH) + "/" + (data.get(Calendar.MONTH) + 1) + "/" + data.get(Calendar.YEAR) + " no horário " + data.get(Calendar.HOUR_OF_DAY) + "h e " + data.get(Calendar.MINUTE) + "min através do vendedor " + v.nome + ":\n\n");
-			p.setAlignment(Element.ALIGN_JUSTIFIED);
-			document.add(p);
-			document.add(tabela);
-			
-			Paragraph concl = new Paragraph("\n\n        O valor total que está sendo retornado é de: R$ " + totaCirculacao + " E a comissão a ser paga ao vendedor pelos produtos vendidos abaixo listados é de: R$ " + comissao + " .\n\n");
-			concl.setAlignment(Element.ALIGN_JUSTIFIED);
-			document.add(concl);
-			
-			//Adicionar tabela vendidos
-			
-			Statement ts = conexao.createStatement();
-			ResultSet sr = ts.executeQuery("select  qtd_produto,codigo,produto.nome,preco_final from circulacao,produto_vendido,produto,vendedor where produto_vendido.produto_id = produto.id and circulacao.vendedor_id = vendedor.id and circulacao.id=" + idCirculacao);
-						
+			ProdutoVendidoDAO pvendido_bd = new ProdutoVendidoDAO();
+			ArrayList<ProdutoCirculando> listVendidos = pvendido_bd.ListarProdutosVendidos(idCirculacao);
+		
 			PdfPTable tabelav = new PdfPTable(5);
 			PdfPCell codigov = new PdfPCell(new Paragraph("Código"));
 			PdfPCell nomeProdutov = new PdfPCell(new Paragraph("Nome do Produto"));
@@ -298,16 +283,19 @@ public class GeraPDF extends BancoDeDados {
 			tabelav.addCell(qtdv);
 			tabelav.addCell(precotv);
 			
-			while (sr.next())
+			tabelav.setHorizontalAlignment(Element.ALIGN_CENTER);
+			double totaCirculacao2 =0;
+			for(int i=0;i<listVendidos.size();i++)
 			{
-				PdfPCell codigoe = new PdfPCell(new Paragraph(sr.getString(2)));
-				PdfPCell nomeProdutoe = new PdfPCell(new Paragraph(sr.getString(3)));
-				double r = sr.getDouble(4) * 100;
+				PdfPCell codigoe = new PdfPCell(new Paragraph(listVendidos.get(i).produto.getCodigo()));
+				PdfPCell nomeProdutoe = new PdfPCell(new Paragraph(listVendidos.get(i).produto.getNome()));
+				double r = listVendidos.get(i).produto.getPrecoFinal() * 100;
 				Double round = (double) Math.round(r);
 				round = round/100;
 				PdfPCell precoue = new PdfPCell(new Paragraph(round.toString()));
-				PdfPCell qtde = new PdfPCell(new Paragraph(sr.getString(1)));
-				Double total = sr.getInt(1) * round * 100;
+				Integer q1 = listVendidos.get(i).quantCirculando;
+				PdfPCell qtde = new PdfPCell(new Paragraph(q1.toString()));
+				Double total = listVendidos.get(i).quantCirculando * round * 100;
 				total = (double) Math.round(total);
 				total = total/100;
 				PdfPCell precote = new PdfPCell(new Paragraph(total.toString()));
@@ -317,13 +305,41 @@ public class GeraPDF extends BancoDeDados {
 				tabelav.addCell(precoue);
 				tabelav.addCell(qtde);
 				tabelav.addCell(precote);
+				
+				totaCirculacao2 += total;
 			}
 			
 		
+			double circ2 = totaCirculacao2 * 100;
+			totaCirculacao2 = (double) Math.round(circ2);
+			totaCirculacao2 = totaCirculacao2 / 100;
 			
-			tabelav.setHorizontalAlignment(Element.ALIGN_CENTER);
+			//Escrevendo Relatorio Retorno
 			
+			Paragraph p = new Paragraph("        Os seguintes produtos estão retornando ao estoque na data "+ data.get(Calendar.DAY_OF_MONTH) + "/" + (data.get(Calendar.MONTH) + 1) + "/" + data.get(Calendar.YEAR) + " no horário " + data.get(Calendar.HOUR_OF_DAY) + "h e " + data.get(Calendar.MINUTE) + "min através do vendedor " + v.nome + ":\n\n");
+			p.setAlignment(Element.ALIGN_JUSTIFIED);
+			document.add(p);
+			document.add(tabela);
+			
+			Paragraph concl = new Paragraph("\n\n        O valor total que está sendo retornado é de: R$ " + totaCirculacao + ". Os seguintes produtos foram vendidos:\n\n");
+			concl.setAlignment(Element.ALIGN_JUSTIFIED);
+			document.add(concl);
 			document.add(tabelav);
+			
+			double aux= vv * 100;
+			vv = (double) Math.round(aux);
+			vv = vv / 100;
+			
+			double aux2= c * 100;
+			c = (double) Math.round(aux2);
+			c = c / 100;
+			
+			Paragraph concl2;
+			if(pagoagora)concl2 = new Paragraph("\n\n        O valor total que foi vendido é de: R$ " + vv + ".  E a comissão a ser paga ao vendedor é de: R$ " + c+ ", que já foi pago.\n\n");
+			else concl2 = new Paragraph("\n\n        O valor total que foi vendido é de: R$ " + vv + ".  E a comissão a ser paga ao vendedor é de: R$ " + c+ ", que será pago posteriormente.\n\n");
+			concl2.setAlignment(Element.ALIGN_JUSTIFIED);
+			document.add(concl2);
+			
 			Paragraph line = new Paragraph("\n\n\nAss: _________________________________");
 			line.setAlignment(Element.ALIGN_CENTER);
 			
@@ -337,7 +353,11 @@ public class GeraPDF extends BancoDeDados {
 			nomeVend.setAlignment(Element.ALIGN_CENTER);
 			document.add(nomeVend);
 			
-			
+			//Finaliza retorno
+			if(!pagoagora)vend.updateValorAReceberVendedor(v.getID(),v.getValorAReceber()+c);
+			pcirculando_bd.retornarProdutosParaEstoque(idCirculacao);
+			pcirculando_bd.RemoverProdutosDessaCirculacao(idCirculacao);
+
 			
 			
          }
@@ -346,10 +366,7 @@ public class GeraPDF extends BancoDeDados {
          }
          catch(IOException ioe) {
              System.err.println(ioe.getMessage());
-         } catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+         }
          document.close();
 		return diretorio + "/RelRetorno" + v.nome + data.getTime() + ".pdf";
      }
@@ -358,7 +375,7 @@ public class GeraPDF extends BancoDeDados {
 		GeraPDF recibo = new GeraPDF();
 		//VendedorDAO v = new VendedorDAO();
 		
-		recibo.geraRelatorioRetorno("/home/felipedmsantos/Área de Trabalho", 6,4);
+		//recibo.geraRelatorioRetorno("/home/felipedmsantos/Ã�rea de Trabalho", 6,4);
 		
 		
 	}

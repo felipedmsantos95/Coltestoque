@@ -114,6 +114,10 @@ public class telaNovaVenda extends JFrame{
 		comboBoxVend.setBounds(176, 30, 285, 20);
 		this.getContentPane().add(comboBoxVend);
 		
+		/*JLabel lblData = new JLabel("Data");
+		lblData.setBounds(21, 58, 46, 14);
+		this.getContentPane().add(lblData);*/
+		
 		JLabel lblCodigoProduto = new JLabel("Codigo Produto");
 		lblCodigoProduto.setBounds(24, 97, 80, 14);
 		this.getContentPane().add(lblCodigoProduto);
@@ -199,5 +203,9 @@ public class telaNovaVenda extends JFrame{
 		comboBoxProd = new JComboBox();
 		comboBoxProd.setBounds(21, 122, 105, 22);
 		this.getContentPane().add(comboBoxProd);
+		
+		/*JLabel lblValorData = new JLabel("New label");
+		lblValorData.setBounds(66, 55, 146, 20);
+		getContentPane().add(lblValorData);*/
 	}
 }

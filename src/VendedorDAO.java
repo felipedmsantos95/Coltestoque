@@ -64,7 +64,7 @@ public class VendedorDAO extends BancoDeDados {
 		try
 		{
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM vendedor WHERE id=" + id);
+			ResultSet rs = st.executeQuery("SELECT * FROM vendedor WHERE id=" + id+";");
 			
 			if(rs.next()) 
 			{
@@ -131,12 +131,43 @@ public class VendedorDAO extends BancoDeDados {
 		}
 	}
 	
+	public boolean updateValorAReceberVendedor(int id, double novoValoraReceber)
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			st.executeUpdate("UPDATE vendedor SET valor_a_receber='" + novoValoraReceber+"' WHERE id=" + id);
+			return true;
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	
 	public double getComissaoVendedor(int idVendedor)
 	{
 			try
 			{
 				Statement st = conexao.createStatement();
 				ResultSet rs = st.executeQuery("SELECT valor_a_receber FROM vendedor WHERE id=" + idVendedor);
+				
+				if(rs.next()) return rs.getDouble(1);
+				else return 0;
+			}
+			catch(SQLException e)
+			{
+				return 0;
+			}		
+		
+	}
+	public double getPercentualComissaoVendedor(int idVendedor)
+	{
+			try
+			{
+				Statement st = conexao.createStatement();
+				ResultSet rs = st.executeQuery("SELECT percentual FROM vendedor WHERE id=" + idVendedor);
 				
 				if(rs.next()) return rs.getDouble(1);
 				else return 0;

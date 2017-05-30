@@ -61,7 +61,7 @@ public class ProdutoDAO extends BancoDeDados{
 		try
 		{
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT produto.id, produto.codigo, produto.nome, produto.preco_final, produto.preco_atacado, produto.descricao, estoque.qtd_estoque FROM produto, estoque WHERE estoque.produto_id="+id+";");
+			ResultSet rs = st.executeQuery("SELECT produto.id, produto.codigo, produto.nome, produto.preco_final, produto.preco_atacado, produto.descricao, estoque.qtd_estoque FROM produto, estoque WHERE estoque.produto_id="+id+" AND produto.id="+id+";");
 			
 			if(rs.next()) 
 			{

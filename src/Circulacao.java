@@ -31,11 +31,12 @@ public class Circulacao {
 		
 	}
 	
+	/* acho que essa funcao eh desnecessaria
 	double atualizaValorCirculacao(Produto p)//Toda vez que um produto é adicionado na circulação o valor total é atualizado
 	{
 		this.valorTotal += p.precoFinal;
 		return (this.valorTotal);
-	}
+	}*/
 	
 	double atualizaValorCirculacao(Produto p, int qtd)//Toda vez que um produto é adicionado na circulação o valor total é atualizado
 	{

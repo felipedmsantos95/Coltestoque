@@ -47,14 +47,14 @@ public class telaImpressaoTermo extends JFrame {
 		initializeSaida(idVendedor, idCirculacao);
 	}
 	
-	public telaImpressaoTermo(Vendedor vendedor, int idCirculacao) {
-		initializeRetorno(vendedor, idCirculacao);
+	public telaImpressaoTermo(boolean pagaagora,Vendedor vendedor, int idCirculacao, double vr, double vv, double c) {
+		initializeRetorno(pagaagora,vendedor, idCirculacao,vr, vv,c);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initializeRecibo(int idVendedor) {
+	private void initializeRecibo(final int idVendedor) {
 
 		this.setTitle("Impress\u00E3o de Termo");
 		this.setBounds(100, 100, 800, 550);
@@ -113,14 +113,16 @@ public class telaImpressaoTermo extends JFrame {
 		btnNewButton.setBounds(601, 210, 139, 19);
 		this.getContentPane().add(btnNewButton);
 		
+		
+		
 		JLabel lblPastaASer = new JLabel("Pasta a ser salvo:");
-		lblPastaASer.setBounds(43, 183, 139, 15);
+		lblPastaASer.setBounds(22, 82, 139, 15);
 		this.getContentPane().add(lblPastaASer);
 	}
 	
 	//Aqui precisamos do id da circulacao que o vendedor abriu também
 	
-	private void initializeSaida(int idVendedor, int idCirculacao) {
+	private void initializeSaida(final int idVendedor, final int idCirculacao) {
 		this.setTitle("Impress\u00E3o de Termo");
 		this.setBounds(100, 100, 800, 550);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -183,7 +185,7 @@ public class telaImpressaoTermo extends JFrame {
 		this.getContentPane().add(lblPastaASer);
 	}
 	
-	private void initializeRetorno(Vendedor idVendedor, int idCirculacao) {
+	private void initializeRetorno(final boolean pagaagora,final Vendedor vendedor, final int idCirculacao, final double vr, final double vv, final double c) {
 		this.setTitle("Impress\u00E3o de Termo");
 		this.setBounds(100, 100, 800, 550);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -199,7 +201,7 @@ public class telaImpressaoTermo extends JFrame {
 				
 				
 				try {
-					java.awt.Desktop.getDesktop().open( new File(relatorios.geraRelatorioRetorno(path.getText(), v.getVendedorID(idVendedor), idCirculacao)) );
+					java.awt.Desktop.getDesktop().open( new File(relatorios.geraRelatorioRetorno(pagaagora, path.getText(), vendedor.getID(), idCirculacao,vr,vv,c)) );
 					telaMain tela = new telaMain();
 					tela.setVisible(true);
 					dispose();

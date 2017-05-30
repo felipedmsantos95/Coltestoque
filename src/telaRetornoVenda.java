@@ -31,7 +31,6 @@ public class telaRetornoVenda extends JFrame{
 	ProdutoVendidoDAO pvendido_bd = new ProdutoVendidoDAO();
 	ArrayList<ProdutoCirculando> listaPedido = new ArrayList<ProdutoCirculando>();
 	CirculacaoDAO circulacao_bd = new CirculacaoDAO();
-	EstoqueDAO estoque_bd = new EstoqueDAO();
 	private Circulacao circulacao;
 	private Vendedor vendedor;
 
@@ -127,6 +126,7 @@ public class telaRetornoVenda extends JFrame{
 		
 		textFieldDataRetorno = new JTextField();
 		textFieldDataRetorno.setBounds(408, 54, 180, 28);
+ 		this.getContentPane().add(textFieldDataRetorno);
 		this.getContentPane().add(textFieldDataRetorno);
 		textFieldDataRetorno.setColumns(10);
 		
@@ -138,9 +138,9 @@ public class telaRetornoVenda extends JFrame{
 				{
 					Object ob =tableQuantRetornada.getValueAt(i,0);
 					int quantDigitada = (Integer.parseInt(ob.toString()));
-					System.out.println(quantDigitada);
-					pvendido_bd.addProdutoVendido(listaPedido.get(i).produto,listaPedido.get(i).quantCirculando-quantDigitada, circulacao, vendedor);
-					estoque_bd.retornaEstoque(listaPedido.get(i).produto.getID(), quantDigitada);
+					System.out.println(listaPedido.get(i).produto.getID()+"  "+(listaPedido.get(i).quantCirculando-quantDigitada));
+					pvendido_bd.addProdutoVendido(listaPedido.get(i).produto.getID(),listaPedido.get(i).quantCirculando-quantDigitada, circulacao, vendedor);
+					pcirculando_bd.updateQuantCirculacao(listaPedido.get(i).produto.getID(),circulacao.getID(), quantDigitada);
 				}
 				telaFimVenda fimVenda = new telaFimVenda(vendedor.getID(),circulacao.getID());
 				fimVenda.setVisible(true);
@@ -153,11 +153,11 @@ public class telaRetornoVenda extends JFrame{
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				telaMain tela = new telaMain();
-				tela.setVisible(true);
-				dispose();
-			}
-		});
+							telaMain tela = new telaMain();
+							tela.setVisible(true);
+							dispose();
+						}
+			});
 		btnCancelar.setBounds(496, 432, 118, 37);
 		this.getContentPane().add(btnCancelar);
 		
