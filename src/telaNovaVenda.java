@@ -103,7 +103,7 @@ public class telaNovaVenda extends JFrame{
 	private void initialize() {
 		this.setTitle("Nova Venda");
 		this.setBounds(100, 100, 491, 356);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
 		JLabel lblVendedor = new JLabel("Vendedor");
