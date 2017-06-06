@@ -25,21 +25,11 @@ public class telaVendedores extends JFrame{
 	private JButton btnExcluir;
 	private JButton btnEditar;
 	private JButton btnPagar;
+	private JLabel lblSelecioneUmVendedor;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					telaVendedores window = new telaVendedores();
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
@@ -59,8 +49,8 @@ public class telaVendedores extends JFrame{
 		{
 
 			row[0] = listVendedores.get(i).getNome();
-			row[1] = listVendedores.get(i).getComissao();
-			row[2] = listVendedores.get(i).getValorAReceber();
+			row[1] = listVendedores.get(i).getComissao() + " % ";
+			row[2] = "R$ "+ listVendedores.get(i).getValorAReceber();
 
 			
 			model.addRow(row);
@@ -89,10 +79,10 @@ public class telaVendedores extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				telaVendedorEditando tela = new telaVendedorEditando();
 				tela.setVisible(true);
-				//dispose();
+				dispose();
 			}
 		});
-		btnAdicionarNovoVendedor.setBounds(30, 12, 241, 31);
+		btnAdicionarNovoVendedor.setBounds(22, 23, 230, 45);
 		this.getContentPane().add(btnAdicionarNovoVendedor);
 		
 		
@@ -106,7 +96,7 @@ public class telaVendedores extends JFrame{
 			}
 		});
 		btnEditar.setEnabled(false);
-		btnEditar.setBounds(30, 55, 126, 43);
+		btnEditar.setBounds(306, 78, 120, 30);
 		this.getContentPane().add(btnEditar);
 		
 		btnPagar = new JButton("Pagar");
@@ -119,25 +109,42 @@ public class telaVendedores extends JFrame{
 			}
 		});
 		btnPagar.setEnabled(false);
-		btnPagar.setBounds(174, 55, 126, 42);
+		btnPagar.setBounds(438, 78, 120, 30);
 		this.getContentPane().add(btnPagar);
 		
 		btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(312, 55, 126, 43);
+		btnExcluir.setBounds(570, 78, 120, 30);
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int confirm = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse produto?");
-				if(confirm==0)vendedor_bd.removerVendedor(listVendedores.get(table.getSelectedRow()).getID());
+				int confirm = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse vendedor?");
+				if(confirm==0)
+					{
+					int idVendedorExcluido =listVendedores.get(table.getSelectedRow()).getID();
+					//verificar se vendedor está em circulacao
+					CirculacaoDAO circulacao_bd = new CirculacaoDAO();
+					ArrayList<Circulacao> listcirculacao = circulacao_bd.ListarCirculacoesDeVendedor(idVendedorExcluido);
+					if(listcirculacao.isEmpty())
+					{
+						vendedor_bd.removerVendedor(idVendedorExcluido);
+						JOptionPane.showMessageDialog(null,"Vendedor removido com sucesso.");
+						Show_Vendedores_In_Jtable();
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null,"Impossivel remover este vendedor pois ele possui uma Retirada em aberto");
+					}
+					}
 			}
 		});
 		btnExcluir.setEnabled(false);
 		this.getContentPane().add(btnExcluir);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(22, 120, 738, 288);
+		scrollPane.setBounds(22, 120, 738, 301);
 		this.getContentPane().add(scrollPane);
 		
 		table = new JTable();
+		table.setRowHeight(25);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
 		table.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent arg0) {
@@ -153,18 +160,19 @@ public class telaVendedores extends JFrame{
 			new String[] {
 				"NOME", "COMISS\u00C3O", "VALOR A RECEBER"
 			}
-		){
-			public boolean isCellEditable(int row, int col) {  
-		           return false;  
-		   } 
-
-			Class[] columnTypes = new Class[] {
-				String.class, Double.class, Double.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
+		)
+		{
+			public boolean isCellEditable(int row, int col)
+			{
+				return false;
 			}
-		});
+			}
+	);
+		table.getColumnModel().getColumn(1).setMinWidth(75);
+		table.getColumnModel().getColumn(1).setMaxWidth(75);
+		table.getColumnModel().getColumn(2).setPreferredWidth(120);
+		table.getColumnModel().getColumn(2).setMinWidth(120);
+		table.getColumnModel().getColumn(2).setMaxWidth(120);
 		scrollPane.setViewportView(table);
 		
 		JButton btnVoltar = new JButton("Voltar");
@@ -175,7 +183,11 @@ public class telaVendedores extends JFrame{
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(605, 444, 155, 44);
+		btnVoltar.setBounds(600, 444, 160, 45);
 		getContentPane().add(btnVoltar);
+		
+		lblSelecioneUmVendedor = new JLabel("Selecione um vendedor abaixo para:");
+		lblSelecioneUmVendedor.setBounds(32, 82, 258, 22);
+		getContentPane().add(lblSelecioneUmVendedor);
 	}
 }

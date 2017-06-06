@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.ListSelectionModel;
@@ -37,18 +38,7 @@ public class telaRetornoVenda extends JFrame{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					telaRetornoVenda window = new telaRetornoVenda(1);
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
@@ -133,18 +123,33 @@ public class telaRetornoVenda extends JFrame{
 		btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				boolean dadoscorretos=true;
 				for(int i=0; i<listaPedido.size();i++)
 				{
+
 					Object ob =tableQuantRetornada.getValueAt(i,0);
 					int quantDigitada = (Integer.parseInt(ob.toString()));
-					System.out.println(listaPedido.get(i).produto.getID()+"  "+(listaPedido.get(i).quantCirculando-quantDigitada));
-					pvendido_bd.addProdutoVendido(listaPedido.get(i).produto.getID(),listaPedido.get(i).quantCirculando-quantDigitada, circulacao, vendedor);
-					pcirculando_bd.updateQuantCirculacao(listaPedido.get(i).produto.getID(),circulacao.getID(), quantDigitada);
+					if(quantDigitada>listaPedido.get(i).quantCirculando)dadoscorretos=false;
 				}
-				telaFimVenda fimVenda = new telaFimVenda(vendedor.getID(),circulacao.getID());
-				fimVenda.setVisible(true);
-				dispose();
+				if(dadoscorretos)
+				{
+					for(int i=0; i<listaPedido.size();i++)
+					{
+						Object ob =tableQuantRetornada.getValueAt(i,0);
+						int quantDigitada = (Integer.parseInt(ob.toString()));
+						System.out.println(listaPedido.get(i).produto.getID()+"  "+(listaPedido.get(i).quantCirculando-quantDigitada));
+						pvendido_bd.addProdutoVendido(listaPedido.get(i).produto.getID(),listaPedido.get(i).quantCirculando-quantDigitada, circulacao, vendedor);
+						pcirculando_bd.updateQuantCirculacao(listaPedido.get(i).produto.getID(),circulacao.getID(), quantDigitada);
+					}
+					telaFimVenda fimVenda = new telaFimVenda(vendedor.getID(),circulacao.getID());
+					fimVenda.setVisible(true);
+					dispose();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Não foi possível realizar a operação , pois entre as quantidades retornadas existe valor impossível. Conserte os dados e aperte no botão 'Confirmar' novamente.");
+				}
+				
 			}
 		});
 		btnConfirmar.setBounds(639, 432, 111, 37);
@@ -207,15 +212,15 @@ public class telaRetornoVenda extends JFrame{
 		splitPane.setRightComponent(tableQuantRetornada);
 		
 		JLabel lblQuantRetornada = new JLabel("+ QUANT RETORNADA");
-		lblQuantRetornada.setBounds(241, 125, 168, 14);
+		lblQuantRetornada.setBounds(349, 125, 168, 14);
 		getContentPane().add(lblQuantRetornada);
 		
 		JLabel lblCodigo = new JLabel("CODIGO");
-		lblCodigo.setBounds(12, 126, 64, 14);
+		lblCodigo.setBounds(32, 125, 64, 14);
 		getContentPane().add(lblCodigo);
 		
-		JLabel lblQuantRetirada = new JLabel("QUANT RETIRADA");
-		lblQuantRetirada.setBounds(88, 126, 129, 13);
+		JLabel lblQuantRetirada = new JLabel("/Q RETIRADA");
+		lblQuantRetirada.setBounds(89, 126, 129, 13);
 		getContentPane().add(lblQuantRetirada);
 	}
 }

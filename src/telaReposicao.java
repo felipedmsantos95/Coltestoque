@@ -40,18 +40,7 @@ public class telaReposicao extends JFrame{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					telaReposicao window = new telaReposicao();
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
@@ -90,7 +79,7 @@ public class telaReposicao extends JFrame{
 
 		this.setTitle("Reposi\u00E7\u00E3o de Estoque");
 		this.setBounds(100, 100, 500, 550);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
 		btnConfirmar = new JButton("Confirmar");

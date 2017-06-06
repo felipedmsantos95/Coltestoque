@@ -109,10 +109,6 @@ public class EstoqueDAO extends BancoDeDados {
 		
 	}
 	
-	public static void main(String[] args) {
-		
-		
-		
-	}
+	
 
 }

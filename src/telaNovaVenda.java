@@ -33,18 +33,7 @@ public class telaNovaVenda extends JFrame{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					telaNovaVenda window = new telaNovaVenda();
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
@@ -88,9 +77,15 @@ public class telaNovaVenda extends JFrame{
 		{
 
 			row[0] = listPedido.get(i).produto.getCodigo();
-			row[1] = listPedido.get(i).produto.getPrecoFinal();
+			double r =listPedido.get(i).produto.getPrecoFinal()* 100;
+			Double round = (double) Math.round(r);
+			round = round/100;
+			row[1] = round;
 			row[2] = listPedido.get(i).quantCirculando;
-			row[3] = listPedido.get(i).produto.getPrecoFinal()*listPedido.get(i).quantCirculando;
+			double r2 =listPedido.get(i).produto.getPrecoFinal()*listPedido.get(i).quantCirculando;
+			Double round2 = (double) Math.round(r2);
+			round = round2/100;
+			row[3] = round2;
 
 			
 			model.addRow(row);
@@ -180,6 +175,8 @@ public class telaNovaVenda extends JFrame{
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				telaMain window = new telaMain();
+				window.setVisible(true);
 				dispose();
 			}
 		});
@@ -198,7 +195,13 @@ public class telaNovaVenda extends JFrame{
 			new String[] {
 				"C\u00D3DIGO", "PRE\u00C7O", "QUANT RETIRADA", "PRE\u00C7O FINAL"
 			}
-		));
+		){
+			public boolean isCellEditable(int row, int col)
+			{
+				return false;
+			}
+			}
+		);
 		
 		comboBoxProd = new JComboBox();
 		comboBoxProd.setBounds(21, 122, 105, 22);

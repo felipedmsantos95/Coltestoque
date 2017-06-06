@@ -110,18 +110,23 @@ public class ProdutoVendidoDAO extends BancoDeDados {
 		}
 		
 	}
-	
-	
-	
-	public static void main(String[] args) {
-		
-		ProdutoDAO p = new ProdutoDAO();
-		VendedorDAO v = new VendedorDAO();
-		CirculacaoDAO c = new CirculacaoDAO();
-		ProdutoVendidoDAO pv = new ProdutoVendidoDAO();
-		//(c.getCirculacao(1), p.getProduto(3), v.getVendedor(6))
-		//System.out.println((pv.addProdutoVendido(p.getProduto(3), 10, c.getCirculacao(4), v.getVendedor(6))));
-		//System.out.println(pv.getValorVendido(4));
+	public boolean RemoverProdutosVendidosDessaCirculacao(int id_circulacao)
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			st.executeUpdate("DELETE FROM produto_vendido WHERE produto_vendido.circulacao_id =" + id_circulacao+";");
+
+			return true;
+		}
+		catch(SQLException e)
+		{
+			return false;
+		}
 	}
+	
+	
+	
+	
 
 }

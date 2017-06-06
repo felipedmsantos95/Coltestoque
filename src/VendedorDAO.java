@@ -44,10 +44,10 @@ public class VendedorDAO extends BancoDeDados {
 			Statement st = conexao.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM vendedor;");
 			while(rs.next())
-			{		
-				Vendedor novo = new Vendedor(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getDouble(4),rs.getDouble(5));//A coluna 3 é a do cpf
-				//System.out.println("Vendedor: "+ rs.getString(2) + "\nPercetual de Comissão: " + rs.getFloat(3) + " %\nValor Acumulado: R$ " + rs.getFloat(4) + "\n");
-				list.add(novo);
+			{	
+					Vendedor novo = new Vendedor(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getDouble(4),rs.getDouble(5));//A coluna 3 é a do cpf
+					//System.out.println("Vendedor: "+ rs.getString(2) + "\nPercetual de Comissão: " + rs.getFloat(3) + " %\nValor Acumulado: R$ " + rs.getFloat(4) + "\n");
+					list.add(novo);
 			}
 			
 		}
@@ -181,12 +181,5 @@ public class VendedorDAO extends BancoDeDados {
 	
 	
 	//Para testar e aplicar métodos criados no banco local
-	public static void main(String[] args) {
-		VendedorDAO vend = new VendedorDAO();
-		Vendedor v = new Vendedor("Manda-Chuva", "000.000.000-17", 10);
-		
-		System.out.println(vend.adicionarVendedor(v));
-		
-	}
-
+	
 }

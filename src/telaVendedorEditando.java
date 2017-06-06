@@ -23,18 +23,7 @@ public class telaVendedorEditando extends JFrame{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					telaVendedorEditando window = new telaVendedorEditando();
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
@@ -78,6 +67,7 @@ public class telaVendedorEditando extends JFrame{
 						JOptionPane.showMessageDialog(null,"Vendedor cadastrado com sucesso!");
 						telaVendedores tela = new telaVendedores();
 						tela.setVisible(true);
+						dispose();
 					}
 					
 					
@@ -96,6 +86,7 @@ public class telaVendedorEditando extends JFrame{
 				telaVendedorEditando.this.dispose();
 				telaVendedores tela = new telaVendedores();
 				tela.setVisible(true);
+				dispose();
 			}
 		});
 		btnCancelar.setBounds(485, 436, 128, 37);
@@ -116,8 +107,12 @@ public class telaVendedorEditando extends JFrame{
 		getContentPane().add(cpf);
 		
 		JLabel lblCpf = new JLabel("CPF");
-		lblCpf.setBounds(195, 201, 37, 15);
+		lblCpf.setBounds(190, 193, 37, 15);
 		getContentPane().add(lblCpf);
+		
+		JLabel lblXxxxxxxxxx = new JLabel("xxx.xxx.xx-xx");
+		lblXxxxxxxxxx.setBounds(135, 209, 92, 15);
+		getContentPane().add(lblXxxxxxxxxx);
 	}
 	
 	private void initialize1(int id) {
@@ -150,6 +145,7 @@ public class telaVendedorEditando extends JFrame{
 						JOptionPane.showMessageDialog(null,"Vendedor atualizado com sucesso!");
 						telaVendedores tela = new telaVendedores();
 						tela.setVisible(true);
+						dispose();
 					}
 					
 				} catch (ParseException e1) {
@@ -167,6 +163,7 @@ public class telaVendedorEditando extends JFrame{
 				telaVendedorEditando.this.dispose();
 				telaVendedores tela = new telaVendedores();
 				tela.setVisible(true);
+				dispose();
 			}
 		});
 		btnCancelar.setBounds(485, 436, 128, 37);

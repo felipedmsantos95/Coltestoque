@@ -26,7 +26,6 @@ public class telaEstoque extends JFrame{
 	private JTable table;
 	private JButton btnEditar;
 	private JButton btnExcluir;
-	private JPanel panel;
 	private JLabel lblSelecioneUmProduto;
 	private ProdutoDAO produto_bd= new ProdutoDAO();
 	private ArrayList<Produto> listProdutos = new ArrayList<Produto>();
@@ -34,18 +33,7 @@ public class telaEstoque extends JFrame{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					telaEstoque window = new telaEstoque();
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
@@ -68,7 +56,12 @@ public class telaEstoque extends JFrame{
 			row[1] = listProdutos.get(i).getNome();
 			row[2] = listProdutos.get(i).getQuantidadeEstoque();
 			row[3] = listProdutos.get(i).getPrecoCompra();
-			row[4] = listProdutos.get(i).getPrecoFinal();
+
+			double r =listProdutos.get(i).getPrecoFinal()* 100;
+			Double round = (double) Math.round(r);
+			round = round/100;
+			
+			row[4] = round;
 			row[5] = listProdutos.get(i).getDescricao();
 			
 			model.addRow(row);
@@ -99,6 +92,7 @@ public class telaEstoque extends JFrame{
 		this.getContentPane().add(scrollPane);
 		
 		table = new JTable();
+		table.setRowHeight(25);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
 		table.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent arg0) {
@@ -109,48 +103,59 @@ public class telaEstoque extends JFrame{
 		});
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				
 			},
 			new String[] {
 				"C\u00D3DIGO", "NOME", "QUANT ESTOQUE", "PRE\u00C7O COMPRA", "PRE\u00C7O VENDA", "DESCRI\u00C7\u00C3O"
 			}
 		)
-		{
-			public boolean isCellEditable(int row, int col) {  
-		           return false;  
-		   } 
-		}
+				{
+				public boolean isCellEditable(int row, int col)
+				{
+					return false;
+				}
+				}
 		);
+		table.getColumnModel().getColumn(0).setPreferredWidth(70);
+		table.getColumnModel().getColumn(0).setMinWidth(70);
+		table.getColumnModel().getColumn(0).setMaxWidth(70);
+		table.getColumnModel().getColumn(2).setPreferredWidth(120);
+		table.getColumnModel().getColumn(2).setMinWidth(120);
+		table.getColumnModel().getColumn(2).setMaxWidth(120);
+		table.getColumnModel().getColumn(3).setPreferredWidth(120);
+		table.getColumnModel().getColumn(3).setMinWidth(120);
+		table.getColumnModel().getColumn(3).setMaxWidth(120);
+		table.getColumnModel().getColumn(4).setPreferredWidth(98);
+		table.getColumnModel().getColumn(4).setMinWidth(98);
+		table.getColumnModel().getColumn(4).setMaxWidth(98);
 		
 		scrollPane.setViewportView(table);
 		
-		panel = new JPanel();
-		panel.setBounds(36, 22, 712, 45);
-		getContentPane().add(panel);
-		panel.setLayout(new GridLayout(1, 0, 0, 0));
+		lblSelecioneUmProduto = new JLabel("Selecione um produto abaixo para :");
+		lblSelecioneUmProduto.setBounds(33, 92, 266, 27);
+		getContentPane().add(lblSelecioneUmProduto);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				telaMain tala = new telaMain();
+				tala.setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBounds(614, 460, 160, 45);
+		getContentPane().add(btnVoltar);
 		
 		JButton btnNovoProduto = new JButton("Novo Produto");
-		btnNovoProduto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				telaProdutoEditando window= new telaProdutoEditando();
-				window.setVisible(true);
-				dispose();
-			}
-		});
-		panel.add(btnNovoProduto);
+		btnNovoProduto.setBounds(33, 12, 230, 45);
+		getContentPane().add(btnNovoProduto);
 		
 		JButton btnReposioDeProduto = new JButton("Reposi\u00E7\u00E3o de Produto");
-		btnReposioDeProduto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				telaReposicao window= new telaReposicao();
-				window.setVisible(true);
-				dispose();
-			}
-		});
-		panel.add(btnReposioDeProduto);
+		btnReposioDeProduto.setBounds(275, 12, 230, 45);
+		getContentPane().add(btnReposioDeProduto);
 		
 		btnEditar = new JButton("Editar");
-		panel.add(btnEditar);
+		btnEditar.setBounds(300, 90, 120, 30);
+		getContentPane().add(btnEditar);
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//te envio o id do produto que quero editar
@@ -162,39 +167,47 @@ public class telaEstoque extends JFrame{
 		btnEditar.setEnabled(false);
 		
 		btnExcluir = new JButton("Excluir");
-		panel.add(btnExcluir);
+		btnExcluir.setBounds(434, 88, 120, 30);
+		getContentPane().add(btnExcluir);
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int confirm = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse produto?");
 				if(confirm==0)
 					{
-					Produto produtoSelecionado= listProdutos.get(table.getSelectedRow());
-					//remover do banco de vendidos
-					//remover do banco de circulacao
-					//remover do banco de estoque
-					EstoqueDAO es = new EstoqueDAO();
-					es.removerProdutoEstoque(produtoSelecionado.getID());
-					//remover do banco de produtos
-					produto_bd.removerProduto(produtoSelecionado.getID());
-					Show_Produtos_In_Jtable();
+					int idProdutoSelecionado= listProdutos.get(table.getSelectedRow()).getID();
+					//verificar se vendedor está em circulacao
+					ProdutoCirculandoDAO pcirculando_bd = new ProdutoCirculandoDAO();
+					ArrayList<Integer> listcirculacao = pcirculando_bd.ListarCirculacoesDesseProduto(idProdutoSelecionado);
+					if(listcirculacao.isEmpty()){
+						//remover do banco de estoque
+						EstoqueDAO es = new EstoqueDAO();
+						es.removerProdutoEstoque(idProdutoSelecionado);
+						//remover do banco de produtos
+						produto_bd.removerProduto(idProdutoSelecionado);
+						JOptionPane.showMessageDialog(null,"Produto removido com sucesso.");
+						Show_Produtos_In_Jtable();
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null,"Impossivel remover este produto pois ele possui uma Retirada em aberto");
+					}
 					}
 			}
 		});
 		btnExcluir.setEnabled(false);
-		
-		lblSelecioneUmProduto = new JLabel("Selecione um produto abaixo :");
-		lblSelecioneUmProduto.setBounds(33, 92, 213, 27);
-		getContentPane().add(lblSelecioneUmProduto);
-		
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				telaMain tala = new telaMain();
-				tala.setVisible(true);
+		btnReposioDeProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				telaReposicao window= new telaReposicao();
+				window.setVisible(true);
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(598, 459, 176, 45);
-		getContentPane().add(btnVoltar);
+		btnNovoProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				telaProdutoEditando window= new telaProdutoEditando();
+				window.setVisible(true);
+				dispose();
+			}
+		});
 	}
 }

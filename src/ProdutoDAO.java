@@ -150,17 +150,7 @@ public class ProdutoDAO extends BancoDeDados{
 		}
 	}
 	
-public static void main(String[] args) {
-		
-		ProdutoDAO p = new ProdutoDAO();
-		//CirculacaoDAO circ = new CirculacaoDAO();
-		
-		
-		System.out.println(p.getProdutoIDbyCodigo("tttt"));
-		//circ.iniciarCirculacao(v);
-		//System.out.println(circ.getValorCirculacao(4));
-		
-	}
+
 	
 	
 

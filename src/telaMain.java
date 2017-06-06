@@ -23,6 +23,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class telaMain extends JFrame {
 
@@ -43,7 +44,7 @@ public class telaMain extends JFrame {
 				try {
 					telaMain frame = new telaMain();
 					frame.setVisible(true);
-					System.out.println("aparece ae");
+					//System.out.println("aparece ae");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -107,6 +108,7 @@ public class telaMain extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				telaEstoque telaestoque = new telaEstoque();
 				telaestoque.setVisible(true);
+				dispose();
 			}
 		});
 		btnEstoque.setBounds(88, 129, 174, 38);
@@ -117,6 +119,7 @@ public class telaMain extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				telaVendedores tela = new telaVendedores();
 				tela.setVisible(true);
+				dispose();
 			}
 		});
 		btnVendedores.setBounds(88, 191, 174, 38);
@@ -127,6 +130,7 @@ public class telaMain extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				telaNovaVenda tela = new telaNovaVenda();
 				tela.setVisible(true);
+				dispose();
 			}
 		});
 		btnNovaVenda.setBounds(88, 252, 174, 38);
@@ -138,10 +142,11 @@ public class telaMain extends JFrame {
 		contentPane.add(lblColtestoqueV);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(339, 99, 400, 220);
+		scrollPane.setBounds(339, 129, 400, 242);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		table.setRowHeight(25);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
 		table.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent arg0) {
@@ -161,9 +166,9 @@ public class telaMain extends JFrame {
 		   } 
 		});
 		table.getColumnModel().getColumn(0).setPreferredWidth(79);
-		table.getColumnModel().getColumn(1).setPreferredWidth(160);
-		table.getColumnModel().getColumn(1).setMinWidth(160);
-		table.getColumnModel().getColumn(1).setMaxWidth(160);
+		table.getColumnModel().getColumn(1).setPreferredWidth(147);
+		table.getColumnModel().getColumn(1).setMinWidth(147);
+		table.getColumnModel().getColumn(1).setMaxWidth(147);
 		scrollPane.setViewportView(table);
 		
 		btnRetorno = new JButton("Retorno");
@@ -171,9 +176,10 @@ public class telaMain extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				telaRetornoVenda telaretornovenda = new telaRetornoVenda(listCirculacao.get(table.getSelectedRow()).getID());
 				telaretornovenda.setVisible(true);
+				dispose();
 			}
 		});
-		btnRetorno.setBounds(625, 340, 115, 23);
+		btnRetorno.setBounds(565, 385, 174, 38);
 		contentPane.add(btnRetorno);
 		btnRetorno.setEnabled(false);
 	}

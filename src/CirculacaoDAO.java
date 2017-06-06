@@ -127,16 +127,40 @@ public class CirculacaoDAO extends BancoDeDados{
         }       
     }
 	
+	public ArrayList<Circulacao> ListarCirculacoesDeVendedor(int id_vendedor)
+    {
+        ArrayList<Circulacao> list = new ArrayList<Circulacao>();
+        try
+        {
+            Statement st = conexao.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM circulacao WHERE  vendedor_id="+id_vendedor+";");
+            while(rs.next())
+                {
+                list.add(new Circulacao(rs.getInt(1),rs.getDouble(4), rs.getString(2)));
+                }
+            return list;
+        }
+        catch(SQLException e)
+        {
+            return null;
+        }       
+    }
 	
-	public static void main(String[] args) {
-		
-		Vendedor v = new Vendedor("catatau", "000.000.000-14", 20);
-		CirculacaoDAO circ = new CirculacaoDAO();
-		
-		
-		//circ.iniciarCirculacao(v);
-		//System.out.println(circ.getValorCirculacao(4));
-		
+	public boolean RemoverCirculacao(int id_circulacao)
+	{
+		try
+		{
+			Statement st = conexao.createStatement();
+			st.executeUpdate("DELETE FROM circulacao WHERE id =" + id_circulacao+";");
+
+			return true;
+		}
+		catch(SQLException e)
+		{
+			return false;
+		}
 	}
+	
+	
 
 }

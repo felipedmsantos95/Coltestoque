@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.*;
 import java.io.IOException;
@@ -31,7 +32,15 @@ public class GeraPDF extends BancoDeDados {
 		 Locale pt = new Locale("en", "CA");
 		 NumberFormat nf = NumberFormat.getInstance(pt);
          try {
-             FileOutputStream f = new FileOutputStream(diretorio + "/Recibo" + v.nome + data.getTime() + ".pdf");
+        	 //String bar;
+        	 FileOutputStream f;
+        	 if(!(System.getProperty("os.name").equals("Linux"))){
+        		// diretorio.replaceAll("/", File.separator);
+        		 f = new FileOutputStream(diretorio + "\\Recibo" + v.nome + data.get(Calendar.YEAR) + "-" + (data.get(Calendar.MONTH) + 1) + "-" + data.get(Calendar.DAY_OF_MONTH) + "_" + data.get(Calendar.HOUR) + "-" + data.get(Calendar.MINUTE) +"-" + data.get(Calendar.SECOND) + ".pdf");
+        	 }        	
+        	 else {
+        		 f = new FileOutputStream(diretorio + "/Recibo" + v.nome + data.getTime() + ".pdf");
+        	 }
              PdfWriter.getInstance(document, f );
              document.open();
             
@@ -44,7 +53,7 @@ public class GeraPDF extends BancoDeDados {
 			FontFactory.getFont(FontFactory.TIMES, Font.BOLD);
 			document.add(titulo);
 			Paragraph p = new Paragraph("        Eu, " + v.nome + ", vendedor portador do CPF " + v.getCpf() + ". Declaro que para os devidos fins legais recebi do Senhor " );
-			Phrase nome = new Phrase("Oseás Oliveira da Silva");
+			Phrase nome = new Phrase("Oséas Oliveira da Silva");
 			Font font = new Font(Font.FontFamily.TIMES_ROMAN,14, Font.BOLD);
 			nome.setFont(font);
 			p.add(nome);
@@ -66,7 +75,7 @@ public class GeraPDF extends BancoDeDados {
 			document.add(vend);
 			
 			document.add(line);
-			Paragraph nomep = new Paragraph("Oseás Oliveira da Silva");
+			Paragraph nomep = new Paragraph("Oséas Oliveira da Silva");
 			nomep.setAlignment(Element.ALIGN_CENTER);
 			document.add(nomep);
 			
@@ -85,7 +94,11 @@ public class GeraPDF extends BancoDeDados {
 			e.printStackTrace();
 		}
          document.close();
-		return diretorio + "/Recibo" + v.nome + data.getTime() + ".pdf";
+         if(!(System.getProperty("os.name").equals("Linux"))){
+    		 //diretorio.replaceAll("/", File.separator);
+    		 return (diretorio + "\\Recibo" + v.nome + data.get(Calendar.YEAR) + "-" + (data.get(Calendar.MONTH) + 1) + "-" + data.get(Calendar.DAY_OF_MONTH) + "_" + data.get(Calendar.HOUR) + "-" + data.get(Calendar.MINUTE) +"-" + data.get(Calendar.SECOND) + ".pdf");
+    	 } 
+         else return diretorio + "/Recibo" + v.nome + data.getTime() + ".pdf";
      }
 	
 	public String geraRelatorioSaida(String diretorio, Vendedor v, int idCirculacao)
@@ -96,7 +109,14 @@ public class GeraPDF extends BancoDeDados {
 		 NumberFormat nf = NumberFormat.getInstance(pt);
 		 //CirculacaoDAO c = new CirculacaoDAO();
          try {
-             FileOutputStream f = new FileOutputStream(diretorio + "/RelSaida" + v.nome + data.getTime() + ".pdf");
+        	 FileOutputStream f;
+        	 if(!(System.getProperty("os.name").equals("Linux"))){
+        		// diretorio.replaceAll("/", File.separator);
+        		 f = new FileOutputStream(diretorio + "\\RelSaida" + v.nome + data.get(Calendar.YEAR) + "-" + (data.get(Calendar.MONTH) + 1) + "-" + data.get(Calendar.DAY_OF_MONTH) + "_" + data.get(Calendar.HOUR) + "-" + data.get(Calendar.MINUTE) +"-" + data.get(Calendar.SECOND) + ".pdf");
+        	 }        	
+        	 else {
+        		 f = new FileOutputStream(diretorio + "/RelSaida" + v.nome + data.getTime() + ".pdf");
+        	 }
              PdfWriter.getInstance(document, f );
              document.open();
             
@@ -171,7 +191,7 @@ public class GeraPDF extends BancoDeDados {
 			line.setAlignment(Element.ALIGN_CENTER);
 			
 			document.add(line);
-			Paragraph nomep = new Paragraph("Oseás Oliveira da Silva\n");
+			Paragraph nomep = new Paragraph("Oséas Oliveira da Silva\n");
 			nomep.setAlignment(Element.ALIGN_CENTER);
 			document.add(nomep);
 			
@@ -192,7 +212,12 @@ public class GeraPDF extends BancoDeDados {
 			e.printStackTrace();
 		}
          document.close();
-		return diretorio + "/RelSaida" + v.nome + data.getTime() + ".pdf";
+         
+         if(!(System.getProperty("os.name").equals("Linux"))){
+    		 //diretorio.replaceAll("/", File.separator);
+    		 return (diretorio + "\\RelSaida" + v.nome + data.get(Calendar.YEAR) + "-" + (data.get(Calendar.MONTH) + 1) + "-" + data.get(Calendar.DAY_OF_MONTH) + "_" + data.get(Calendar.HOUR) + "-" + data.get(Calendar.MINUTE) +"-" + data.get(Calendar.SECOND) + ".pdf");
+    	 } 
+         else return diretorio + "/RelSaida" + v.nome + data.getTime() + ".pdf";
      }
 	
 	
@@ -200,13 +225,21 @@ public class GeraPDF extends BancoDeDados {
 	{
 		 Document document = new Document();
 		 VendedorDAO vend = new VendedorDAO();
+		 CirculacaoDAO circulacao_bd = new CirculacaoDAO();
 		 Vendedor v = vend.getVendedor(idVendedor);
 		 Calendar data = Calendar.getInstance();
 		 Locale pt = new Locale("en", "CA");
 		 NumberFormat nf = NumberFormat.getInstance(pt);
 		 //CirculacaoDAO c = new CirculacaoDAO();
          try {
-             FileOutputStream f = new FileOutputStream(diretorio + "/RelRetorno" + v.nome + data.getTime() + ".pdf");
+        	 FileOutputStream f;
+        	 if(!(System.getProperty("os.name").equals("Linux"))){
+        		// diretorio.replaceAll("/", File.separator);
+        		 f = new FileOutputStream(diretorio + "\\RelRetorno" + v.nome + data.get(Calendar.YEAR) + "-" + (data.get(Calendar.MONTH) + 1) + "-" + data.get(Calendar.DAY_OF_MONTH) + "_" + data.get(Calendar.HOUR) + "-" + data.get(Calendar.MINUTE) +"-" + data.get(Calendar.SECOND) + ".pdf");
+        	 }        	
+        	 else {
+        		 f = new FileOutputStream(diretorio + "/RelReorno" + v.nome + data.getTime() + ".pdf");
+        	 }
              PdfWriter.getInstance(document, f );
              document.open();
             
@@ -344,7 +377,7 @@ public class GeraPDF extends BancoDeDados {
 			line.setAlignment(Element.ALIGN_CENTER);
 			
 			document.add(line);
-			Paragraph nomep = new Paragraph("Oseás Oliveira da Silva\n");
+			Paragraph nomep = new Paragraph("Oséas Oliveira da Silva\n");
 			nomep.setAlignment(Element.ALIGN_CENTER);
 			document.add(nomep);
 			
@@ -357,7 +390,8 @@ public class GeraPDF extends BancoDeDados {
 			if(!pagoagora)vend.updateValorAReceberVendedor(v.getID(),v.getValorAReceber()+c);
 			pcirculando_bd.retornarProdutosParaEstoque(idCirculacao);
 			pcirculando_bd.RemoverProdutosDessaCirculacao(idCirculacao);
-
+			pvendido_bd.RemoverProdutosVendidosDessaCirculacao(idCirculacao);
+			circulacao_bd.RemoverCirculacao(idCirculacao);
 			
 			
          }
@@ -368,17 +402,15 @@ public class GeraPDF extends BancoDeDados {
              System.err.println(ioe.getMessage());
          }
          document.close();
-		return diretorio + "/RelRetorno" + v.nome + data.getTime() + ".pdf";
+         
+         if(!(System.getProperty("os.name").equals("Linux"))){
+    		 //diretorio.replaceAll("/", File.separator);
+    		 return (diretorio + "\\RelRetorno" + v.nome + data.get(Calendar.YEAR) + "-" + (data.get(Calendar.MONTH) + 1) + "-" + data.get(Calendar.DAY_OF_MONTH) + "_" + data.get(Calendar.HOUR) + "-" + data.get(Calendar.MINUTE) +"-" + data.get(Calendar.SECOND) + ".pdf");
+    	 } 
+         else return diretorio + "/RelRetorno" + v.nome + data.getTime() + ".pdf";
      }
 	
-	public static void main(String[] args) {
-		GeraPDF recibo = new GeraPDF();
-		//VendedorDAO v = new VendedorDAO();
-		
-		//recibo.geraRelatorioRetorno("/home/felipedmsantos/Ã�rea de Trabalho", 6,4);
-		
-		
-	}
+	
 }
 	
 

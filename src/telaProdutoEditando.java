@@ -33,15 +33,7 @@ public class telaProdutoEditando extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			telaProdutoEditando dialog = new telaProdutoEditando();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	/**
 	 * Create the dialog.
@@ -162,6 +154,7 @@ public class telaProdutoEditando extends JDialog {
 						telaProdutoEditando.this.dispose();
 						telaEstoque estoque = new telaEstoque();
 						estoque.setVisible(true);
+						dispose();
 					}
 				});
 				cancelButton.setActionCommand("Cancelar");
@@ -321,6 +314,7 @@ public class telaProdutoEditando extends JDialog {
 						telaProdutoEditando.this.dispose();
 						telaEstoque estoque = new telaEstoque();
 						estoque.setVisible(true);
+						dispose();
 					}
 				});
 				cancelButton.setActionCommand("Cancelar");
@@ -397,6 +391,7 @@ public class telaProdutoEditando extends JDialog {
 		
 		quantidade = new JTextField();
 		quantidade.setBounds(506, 293, 87, 28);
+		quantidade.setEditable(false);
 		String str = String.valueOf(est.getQuantidadeEstoque(id));
 		quantidade.setText(str);
 		getContentPane().add(quantidade);

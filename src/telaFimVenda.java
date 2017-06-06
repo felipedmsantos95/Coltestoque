@@ -34,18 +34,7 @@ public class telaFimVenda extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					telaFimVenda window = new telaFimVenda(6,4);//Esse id será extraido da tabela
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the application.
@@ -99,31 +88,34 @@ public class telaFimVenda extends JFrame {
 		comissao = new JTextField();
 		comissao.setEditable(false);
 		c = (vend.getPercentualComissaoVendedor(idVendedor)/100)*vv;//comissaoVendedor
-		comissao.setText(String.valueOf(c));
+		double r =c* 100;
+		Double round = (double) Math.round(r);
+		round = round/100;
+		comissao.setText(String.valueOf(round));
 		comissao.setBounds(394, 231, 101, 32);
 		this.getContentPane().add(comissao);
 		comissao.setColumns(10);
 		
-		JButton btnFinalizarEPagar = new JButton("Gerar Recibo");
+		JButton btnFinalizarEPagar = new JButton("Gerar Relatório e Pagar Vendedor Depois");
 		btnFinalizarEPagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				telaImpressaoTermo termoRetornoPagaAgora = new telaImpressaoTermo(true,vend.getVendedor(idVendedor), idCirculacao,vr,vv,c);
+				telaImpressaoTermo termoRetornoPagaAgora = new telaImpressaoTermo(false,vend.getVendedor(idVendedor), idCirculacao,vr,vv,c);
 				termoRetornoPagaAgora.setVisible(true);
-				
+				dispose();
 			}
 		});
-		btnFinalizarEPagar.setBounds(505, 441, 257, 46);
+		btnFinalizarEPagar.setBounds(410, 441, 352, 46);
 		this.getContentPane().add(btnFinalizarEPagar);
 		
-		JButton btnFinalizarEPagar_1 = new JButton("Gerar Relatório");
+		JButton btnFinalizarEPagar_1 = new JButton("Gerar Relatório e Pagar Vendedor Agora");
 		btnFinalizarEPagar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				telaImpressaoTermo termoRetornoPagaDepois = new telaImpressaoTermo(true,vend.getVendedor(idVendedor), idCirculacao,vr,vv,c);
 				termoRetornoPagaDepois.setVisible(true);
-				
+				dispose();
 			}
 		});
-		btnFinalizarEPagar_1.setBounds(505, 367, 257, 46);
+		btnFinalizarEPagar_1.setBounds(410, 367, 352, 46);
 		this.getContentPane().add(btnFinalizarEPagar_1);
 	}
 

@@ -22,18 +22,7 @@ public class telaImpressaoTermo extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					telaImpressaoTermo window = new telaImpressaoTermo(6);//Aqui estava testando um exemplo para geracao de relatorio de saida
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
@@ -64,24 +53,7 @@ public class telaImpressaoTermo extends JFrame {
 		
 		
 		JButton btnImprimir = new JButton("Imprimir");
-		btnImprimir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GeraPDF recibo = new GeraPDF();
-				VendedorDAO v = new VendedorDAO();
-				
-				
-				try {
-					java.awt.Desktop.getDesktop().open( new File(recibo.geraRecibo(path.getText(), v.getVendedor(idVendedor))) );
-					telaMain tela = new telaMain();
-					tela.setVisible(true);
-					dispose();
-				} catch (IOException e1) {
-					JOptionPane.showMessageDialog(null,"Erro ao selecionar a pasta, verifique se o campo foi preenchio ou se o diretório existe.");
-					
-					e1.printStackTrace();
-				}
-			}
-		});
+		
 		btnImprimir.setBounds(621, 442, 139, 47);
 		this.getContentPane().add(btnImprimir);
 		
@@ -102,11 +74,34 @@ public class telaImpressaoTermo extends JFrame {
 				
 
 				if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					path.setText(chooser.getSelectedFile().toString());
+					path.setText(chooser.getSelectedFile().getAbsolutePath());
+					//String p = chooser.getSelectedFile().getAbsolutePath().replaceAll("/", "\\");
+					
 					
 				} else {
 					
 				}
+				
+				btnImprimir.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						GeraPDF recibo = new GeraPDF();
+						VendedorDAO v = new VendedorDAO();
+									
+						try {
+							
+							java.awt.Desktop.getDesktop().open( new File(recibo.geraRecibo(chooser.getSelectedFile().getAbsolutePath(), v.getVendedor(idVendedor))) ); 
+					    	 
+							
+							telaMain tela = new telaMain();
+							tela.setVisible(true);
+							dispose();
+						} catch (IOException e1) {
+							JOptionPane.showMessageDialog(null,"Erro ao selecionar a pasta, verifique se o campo foi preenchio ou se o diretório existe.");
+							
+							e1.printStackTrace();
+						}
+					}
+				});
 				
 			}
 		});
@@ -169,7 +164,7 @@ public class telaImpressaoTermo extends JFrame {
 				
 
 				if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					path.setText(chooser.getSelectedFile().toString());
+					path.setText(chooser.getSelectedFile().getAbsolutePath());
 					
 				} else {
 					

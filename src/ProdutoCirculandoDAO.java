@@ -10,7 +10,7 @@ public class ProdutoCirculandoDAO extends BancoDeDados{
 	//remover produto de circulacao quando ele retornar ao estoque
 	
 	//Incrementar no estoque quantidade de produtos circulando
-	/* acho que essa função eh inutil
+	/* acho que essa funï¿½ï¿½o eh inutil
 	public int extrairQuantidadeCirculandoEstoque(int produtoID)
 	{
 		try
@@ -151,6 +151,27 @@ public class ProdutoCirculandoDAO extends BancoDeDados{
 		
 	}
 	
+	public ArrayList<Integer> ListarCirculacoesDesseProduto(int id_produto)
+	{
+		ArrayList<Integer> list = new  ArrayList<Integer>();
+		try
+		{
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("SELECT circulacao_id FROM produto_circulando WHERE produto_id =" + id_produto+";");
+			
+			while(rs.next()) 
+				{
+				list.add(rs.getInt(1));
+				}
+			return list;
+		}
+		catch(SQLException e)
+		{
+			return null;
+		}
+		
+	}
+	
 	public boolean retornarProdutosParaEstoque(int id_circulacao)
 	{
 		EstoqueDAO estoque_bd = new EstoqueDAO();
@@ -177,7 +198,7 @@ public class ProdutoCirculandoDAO extends BancoDeDados{
 		try
 		{
 			Statement st = conexao.createStatement();
-			st.executeUpdate("DELETE * FROM produto_circulando WHERE produto_circulando.circulacao_id =" + id_circulacao+";");
+			st.executeUpdate("DELETE FROM produto_circulando WHERE produto_circulando.circulacao_id =" + id_circulacao+";");
 
 			return true;
 		}
@@ -188,16 +209,6 @@ public class ProdutoCirculandoDAO extends BancoDeDados{
 	}
 	
 	
-	public static void main(String[] args) {
-		ProdutoDAO p = new ProdutoDAO();
-		//ProdutoDAO p1 = new ProdutoDAO();
-		VendedorDAO v = new VendedorDAO();
-		CirculacaoDAO c = new CirculacaoDAO();
-		ProdutoCirculandoDAO pc = new ProdutoCirculandoDAO();
-		
-		System.out.println(pc.addProdutoCirculacao(p.getProduto(2), 50, c.getCirculacao(4), v.getVendedor(6)));		
-		//System.out.println(p.getProduto(9).precoFinal);
-//
-	}
+	
 
 }
