@@ -55,7 +55,12 @@ public class telaEstoque extends JFrame{
 			row[0] = listProdutos.get(i).getCodigo();
 			row[1] = listProdutos.get(i).getNome();
 			row[2] = listProdutos.get(i).getQuantidadeEstoque();
-			row[3] = listProdutos.get(i).getPrecoCompra();
+			
+			double pc =listProdutos.get(i).getPrecoCompra()* 100;
+			Double prec = (double) Math.round(pc);
+			prec = prec/100;
+			
+			row[3] = prec;//Garantir que todos os valores sejam arrendondados
 
 			double r =listProdutos.get(i).getPrecoFinal()* 100;
 			Double round = (double) Math.round(r);
