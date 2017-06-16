@@ -52,7 +52,7 @@ public class telaImpressaoTermo extends JFrame {
 		
 		
 		
-		JButton btnImprimir = new JButton("Imprimir");
+		final JButton btnImprimir = new JButton("Imprimir");
 		
 		btnImprimir.setBounds(621, 442, 139, 47);
 		this.getContentPane().add(btnImprimir);
@@ -65,7 +65,7 @@ public class telaImpressaoTermo extends JFrame {
 		JButton btnNewButton = new JButton("Escolher Pasta");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser chooser = new JFileChooser();
+				final JFileChooser chooser = new JFileChooser();
 				chooser.setCurrentDirectory(new java.io.File("."));
 				chooser.setDialogTitle("Escolher Pasta");
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

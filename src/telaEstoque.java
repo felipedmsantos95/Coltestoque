@@ -1,4 +1,3 @@
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -29,6 +28,7 @@ public class telaEstoque extends JFrame{
 	private JLabel lblSelecioneUmProduto;
 	private ProdutoDAO produto_bd= new ProdutoDAO();
 	private ArrayList<Produto> listProdutos = new ArrayList<Produto>();
+	private JTextField total;
 
 	/**
 	 * Launch the application.
@@ -41,14 +41,15 @@ public class telaEstoque extends JFrame{
 	public telaEstoque() {
 		setResizable(false);
 		initialize();
-		Show_Produtos_In_Jtable();
+		//Show_Produtos_In_Jtable();
 	}
 	
-	private void Show_Produtos_In_Jtable()
+	private double Show_Produtos_In_Jtable()
 	{
 		listProdutos = produto_bd.listarProdutos();
 		DefaultTableModel model =(DefaultTableModel)table.getModel();
 		model.setNumRows(0);
+		double total = 0;
 		Object[] row = new Object[6];
 		for (int i=0; i<listProdutos.size();i++)
 		{
@@ -69,8 +70,14 @@ public class telaEstoque extends JFrame{
 			row[4] = round;
 			row[5] = listProdutos.get(i).getDescricao();
 			
+			total += listProdutos.get(i).getQuantidadeEstoque()*round;
 			model.addRow(row);
+			
 		}
+		total = total * 100;
+		Double arre = (double) Math.round(total);
+		arre = arre/100;
+		return arre;
 	}
 
     
@@ -110,7 +117,7 @@ public class telaEstoque extends JFrame{
 			new Object[][] {
 			},
 			new String[] {
-				"C\u00D3DIGO", "NOME", "QUANT ESTOQUE", "PRE\u00C7O COMPRA", "PRE\u00C7O VENDA", "DESCRI\u00C7\u00C3O"
+				"C\u00D3DIGO", "NOME", "QTD ESTOQUE", "PRE\u00C7O COMPRA", "PRE\u00C7O VENDA", "DESCRI\u00C7\u00C3O"
 			}
 		)
 				{
@@ -120,15 +127,15 @@ public class telaEstoque extends JFrame{
 				}
 				}
 		);
-		table.getColumnModel().getColumn(0).setPreferredWidth(70);
-		table.getColumnModel().getColumn(0).setMinWidth(70);
-		table.getColumnModel().getColumn(0).setMaxWidth(70);
-		table.getColumnModel().getColumn(2).setPreferredWidth(120);
-		table.getColumnModel().getColumn(2).setMinWidth(120);
-		table.getColumnModel().getColumn(2).setMaxWidth(120);
-		table.getColumnModel().getColumn(3).setPreferredWidth(120);
-		table.getColumnModel().getColumn(3).setMinWidth(120);
-		table.getColumnModel().getColumn(3).setMaxWidth(120);
+		table.getColumnModel().getColumn(0).setPreferredWidth(110);
+		table.getColumnModel().getColumn(0).setMinWidth(110);
+		table.getColumnModel().getColumn(0).setMaxWidth(110);
+		table.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table.getColumnModel().getColumn(2).setMinWidth(100);
+		table.getColumnModel().getColumn(2).setMaxWidth(100);
+		table.getColumnModel().getColumn(3).setPreferredWidth(110);
+		table.getColumnModel().getColumn(3).setMinWidth(110);
+		table.getColumnModel().getColumn(3).setMaxWidth(110);
 		table.getColumnModel().getColumn(4).setPreferredWidth(98);
 		table.getColumnModel().getColumn(4).setMinWidth(98);
 		table.getColumnModel().getColumn(4).setMaxWidth(98);
@@ -172,7 +179,7 @@ public class telaEstoque extends JFrame{
 		btnEditar.setEnabled(false);
 		
 		btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(434, 88, 120, 30);
+		btnExcluir.setBounds(432, 90, 120, 30);
 		getContentPane().add(btnExcluir);
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -200,6 +207,12 @@ public class telaEstoque extends JFrame{
 			}
 		});
 		btnExcluir.setEnabled(false);
+		
+		
+		
+		JLabel lblTotal = new JLabel("Total:");
+		lblTotal.setBounds(73, 475, 47, 15);
+		getContentPane().add(lblTotal);
 		btnReposioDeProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				telaReposicao window= new telaReposicao();
@@ -214,5 +227,12 @@ public class telaEstoque extends JFrame{
 				dispose();
 			}
 		});
+		
+		total = new JTextField();
+		total.setEditable(false);
+		total.setText("R$ " + String.valueOf(Show_Produtos_In_Jtable()));
+		total.setBounds(124, 473, 114, 19);
+		getContentPane().add(total);
+		total.setColumns(10);
 	}
 }

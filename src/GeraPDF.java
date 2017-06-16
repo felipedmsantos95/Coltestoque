@@ -238,7 +238,7 @@ public class GeraPDF extends BancoDeDados {
         		 f = new FileOutputStream(diretorio + "\\RelRetorno" + v.nome + data.get(Calendar.YEAR) + "-" + (data.get(Calendar.MONTH) + 1) + "-" + data.get(Calendar.DAY_OF_MONTH) + "_" + data.get(Calendar.HOUR) + "-" + data.get(Calendar.MINUTE) +"-" + data.get(Calendar.SECOND) + ".pdf");
         	 }        	
         	 else {
-        		 f = new FileOutputStream(diretorio + "/RelReorno" + v.nome + data.getTime() + ".pdf");
+        		 f = new FileOutputStream(diretorio + "/RelRetorno" + v.nome + data.getTime() + ".pdf");
         	 }
              PdfWriter.getInstance(document, f );
              document.open();

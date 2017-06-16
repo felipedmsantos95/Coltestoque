@@ -99,7 +99,7 @@ public class telaReposicao extends JFrame{
 				
 			}
 		});
-		btnConfirmar.setBounds(367, 461, 100, 30);
+		btnConfirmar.setBounds(367, 461, 119, 30);
 		this.getContentPane().add(btnConfirmar);
 		
 		JButton btnCancelar = new JButton("Cancelar");

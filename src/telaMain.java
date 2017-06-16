@@ -136,7 +136,7 @@ public class telaMain extends JFrame {
 		btnNovaVenda.setBounds(88, 252, 174, 38);
 		contentPane.add(btnNovaVenda);
 		
-		JLabel lblColtestoqueV = new JLabel("ColtEstoque v1.0");
+		JLabel lblColtestoqueV = new JLabel("ColtEstoque v1.1");
 		lblColtestoqueV.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblColtestoqueV.setBounds(339, 12, 157, 43);
 		contentPane.add(lblColtestoqueV);

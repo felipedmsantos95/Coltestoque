@@ -54,11 +54,11 @@ public class telaProdutoEditando extends JDialog {
 	{
 		setBounds(100, 100, 800, 550);
 		
-		JEditorPane descricao = new JEditorPane();
+		final JEditorPane descricao = new JEditorPane();
 		descricao.setBounds(25, 86, 747, 146);
 		getContentPane().add(descricao);
 		Locale pt = new Locale("en", "CA");
-		NumberFormat nf = NumberFormat.getInstance(pt);
+		final NumberFormat nf = NumberFormat.getInstance(pt);
 		
 				
 		
@@ -232,21 +232,21 @@ public class telaProdutoEditando extends JDialog {
 	}
 	
 	
-	private void initializeEditando (int id)
+	private void initializeEditando (final int id)
 	{
 		
-		ProdutoDAO produtoEditando = new ProdutoDAO();
+		final ProdutoDAO produtoEditando = new ProdutoDAO();
 			
 		//Aqui começa a brincadeira
 		setBounds(100, 100, 800, 550);
 		
-		JEditorPane descricao = new JEditorPane();
+		final JEditorPane descricao = new JEditorPane();
 		descricao.setText(produtoEditando.getProduto(id).descricao);
 		descricao.setBounds(25, 86, 747, 146);
 		getContentPane().add(descricao);
 		
 		Locale pt = new Locale("en", "CA");
-		NumberFormat nf = NumberFormat.getInstance(pt);		
+		final NumberFormat nf = NumberFormat.getInstance(pt);		
 			
 		
 		
@@ -383,9 +383,9 @@ public class telaProdutoEditando extends JDialog {
 		}
 		
 		
-		JLabel lbldeixarVazioPara = new JLabel("(Deixar vazio para padrão)");
-		lbldeixarVazioPara.setBounds(25, 405, 196, 15);
-		getContentPane().add(lbldeixarVazioPara);
+		//JLabel lbldeixarVazioPara = new JLabel("(Deixar vazio para padrão)");
+		//lbldeixarVazioPara.setBounds(25, 405, 196, 15);
+		//getContentPane().add(lbldeixarVazioPara);
 		EstoqueDAO est = new EstoqueDAO();
 		
 		

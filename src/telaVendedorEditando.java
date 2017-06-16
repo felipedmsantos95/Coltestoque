@@ -115,7 +115,7 @@ public class telaVendedorEditando extends JFrame{
 		getContentPane().add(lblXxxxxxxxxx);
 	}
 	
-	private void initialize1(int id) {
+	private void initialize1(final int id) {
 		this.setTitle("Adicionando/Editando Vendedor");
 		this.setBounds(100, 100, 800, 550);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

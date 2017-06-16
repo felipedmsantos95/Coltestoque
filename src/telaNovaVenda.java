@@ -83,9 +83,9 @@ public class telaNovaVenda extends JFrame{
 			row[1] = round;
 			row[2] = listPedido.get(i).quantCirculando;
 			double r2 =listPedido.get(i).produto.getPrecoFinal()*listPedido.get(i).quantCirculando;
-			Double round2 = (double) Math.round(r2);
-			round = round2/100;
-			row[3] = round2;
+			//Double round2 = (double) Math.round(r2);
+			//round = round2/100;
+			row[3] = r2;//Se der besteira, descomentar linhas anteriores
 
 			
 			model.addRow(row);

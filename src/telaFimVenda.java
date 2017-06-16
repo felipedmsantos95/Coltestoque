@@ -72,7 +72,10 @@ public class telaFimVenda extends JFrame {
 		valorRetirado.setEditable(false);
 		valorRetirado.setForeground(Color.BLACK);
 		vr = circ.getValorCirculacao(idCirculacao);//valor da retirada
-		valorRetirado.setText(String.valueOf(vr));
+		//double valorRet = vr * 100;
+		//Double vendr = (double) Math.round(valorRet);
+		//vendr = vendr/100;
+		valorRetirado.setText(String.valueOf(vr)); //Se der besteira descomentar linhas anteriores
 		valorRetirado.setBounds(394, 109, 101, 32);
 		this.getContentPane().add(valorRetirado);
 		valorRetirado.setColumns(10);
@@ -80,7 +83,10 @@ public class telaFimVenda extends JFrame {
 		valorVendido = new JTextField();
 		valorVendido.setEditable(false);
 		vv = pv.getValorVendido(idCirculacao);//valorVendido
-		valorVendido.setText(String.valueOf(vv));
+		double valorVend = vv * 100;
+		Double vendv = (double) Math.round(valorVend);
+		vendv = vendv/100;
+		valorVendido.setText(String.valueOf(vendv));
 		valorVendido.setBounds(394, 168, 101, 32);
 		this.getContentPane().add(valorVendido);
 		valorVendido.setColumns(10);
